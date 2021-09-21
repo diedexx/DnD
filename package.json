@@ -1,0 +1,15 @@
+{
+  "name": "DnD",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:diedexx/DnD.git",
+  "author": "Diede Exterkate <diede@yoast.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "husky": "^7.0.2"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}

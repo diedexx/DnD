@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  client:
+    image: 'node:16'
+    entrypoint: yarn --cwd /var/www start
+    ports:
+      - "80:3000"
+    volumes:
+      - ./client:/var/www:cached
+      - ./client/logs:/var/logs
+
+  server:
+    image: 'node:16'
+    entrypoint: yarn --cwd /var/www start:dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/var/www:cached
+      - ./server/logs:/var/logs
+    depends_on:
+      - database
+
+  database:
+    image: 'mysql:5.7'
+    restart: unless-stopped
+    ports:
+      - "18765:3306"
+    environment:
+      MYSQL_DATABASE: dnd
+      MYSQL_USER: dnd
+      MYSQL_PASSWORD: dnd
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - mysql:/var/lib/mysql:delegated
+
+volumes:
+  # So that sites aren't wiped every time containers are restarted, MySQL uses a persistent volume.
+  mysql: { }

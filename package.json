@@ -11,5 +11,10 @@
   },
   "scripts": {
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "@nestjs/typeorm": "^8.0.2",
+    "mysql2": "^2.3.0",
+    "typeorm": "^0.2.37"
   }
 }

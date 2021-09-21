@@ -14,7 +14,7 @@ module.exports = {
 		node: true,
 		jest: true,
 	},
-	ignorePatterns: [ '.eslintrc.js' ],
+	ignorePatterns: [ '.eslintrc.js', 'src/migrations/*.ts' ],
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
@@ -24,11 +24,25 @@ module.exports = {
 		"new-cap": 0,
 		// Normal no-unused-vars doesn't work for TypeScript
 		"no-unused-vars": "off",
+		"require-jsdoc": [ "error", {
+			require: {
+				ClassDeclaration: false,
+				FunctionDeclaration: true,
+				MethodDefinition: true,
+			}
+		} ],
+		"valid-jsdoc": [
+			"error",
+			{
+				"prefer": {
+					"return": "return"
+				}
+			} ]
 	},
 	// Stupid, but required for extending the `Yoast` eslint config.
 	settings: {
 		"react": {
 			"version": "16.8"
 		}
-	}
+	},
 };

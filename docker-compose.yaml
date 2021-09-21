@@ -2,7 +2,8 @@ version: '3.8'
 services:
   client:
     image: 'node:16'
-    entrypoint: yarn --cwd /var/www start
+    working_dir: /var/www
+    entrypoint: yarn start
     ports:
       - "80:3000"
     volumes:
@@ -11,7 +12,8 @@ services:
 
   server:
     image: 'node:16'
-    entrypoint: yarn --cwd /var/www start:dev
+    working_dir: /var/www
+    entrypoint: yarn start:dev
     ports:
       - "3000:3000"
     volumes:
@@ -22,6 +24,7 @@ services:
 
   database:
     image: 'mysql:5.7'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: unless-stopped
     ports:
       - "18765:3306"

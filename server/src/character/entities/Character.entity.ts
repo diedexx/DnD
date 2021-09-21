@@ -4,6 +4,8 @@ import Skill from "../../abilities/entities/Skill.entity";
 import SkillScore from "../../abilities/models/SkillScore";
 import BaseEntity from "../../entities/Base.entity";
 import NoAbilityScore from "../exceptions/NoAbilityScore";
+import Health from "../models/Health.entity";
+import HealthTransformer from "../transformers/Health.transformer";
 import CharacterClass from "./CharacterClass.entity";
 
 // https://www.dndbeyond.com/races
@@ -28,6 +30,25 @@ export default class Character extends BaseEntity {
 
 	@Column()
 	public alignment: CharacterAlignment;
+
+	@Column( {
+		type: "varchar",
+		transformer: new HealthTransformer(),
+		comment: "The current and total health formatted like current/total (9/10)",
+	} )
+	public health: Health;
+
+	@Column( { type: "text" } )
+	public personalityTraits: string;
+
+	@Column( { type: "text" } )
+	public ideals: string;
+
+	@Column( { type: "text" } )
+	public bonds: string;
+
+	@Column( { type: "text" } )
+	public flaws: string;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )
 	public class: CharacterClass;

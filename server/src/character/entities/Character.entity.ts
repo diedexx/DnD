@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Field, ObjectType } from "@nestjs/graphql";
+import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../abilities/entities/AbilityScore.entity";
 import Skill from "../../abilities/entities/Skill.entity";
 import SkillScore from "../../abilities/models/SkillScore";
@@ -18,17 +19,22 @@ export type CharacterBackground = string;
 export type CharacterAlignment = string;
 
 @Entity()
+@ObjectType()
 export default class Character extends BaseEntity {
 	@Column()
+	@Field()
 	public name: string;
 
 	@Column()
+	@Field()
 	public race: CharacterRace;
 
 	@Column()
+	@Field()
 	public background: CharacterBackground;
 
 	@Column()
+	@Field()
 	public alignment: CharacterAlignment;
 
 	@Column( {
@@ -37,22 +43,31 @@ export default class Character extends BaseEntity {
 		transformer: new HealthTransformer(),
 		comment: "The current and total health formatted like current/total (9/10)",
 	} )
+	@Field( () => Health )
 	public health: Health;
 
 	@Column( "text" )
+	@Field()
 	public personalityTraits: string;
 
 	@Column( "text" )
+	@Field()
 	public ideals: string;
 
 	@Column( "text" )
 	public bonds: string;
 
 	@Column( "text" )
+	@Field()
 	public flaws: string;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )
+	@Field( () => CharacterClass )
 	public class: CharacterClass;
+
+	@Column( "int" )
+	@RelationId( ( character: Character ) => character.class )
+	public readonly classId: string;
 
 	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ), { cascade: [ "insert" ] } )
 	public abilityScores: AbilityScore[];

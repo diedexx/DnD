@@ -1,5 +1,8 @@
+import { Field, ObjectType } from "@nestjs/graphql";
+
 export type Sides = 20 | 12 | 10 | 8 | 6 | 4;
 
+@ObjectType()
 export default class Die {
 	/**
 	 * The constructor.
@@ -14,6 +17,7 @@ export default class Die {
 	 *
 	 * @return {Sides} The number of sides of the die.
 	 */
+	@Field()
 	get sides(): Sides {
 		return this._sides;
 	}

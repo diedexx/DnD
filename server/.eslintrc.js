@@ -39,6 +39,8 @@ module.exports = {
 				}
 			}
 		],
+		// Duplicate class members are overloads and are allowed in TypeScript
+		"no-dupe-class-members": "off",
 		// Allow space before async arrow function
 		"space-before-function-paren": [
 			"error",

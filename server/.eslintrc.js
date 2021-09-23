@@ -37,7 +37,17 @@ module.exports = {
 				"prefer": {
 					"return": "return"
 				}
-			} ]
+			}
+		],
+		// Allow space before async arrow function
+		"space-before-function-paren": [
+			"error",
+			{
+				"anonymous": "never",
+				"named": "never",
+				"asyncArrow": "always"
+			}
+		],
 	},
 	// Stupid, but required for extending the `Yoast` eslint config.
 	settings: {

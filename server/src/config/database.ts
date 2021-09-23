@@ -19,6 +19,6 @@ export default registerAs( "database", (): DatabaseConfigInterface => {
 			migrationsDir: sourceRoot + "/migrations",
 		},
 		migrations: [ sourceRoot + "/migrations/**/*.{ts,js}" ],
-		// Entities: [ sourceRoot + "/**/*.entity.{ts,js}" ],
+		entities: [ sourceRoot + "/**/*.entity.{ts,js}" ],
 	};
 } );

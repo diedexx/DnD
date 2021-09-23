@@ -36,6 +36,8 @@
     "@nestjs/swagger": "^5.0.9",
     "@nestjs/typeorm": "^8.0.2",
     "apollo-server-express": "^3.3.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "graphql": "^15.6.0",
     "lodash": "^4.17.21",
     "mysql2": "^2.3.0",

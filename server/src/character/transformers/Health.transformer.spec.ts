@@ -1,4 +1,4 @@
-import Health from "../models/Health.entity";
+import Health from "../models/Health.valueobject";
 import HealthTransformer from "./Health.transformer";
 
 describe( "The HealthTransformer class", () => {

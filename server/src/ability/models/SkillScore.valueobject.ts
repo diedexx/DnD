@@ -1,6 +1,6 @@
 import AbilityScore from "../entities/AbilityScore.entity";
 import Skill from "../entities/Skill.entity";
-import AbilityScoreModifier from "./AbilityScoreModifier";
+import AbilityScoreModifier from "./AbilityScoreModifier.valueobject";
 
 export default class SkillScore {
 	/**

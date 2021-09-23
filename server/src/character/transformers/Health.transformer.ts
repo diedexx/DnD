@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Health from "../models/Health.entity";
+import Health from "../models/Health.valueobject";
 
 export default class HealthTransformer implements ValueTransformer {
 	/**

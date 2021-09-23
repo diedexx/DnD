@@ -1,4 +1,4 @@
-import Die, { Sides } from "../models/Die";
+import Die, { Sides } from "../models/Die.valueobject";
 import DieTransformer from "./Die.transformer";
 
 describe( "The DieTransformer class", () => {

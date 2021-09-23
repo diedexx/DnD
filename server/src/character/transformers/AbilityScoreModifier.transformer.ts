@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import AbilityScoreModifier from "../../abilities/models/AbilityScoreModifier";
+import AbilityScoreModifier from "../../ability/models/AbilityScoreModifier.valueobject";
 
 export default class AbilityScoreModifierTransformer implements ValueTransformer {
 	/**

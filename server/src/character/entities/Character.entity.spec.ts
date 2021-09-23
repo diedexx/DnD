@@ -1,8 +1,8 @@
-import Ability from "../../abilities/entities/Ability.entity";
-import AbilityScore from "../../abilities/entities/AbilityScore.entity";
-import Skill from "../../abilities/entities/Skill.entity";
-import AbilityScoreModifier from "../../abilities/models/AbilityScoreModifier";
-import SkillScore from "../../abilities/models/SkillScore";
+import Ability from "../../ability/entities/Ability.entity";
+import AbilityScore from "../../ability/entities/AbilityScore.entity";
+import Skill from "../../ability/entities/Skill.entity";
+import AbilityScoreModifier from "../../ability/models/AbilityScoreModifier.valueobject";
+import SkillScore from "../../ability/models/SkillScore.valueobject";
 import Character from "./Character.entity";
 
 describe( "The Character entity", () => {

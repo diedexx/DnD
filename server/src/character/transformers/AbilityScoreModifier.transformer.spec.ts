@@ -1,4 +1,4 @@
-import AbilityScoreModifier from "../../abilities/models/AbilityScoreModifier";
+import AbilityScoreModifier from "../../ability/models/AbilityScoreModifier.valueobject";
 import AbilityScoreModifierTransformer from "./AbilityScoreModifier.transformer";
 
 describe( "The AbilityScoreModifierTransformer class", () => {

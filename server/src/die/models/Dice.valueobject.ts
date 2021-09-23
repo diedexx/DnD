@@ -1,5 +1,5 @@
-import InvalidNumberOfDice from "../exceptions/InvalidNumberOfDice";
-import Die, { Sides } from "./Die";
+import InvalidNumberOfDice from "../exceptions/InvalidNumberOfDice.exception";
+import Die, { Sides } from "./Die.valueobject";
 
 export default class Dice {
 	private readonly die: Die;
@@ -28,3 +28,4 @@ export default class Dice {
 		return this.numberOfDice + this.die.toString();
 	}
 }
+

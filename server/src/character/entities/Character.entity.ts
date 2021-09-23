@@ -1,11 +1,11 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
-import AbilityScore from "../../abilities/entities/AbilityScore.entity";
-import Skill from "../../abilities/entities/Skill.entity";
-import SkillScore from "../../abilities/models/SkillScore";
+import AbilityScore from "../../ability/entities/AbilityScore.entity";
+import Skill from "../../ability/entities/Skill.entity";
+import SkillScore from "../../ability/models/SkillScore.valueobject";
 import BaseEntity from "../../Base.entity";
-import NoAbilityScore from "../exceptions/NoAbilityScore";
-import Health from "../models/Health.entity";
+import NoAbilityScore from "../exceptions/NoAbilityScore.exception";
+import Health from "../models/Health.valueobject";
 import HealthTransformer from "../transformers/Health.transformer";
 import CharacterClass from "./CharacterClass.entity";
 

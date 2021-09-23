@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Die, { Sides } from "../models/Die";
+import Die, { Sides } from "../models/Die.valueobject";
 
 export default class DieTransformer implements ValueTransformer {
 	/**

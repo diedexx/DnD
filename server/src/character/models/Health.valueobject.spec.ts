@@ -1,4 +1,4 @@
-import Health from "./Health.entity";
+import Health from "./Health.valueobject";
 
 describe( "The Health entity", () => {
 	describe( "constructor", () => {

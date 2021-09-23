@@ -1,5 +1,5 @@
-import Dice from "./Dice";
-import { Sides } from "./Die";
+import Dice from "./Dice.valueobject";
+import { Sides } from "./Die.valueobject";
 
 describe( "The Dice class", () => {
 	describe( "constructor", () => {

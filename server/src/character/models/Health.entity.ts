@@ -1,17 +1,27 @@
+import { Field, ObjectType } from "@nestjs/graphql";
+
+@ObjectType()
 export default class Health {
+	@Field()
+	public readonly maxHealth: number;
+
+	@Field()
+	public readonly currentHealth: number;
+
 	/**
 	 * The constructor.
 	 *
 	 * @param {number} maxHealth The maximum number of hit points.
 	 * @param {number} currentHealth The current number of hit points.
 	 */
-	public constructor( public readonly maxHealth: number, public readonly currentHealth?: number ) {
-		if ( ! this.currentHealth ) {
-			this.currentHealth = this.maxHealth;
+	public constructor( maxHealth: number, currentHealth?: number ) {
+		this.maxHealth = Math.max( maxHealth, 1 );
+
+		if ( ! currentHealth && currentHealth !== 0 ) {
+			currentHealth = this.maxHealth;
 		}
 
-		this.maxHealth = Math.max( this.maxHealth, 1 );
-		this.currentHealth = this.ensureValueBetween( 0, this.maxHealth, this.currentHealth );
+		this.currentHealth = this.ensureValueBetween( 0, this.maxHealth, currentHealth );
 	}
 
 	/**

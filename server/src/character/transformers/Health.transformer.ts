@@ -11,7 +11,7 @@ export default class HealthTransformer implements ValueTransformer {
 	 */
 	public from( value: string ): Health {
 		const [ current, max ] = value.split( "/" );
-		return new Health( parseInt( current, 10 ), parseInt( max, 10 ) );
+		return new Health( parseInt( max, 10 ), parseInt( current, 10 ) );
 	}
 
 	/**

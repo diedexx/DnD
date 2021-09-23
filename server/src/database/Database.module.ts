@@ -9,7 +9,7 @@ import RelationLoaderService from "./RelationLoader.service";
 		TypeOrmModule.forRootAsync( {
 			imports: [ ConfigModule ],
 			inject: [ ConfigService ],
-			useFactory: ( config: ConfigService ) => config.get<DatabaseConfigInterface>( "database" ),
+			useFactory: ( configService: ConfigService ) => configService.get<DatabaseConfigInterface>( "database" ),
 		} ),
 	],
 	providers: [

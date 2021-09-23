@@ -1,22 +1,36 @@
 import { INestApplication } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getConnectionToken } from "@nestjs/typeorm";
 import * as request from "supertest";
 import { Connection, createConnection } from "typeorm";
 import { AppModule } from "../src/app.module";
+import { DatabaseConfigInterface } from "../src/config/database";
+import DatabaseModule from "../src/database/Database.module";
 
 describe( "AppController (e2e)", () => {
 	let app: INestApplication;
 
 	beforeEach( async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule( {
-			imports: [ AppModule ],
+			imports: [ AppModule, DatabaseModule ],
 		} )
 			.overrideProvider( getConnectionToken() ).useFactory( {
-				factory: async (): Promise<Connection> => {
-					return await createConnection( { type: "sqlite", database: ":memory:", synchronize: true } );
+				inject: [ ConfigService ],
+				factory: async ( configService: ConfigService ): Promise<Connection> => {
+					return await createConnection(
+						{
+							...configService.get<DatabaseConfigInterface>( "database" ),
+							...{
+								type: "sqlite",
+								database: ":memory:",
+								synchronize: true,
+							},
+						},
+					);
 				},
-			} ).compile();
+			} )
+			.compile();
 
 		app = moduleFixture.createNestApplication();
 		await app.init();

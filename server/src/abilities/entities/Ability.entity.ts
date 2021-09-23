@@ -13,6 +13,6 @@ export default class Ability extends BaseEntity {
 	@Column( { type: "text" } )
 	public description: string;
 
-	@OneToMany( () => Skill, ( skill: Skill ) => skill.ability )
+	@OneToMany( () => Skill, ( skill: Skill ) => skill.ability, { cascade: [ "insert" ] } )
 	public skills: Skill[];
 }

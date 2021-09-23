@@ -16,6 +16,6 @@ export default class AbilityScore extends BaseEntity {
 	@ManyToOne( () => Character, ( ( character: Character ) => character.abilityScores ) )
 	public character: Character;
 
-	@ManyToOne( () => Ability )
+	@ManyToOne( () => Ability, { eager: true, cascade: [ "insert" ] } )
 	public ability: Ability;
 }

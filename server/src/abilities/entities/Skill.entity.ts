@@ -10,6 +10,6 @@ export default class Skill extends BaseEntity {
 	@Column( { type: "text" } )
 	public description: string;
 
-	@ManyToOne( () => Ability, ( ability: Ability ) => ability.skills )
+	@ManyToOne( () => Ability, ( ability: Ability ) => ability.skills, { eager: true, cascade: [ "insert" ] } )
 	public ability: Ability;
 }

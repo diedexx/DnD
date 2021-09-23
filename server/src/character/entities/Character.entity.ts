@@ -53,7 +53,7 @@ export default class Character extends BaseEntity {
 	@ManyToOne( () => CharacterClass, { nullable: false } )
 	public class: CharacterClass;
 
-	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ) )
+	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ), { cascade: [ "insert" ] } )
 	public abilityScores: AbilityScore[];
 
 	/**

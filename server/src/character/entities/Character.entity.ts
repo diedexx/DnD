@@ -33,21 +33,22 @@ export default class Character extends BaseEntity {
 
 	@Column( {
 		type: "varchar",
+		length: 50,
 		transformer: new HealthTransformer(),
 		comment: "The current and total health formatted like current/total (9/10)",
 	} )
 	public health: Health;
 
-	@Column( { type: "text" } )
+	@Column( "text" )
 	public personalityTraits: string;
 
-	@Column( { type: "text" } )
+	@Column( "text" )
 	public ideals: string;
 
-	@Column( { type: "text" } )
+	@Column( "text" )
 	public bonds: string;
 
-	@Column( { type: "text" } )
+	@Column( "text" )
 	public flaws: string;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )

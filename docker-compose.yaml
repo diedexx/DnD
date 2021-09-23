@@ -13,9 +13,11 @@ services:
   server:
     image: 'node:16'
     working_dir: /var/www
-    entrypoint: yarn start:dev
+    entrypoint: yarn
+    command: start:dev
     ports:
       - "3000:3000"
+      - "9229:9229"
     volumes:
       - ./server:/var/www:cached
       - ./server/logs:/var/logs

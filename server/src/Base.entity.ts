@@ -1,11 +1,12 @@
-import { Field } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { ApiModelProperty } from "@nestjs/swagger/dist/decorators/api-model-property.decorator";
 import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
+@ObjectType()
 export default class BaseEntity {
 	@PrimaryGeneratedColumn()
 	@ApiModelProperty( { type: "number" } )
-	@Field()
+	@Field( () => Int )
 	public id: number;
 
 	@CreateDateColumn()

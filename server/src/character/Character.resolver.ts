@@ -1,12 +1,13 @@
-import { Args, Int, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
 
 @Resolver( () => Character )
-export default class CharacterResolver {
+export default class CharacterResolver extends BaseResolver( Character, "character", "characters" ) {
 	/**
 	 * The constructor.
 	 *
@@ -18,18 +19,7 @@ export default class CharacterResolver {
 		private readonly characterRepository: Repository<Character>,
 		private readonly relationLoaderService: RelationLoaderService,
 	) {
-	}
-
-	/**
-	 * Gets a single Character.
-	 *
-	 * @param {number} id The id of the Character to retrieve.
-	 *
-	 * @return {Promise<Character|null>} The Character.
-	 */
-	@Query( () => Character )
-	public async character( @Args( "id", { type: () => Int } ) id: number ) {
-		return this.characterRepository.findOne( id );
+		super( characterRepository );
 	}
 
 	/**
@@ -39,8 +29,8 @@ export default class CharacterResolver {
 	 *
 	 * @return {Promise<CharacterClass>} The characterClass of the character.
 	 */
-	@ResolveField( "class" )
-	public async class( @Parent() character: Character ): Promise<CharacterClass> {
+	@ResolveField( "class", () => CharacterClass )
+	public async getCharacterClass( @Parent() character: Character ): Promise<CharacterClass> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "class" ] ) ).class;
 	}
 }

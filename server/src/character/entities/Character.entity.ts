@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../abilities/entities/AbilityScore.entity";
 import Skill from "../../abilities/entities/Skill.entity";
 import SkillScore from "../../abilities/models/SkillScore";
-import BaseEntity from "../../entities/Base.entity";
+import BaseEntity from "../../Base.entity";
 import NoAbilityScore from "../exceptions/NoAbilityScore";
 import Health from "../models/Health.entity";
 import HealthTransformer from "../transformers/Health.transformer";

@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne } from "typeorm";
-import BaseEntity from "../../entities/Base.entity";
+import BaseEntity from "../../Base.entity";
 import Ability from "./Ability.entity";
 
 @Entity()

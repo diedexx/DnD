@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import Character from "../../character/entities/Character.entity";
 import AbilityScoreModifierTransformer from "../../character/transformers/AbilityScoreModifier.transformer";
 import BaseEntity from "../../Base.entity";
@@ -16,6 +16,14 @@ export default class AbilityScore extends BaseEntity {
 	@ManyToOne( () => Character, ( ( character: Character ) => character.abilityScores ) )
 	public character: Character;
 
+	@Column( "int" )
+	@RelationId( ( abilityScore: AbilityScore ) => abilityScore.character )
+	public readonly characterId: string;
+
 	@ManyToOne( () => Ability, { eager: true, cascade: [ "insert" ] } )
 	public ability: Ability;
+
+	@Column( "int" )
+	@RelationId( ( abilityScore: AbilityScore ) => abilityScore.ability )
+	public readonly abilityId: string;
 }

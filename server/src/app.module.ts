@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
+import { AbilityModule } from "./ability/Ability.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { CharacterModule } from "./character/Character.module";
@@ -18,6 +19,7 @@ import DatabaseModule from "./database/Database.module";
 			useFactory: ( config: ConfigService ) => config.get<GraphQLConfigInterface>( "graphql" ),
 		} ),
 		CharacterModule,
+		AbilityModule,
 	],
 	controllers: [
 		AppController,

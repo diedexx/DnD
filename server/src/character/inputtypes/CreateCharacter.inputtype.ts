@@ -1,23 +1,36 @@
+import { Field, InputType, Int } from "@nestjs/graphql";
 import { CharacterAlignment, CharacterBackground, CharacterRace } from "../entities/Character.entity";
 
-export type AbilityScoreType = {
-	abilityId: number;
-	modifier: number;
-	baseScore: number;
-}
-
-type CreateCharacterType = {
+@InputType()
+export default class CreateCharacterInputType {
+	@Field()
 	name: string;
+
+	@Field( () => Int )
 	classId: number;
+
+	@Field()
 	race: CharacterRace;
+
+	@Field( () => Int )
 	maxHealth: number;
+
+	@Field()
 	alignment: CharacterAlignment;
+
+	@Field()
 	bonds: string;
+
+	@Field()
 	background: CharacterBackground;
+
+	@Field()
 	personalityTraits: string;
+
+	@Field()
 	flaws: string;
+
+	@Field()
 	ideals: string;
-	abilityScores: AbilityScoreType[];
 }
 
-export default CreateCharacterType;

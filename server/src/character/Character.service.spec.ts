@@ -1,11 +1,11 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import AbilityScoreService from "../../ability/AbilityScore.service";
-import AbilityScore from "../../ability/entities/AbilityScore.entity";
-import Character from "./Character.entity";
+import AbilityScoreService from "../ability/AbilityScore.service";
+import AbilityScore from "../ability/entities/AbilityScore.entity";
+import Character from "./entities/Character.entity";
 import CharacterService from "./Character.service";
-import CharacterClass from "./CharacterClass.entity";
+import CharacterClass from "./entities/CharacterClass.entity";
 import Mocked = jest.Mocked;
 
 describe( "The CharacterService", () => {
@@ -53,6 +53,7 @@ describe( "The CharacterService", () => {
 				race: "Race",
 				name: "Name",
 				maxHealth: 23,
+				personalityTraits: "personalityTraits",
 				abilityScores: [
 					{
 						abilityId: 1,
@@ -82,29 +83,30 @@ describe( "The CharacterService", () => {
 			} );
 
 			expect( actual ).toMatchInlineSnapshot( `
-        Character {
-          "abilityScores": Array [
-            AbilityScore {
-              "baseScore": 1,
-            },
-            AbilityScore {
-              "baseScore": 2,
-            },
-          ],
-          "alignment": "Alignment",
-          "background": "Background",
-          "bonds": "Bonds",
-          "class": undefined,
-          "flaws": "Flaws",
-          "health": Health {
-            "currentHealth": 23,
-            "maxHealth": 23,
-          },
-          "ideals": "Ideals",
-          "name": "Name",
-          "race": "Race",
-        }
-      ` );
+Character {
+  "abilityScores": Array [
+    AbilityScore {
+      "baseScore": 1,
+    },
+    AbilityScore {
+      "baseScore": 2,
+    },
+  ],
+  "alignment": "Alignment",
+  "background": "Background",
+  "bonds": "Bonds",
+  "class": undefined,
+  "flaws": "Flaws",
+  "health": Health {
+    "currentHealth": 23,
+    "maxHealth": 23,
+  },
+  "ideals": "Ideals",
+  "name": "Name",
+  "personalityTraits": "personalityTraits",
+  "race": "Race",
+}
+` );
 		} );
 	} );
 } );

@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import AbilityScoreService from "../../ability/AbilityScore.service";
-import AbilityScore from "../../ability/entities/AbilityScore.entity";
-import Health from "../models/Health.valueobject";
-import CreateCharacterType, { AbilityScoreType } from "../types/CreateCharacter.type";
-import Character from "./Character.entity";
-import CharacterClass from "./CharacterClass.entity";
+import AbilityScoreService from "../ability/AbilityScore.service";
+import AbilityScore from "../ability/entities/AbilityScore.entity";
+import Health from "./models/Health.valueobject";
+import CreateCharacterType, { AbilityScoreType } from "./types/CreateCharacter.type";
+import Character from "./entities/Character.entity";
+import CharacterClass from "./entities/CharacterClass.entity";
 
 @Injectable()
 export default class CharacterService {
@@ -42,6 +42,7 @@ export default class CharacterService {
 		character.alignment = args.alignment;
 		character.bonds = args.bonds;
 		character.background = args.background;
+		character.personalityTraits = args.personalityTraits;
 		character.flaws = args.flaws;
 		character.ideals = args.ideals;
 		character.abilityScores = await Promise.all(

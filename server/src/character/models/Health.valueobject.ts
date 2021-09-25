@@ -1,11 +1,11 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export default class Health {
-	@Field()
+	@Field( () => Int )
 	public readonly maxHealth: number;
 
-	@Field()
+	@Field( () => Int )
 	public readonly currentHealth: number;
 
 	/**

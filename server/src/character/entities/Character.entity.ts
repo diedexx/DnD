@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import Skill from "../../ability/entities/Skill.entity";
@@ -55,6 +55,7 @@ export default class Character extends BaseEntity {
 	public ideals: string;
 
 	@Column( "text" )
+	@Field()
 	public bonds: string;
 
 	@Column( "text" )
@@ -67,9 +68,11 @@ export default class Character extends BaseEntity {
 
 	@Column( "int" )
 	@RelationId( ( character: Character ) => character.class )
-	public readonly classId: string;
+	@Field( () => Int )
+	public readonly classId: number;
 
 	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ), { cascade: [ "insert" ] } )
+	@Field( () => AbilityScore )
 	public abilityScores: AbilityScore[];
 
 	/**

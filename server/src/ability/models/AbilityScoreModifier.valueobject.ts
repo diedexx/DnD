@@ -1,3 +1,6 @@
+import { Field, Int, ObjectType } from "@nestjs/graphql";
+
+@ObjectType()
 export default class AbilityScoreModifier {
 	/**
 	 * The constructor.
@@ -9,8 +12,10 @@ export default class AbilityScoreModifier {
 
 	/**
 	 * Gets the AbilityScoreModifier value.
+	 *
 	 * @return {number} The AbilityScoreModifier value.
 	 */
+	@Field( () => Int )
 	get value(): number {
 		return this.modifier;
 	}

@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class healthsize1632407386398 implements MigrationInterface {
     name = 'healthsize1632407386398'

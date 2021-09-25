@@ -1,8 +1,8 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Column, Entity } from "typeorm";
+import BaseEntity from "../../Base.entity";
 import Die from "../../die/models/Die.valueobject";
 import DieTransformer from "../../die/transformers/Die.transformer";
-import BaseEntity from "../../Base.entity";
 
 @Entity()
 @ObjectType()

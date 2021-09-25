@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class camelcaseCreatedUpdateAt1632250844285 implements MigrationInterface {
     name = 'camelcaseCreatedUpdateAt1632250844285'

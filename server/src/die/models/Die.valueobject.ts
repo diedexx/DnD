@@ -23,7 +23,7 @@ export default class Die {
 	}
 
 	/**
-	 * Gets the number of sides of the die in a human readable string.
+	 * Gets the number of sides of the die in y a human readable string.
 	 *
 	 * @return {Sides} The number of sides of the die in a human readable string.
 	 */

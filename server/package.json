@@ -76,6 +76,11 @@
     "yarn": "^1.22.11"
   },
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "isolatedModules": true
+      }
+    },
     "moduleFileExtensions": [
       "js",
       "json",

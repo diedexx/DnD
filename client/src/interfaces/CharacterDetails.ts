@@ -1,6 +1,8 @@
 export interface CharacterDetails {
 	readonly id: number;
 	readonly name: string;
+	readonly level: string;
+	readonly experience: string;
 	readonly race: string;
 	readonly background: string;
 	readonly alignment: string;

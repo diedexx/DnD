@@ -3,6 +3,8 @@ const getCharacterDetails =
 		character(id: $id) {
 			id
 			name
+			level
+			experience
 			race
 			background
 			alignment

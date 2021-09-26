@@ -1,9 +1,10 @@
 import { FunctionComponent } from "react";
 import "./CharacterSummaryListItem.css";
+import { CharacterSummary } from "../../interfaces/CharacterSummary";
 import KeyValuePair from "./KeyValuePair";
 
 export type CharacterListItemProps = {
-	characterSummary: any;
+	characterSummary: CharacterSummary;
 }
 
 /**
@@ -17,7 +18,7 @@ const CharacterSummaryListItem: FunctionComponent<CharacterListItemProps> = ( { 
 	return <li className="card characterSummaryListItem">
 		<KeyValuePair valueKey="Name" value={ characterSummary.name } />
 		<KeyValuePair valueKey="Level" value={ characterSummary.level } />
-		<KeyValuePair valueKey="Exp" value={ characterSummary.exp } />
+		<KeyValuePair valueKey="Exp" value={ characterSummary.experience } />
 		<KeyValuePair valueKey="Race" value={ characterSummary.race } />
 		<KeyValuePair valueKey="Class" value={ characterSummary.class.name } />
 		<KeyValuePair valueKey="Health" value={ characterSummary.health.currentHealth + "/" + characterSummary.health.maxHealth } />

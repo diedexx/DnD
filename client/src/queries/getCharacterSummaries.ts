@@ -3,6 +3,8 @@ const getCharacterSummaries =
 		characters {
 			id
 			name
+			level
+			experience
 			race
 			class {
 				name

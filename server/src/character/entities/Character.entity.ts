@@ -25,6 +25,14 @@ export default class Character extends BaseEntity {
 	@Field()
 	public name: string;
 
+	@Column( { "default": 1 } )
+	@Field( () => Int )
+	public level: number;
+
+	@Column( { "default": 0 } )
+	@Field( () => Int )
+	public experience: number;
+
 	@Column()
 	@Field()
 	public race: CharacterRace;

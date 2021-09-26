@@ -30,7 +30,7 @@ export const routes: { [ key: string ]: Route } = {
 	},
 
 	characterDetails: {
-		path: "/character/:id/details",
+		path: "/characters/:id/details",
 		component: mapParamsToProps( CharacterDetailPage, { id: { name: "characterId", normalize: parseInt } } ),
 		title: "",
 		inNavMenu: true,

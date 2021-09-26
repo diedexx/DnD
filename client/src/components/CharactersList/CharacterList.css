@@ -1,0 +1,7 @@
+.characterList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    list-style-type: none;
+    padding:0;
+}

@@ -1,0 +1,16 @@
+.headerMenuList {
+    background-color: var(--secondary-color);
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+
+.headerMenuList__link {
+    display: block;
+    padding: 1em;
+}
+
+.headerMenuList__link:hover {
+    background-color: var(--primary-color);
+}

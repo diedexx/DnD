@@ -4,7 +4,7 @@
   "author": "Diede Exterkate <diedex10@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -16,10 +16,14 @@
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.24",
+    "@types/react-router-dom": "^5.3.0",
     "eslint-config-yoast": "^5.0.17",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.26.0",

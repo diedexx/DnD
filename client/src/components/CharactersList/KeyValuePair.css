@@ -1,0 +1,14 @@
+.keyValuePair {
+    display: flex;
+    flex-direction: column;
+}
+
+.keyValuePair_key {
+    font-weight: bold;
+}
+
+.keyValuePair_value {
+    line-height: 2em;
+    font-family: monospace;
+}
+

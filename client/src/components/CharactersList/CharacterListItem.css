@@ -1,0 +1,11 @@
+.characterListItem {
+    display: grid;
+    grid-template-columns:
+        1fr 1fr 1fr;
+    row-gap: 2em;
+    padding: 1em;
+}
+
+.characterListItem:hover{
+    background-color: var(--secondary-color);
+}

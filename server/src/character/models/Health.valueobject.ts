@@ -9,6 +9,16 @@ export default class Health {
 	public readonly currentHealth: number;
 
 	/**
+	 * Gets the human readable health string.
+	 *
+	 * @return {string} The human readable health string.
+	 */
+	@Field()
+	get displayHealth(): string {
+		return this.currentHealth + "/" + this.maxHealth;
+	}
+
+	/**
 	 * The constructor.
 	 *
 	 * @param {number} maxHealth The maximum number of hit points.

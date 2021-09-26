@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
-import "./CharacterSummaryListItem.css";
+import { Link } from "react-router-dom";
 import { CharacterSummary } from "../../interfaces/CharacterSummary";
+import { routes } from "../../routes";
+import "./CharacterSummaryListItem.css";
 import KeyValuePair from "./KeyValuePair";
 
 export type CharacterListItemProps = {
@@ -15,14 +17,16 @@ export type CharacterListItemProps = {
  * @return {JSX.Element} The character summary list item.
  */
 const CharacterSummaryListItem: FunctionComponent<CharacterListItemProps> = ( { characterSummary }: CharacterListItemProps ): JSX.Element => {
-	return <li className="card characterSummaryListItem">
-		<KeyValuePair valueKey="Name" value={ characterSummary.name } />
-		<KeyValuePair valueKey="Level" value={ characterSummary.level } />
-		<KeyValuePair valueKey="Exp" value={ characterSummary.experience } />
-		<KeyValuePair valueKey="Race" value={ characterSummary.race } />
-		<KeyValuePair valueKey="Class" value={ characterSummary.class.name } />
-		<KeyValuePair valueKey="Health" value={ characterSummary.health.currentHealth + "/" + characterSummary.health.maxHealth } />
-	</li>;
+	return <Link to={ routes.characterDetails.path.replace( ":id", String( characterSummary.id ) ) }>
+		<li className="card characterSummaryListItem">
+			<KeyValuePair valueKey="Name" value={ characterSummary.name } />
+			<KeyValuePair valueKey="Level" value={ characterSummary.level } />
+			<KeyValuePair valueKey="Exp" value={ characterSummary.experience } />
+			<KeyValuePair valueKey="Race" value={ characterSummary.race } />
+			<KeyValuePair valueKey="Class" value={ characterSummary.class.name } />
+			<KeyValuePair valueKey="Health" value={ characterSummary.health.displayHealth } />
+		</li>
+	</Link>;
 };
 
 export default CharacterSummaryListItem;

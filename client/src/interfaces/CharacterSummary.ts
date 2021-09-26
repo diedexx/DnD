@@ -10,5 +10,6 @@ export interface CharacterSummary {
 	readonly health: {
 		readonly currentHealth: number;
 		readonly maxHealth: number;
+		readonly displayHealth: string;
 	};
 }

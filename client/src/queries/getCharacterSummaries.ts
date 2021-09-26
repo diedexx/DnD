@@ -12,6 +12,7 @@ const getCharacterSummaries =
 			health {
 				currentHealth
 				maxHealth
+				displayHealth
 			}
 		}
 	}`;

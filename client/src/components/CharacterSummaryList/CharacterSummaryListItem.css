@@ -1,4 +1,4 @@
-.characterListItem {
+.characterSummaryListItem {
     display: grid;
     grid-template-columns:
         1fr 1fr 1fr;
@@ -6,6 +6,6 @@
     padding: 1em;
 }
 
-.characterListItem:hover{
+.characterSummaryListItem:hover{
     background-color: var(--secondary-color);
 }

@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./app.css";
 import Header from "./components/Header/Header";
 import { Route as AppRoute, routes } from "./routes";
+import "./state/store";
 
 /**
  * Get the React router routes.

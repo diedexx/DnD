@@ -1,15 +1,22 @@
+import { useSelect } from "@wordpress/data";
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import CharacterList from "../CharactersList/CharacterList";
+import { CharacterSummary } from "../../interfaces/CharacterSummary";
+import CharacterSummaryList from "../CharacterSummaryList/CharacterSummaryList";
 
 /**
  * An summarized overview of all characters.
  *
  * @return {JSX.Element} The character overview.
  */
-const CharactersOverview: FunctionComponent = (): JSX.Element  => {
+const CharactersOverview: FunctionComponent = (): JSX.Element => {
+	const characterSummaries: CharacterSummary[] = useSelect(
+		( select ) => select( "app" ).getCharacterSummaries(),
+		[],
+	);
+
 	return <div className="page--narrow">
-		<CharacterList characterIds={ [ 1, 2, 3 ] } />
+		<CharacterSummaryList characterSummaries={ characterSummaries } />
 		<Link className="card card--clickable btn--fullSize" to="/new-character">Create new character</Link>
 	</div>;
 };

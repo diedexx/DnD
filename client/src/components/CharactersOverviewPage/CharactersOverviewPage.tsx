@@ -9,7 +9,7 @@ import CharacterSummaryList from "../CharacterSummaryList/CharacterSummaryList";
  *
  * @return {JSX.Element} The character overview.
  */
-const CharactersOverview: FunctionComponent = (): JSX.Element => {
+const CharactersOverviewPage: FunctionComponent = (): JSX.Element => {
 	const characterSummaries: CharacterSummary[] = useSelect(
 		( select ) => select( "app" ).getCharacterSummaries(),
 		[],
@@ -21,4 +21,4 @@ const CharactersOverview: FunctionComponent = (): JSX.Element => {
 	</div>;
 };
 
-export default CharactersOverview;
+export default CharactersOverviewPage;

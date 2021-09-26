@@ -1,11 +1,13 @@
 import React from "react";
-import CharactersOverview from "./components/CharactersOverview/CharactersOverview";
+import CharacterDetailPage from "./components/CharacterDetailPage/CharacterDetailPage";
+import CharactersOverviewPage from "./components/CharactersOverviewPage/CharactersOverviewPage";
 import CreateCharacterForm from "./components/CreateCharacterForm/CreateCharacterForm";
+import mapParamsToProps from "./functions/mapParamsToProps";
 
 export interface Route {
 	path: string;
 	title: string;
-	component: React.ComponentType
+	component: React.ComponentType;
 	inNavMenu: boolean;
 	exact: boolean;
 }
@@ -13,7 +15,7 @@ export interface Route {
 export const routes: { [ key: string ]: Route } = {
 	home: {
 		path: "/",
-		component: CharactersOverview,
+		component: CharactersOverviewPage,
 		title: "Characters",
 		inNavMenu: true,
 		exact: true,
@@ -25,5 +27,13 @@ export const routes: { [ key: string ]: Route } = {
 		title: "New character",
 		inNavMenu: true,
 		exact: false,
+	},
+
+	characterDetails: {
+		path: "/character/:id/details",
+		component: mapParamsToProps( CharacterDetailPage, { id: { name: "characterId", normalize: parseInt } } ),
+		title: "",
+		inNavMenu: true,
+		exact: true,
 	},
 };

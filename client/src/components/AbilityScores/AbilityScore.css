@@ -1,0 +1,26 @@
+.ability-score {
+    border: 1px solid black;
+    border-radius: 5px;
+    grid-gap: 0.5em;
+    margin: 0.5em;
+    padding: 10px 0 0 0 ;
+
+    display: grid;
+    justify-items: center;
+}
+
+.ability-score__name {
+
+}
+
+.ability-score__modifier {
+    font-size: 30px;
+
+}
+
+.ability-score__baseScore {
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 4px 10px ;
+    align-self: end;
+}

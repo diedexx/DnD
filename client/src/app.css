@@ -27,6 +27,12 @@ a {
     color: var(--text-color);
 }
 
+.page--full-width {
+    width: 100%;
+}
+.page--normal-width {
+    margin: 0 1em;
+}
 .page--narrow {
     margin: 0 auto;
     width: 700px;

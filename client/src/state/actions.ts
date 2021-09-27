@@ -10,6 +10,7 @@ export enum ACTION_TYPE {
 	POST_TO_API = "POST_TO_API",
 	GRAPHQL = "GRAPHQL",
 	FETCH_FROM_API = "FETCH_FROM_API",
+	SHOW_ERROR = "SHOW_ERROR",
 }
 
 const actions = {
@@ -30,7 +31,11 @@ const actions = {
 
 	graphQL: ( data: GraphQLData ) => ( {
 		type: ACTION_TYPE.GRAPHQL,
-		data: data,
+		data,
+	} ),
+	showError: ( message: string ) => ( {
+		type: ACTION_TYPE.SHOW_ERROR,
+		message,
 	} ),
 
 	postToAPI: ( path, data ) => ( {

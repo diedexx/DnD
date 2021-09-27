@@ -7,7 +7,7 @@ import { StateInterface } from "./store";
 
 const selectors = {
 	getCharacterSummaries: ( state: StateInterface ): CharacterSummary[] => state.characterSummaries,
-	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetails => state.characterDetails[ id ],
+	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetails => state.characterDetails,
 };
 export default selectors;
 
@@ -18,9 +18,14 @@ export const resolvers = {
 	 * @return {Generator} The next action.
 	 */
 	* getCharacterSummaries() {
-		const response = yield actions.graphQL( { query: getCharacterSummaries } );
-		const characters = response.data.data.characters;
-		return actions.setCharacterSummaries( characters );
+		try {
+			const response = yield actions.graphQL( { query: getCharacterSummaries } );
+			const characters = response.data.data.characters;
+			return actions.setCharacterSummaries( characters );
+		} catch ( e ) {
+			console.error( e );
+			yield actions.showError( "Failed to fetch characters" );
+		}
 	},
 
 	/**
@@ -31,9 +36,14 @@ export const resolvers = {
 	 * @return {Generator} The next action.
 	 */
 	* getCharacterDetails( id: number ) {
-		const response = yield actions.graphQL( { query: getCharacterDetails, variables: { id } } );
-		const character = response.data.data.character;
-		return actions.setCharacterDetails( character );
+		try {
+			const response = yield actions.graphQL( { query: getCharacterDetails, variables: { id } } );
+			const character: CharacterDetails = response.data.data.character;
+			return actions.setCharacterDetails( character );
+		} catch ( e ) {
+			console.error( e );
+			yield actions.showError( "Failed to fetch character details" );
+		}
 	},
 };
 

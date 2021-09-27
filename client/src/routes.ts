@@ -10,6 +10,7 @@ export interface Route {
 	component: React.ComponentType;
 	inNavMenu: boolean;
 	exact: boolean;
+	format: "full-width" | "normal-width" | "narrow"
 }
 
 export const routes: { [ key: string ]: Route } = {
@@ -19,6 +20,7 @@ export const routes: { [ key: string ]: Route } = {
 		title: "Characters",
 		inNavMenu: true,
 		exact: true,
+		format: "narrow",
 	},
 
 	newCharacter: {
@@ -27,13 +29,15 @@ export const routes: { [ key: string ]: Route } = {
 		title: "New character",
 		inNavMenu: true,
 		exact: false,
+		format: "normal-width",
 	},
 
 	characterDetails: {
 		path: "/characters/:id/details",
 		component: mapParamsToProps( CharacterDetailPage, { id: { name: "characterId", normalize: parseInt } } ),
-		title: "",
-		inNavMenu: true,
+		title: "Character sheet",
+		inNavMenu: false,
 		exact: true,
+		format: "normal-width",
 	},
 };

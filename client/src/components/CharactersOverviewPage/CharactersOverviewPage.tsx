@@ -1,9 +1,10 @@
-import { FunctionComponent } from "react";
+import { Fragment, FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import useSelect from "../../functions/useSelect";
+import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import { CharacterSummary } from "../../interfaces/CharacterSummary";
 import CharacterSummaryList from "../CharacterSummaryList/CharacterSummaryList";
-import Spinner from "../Spinner";
+import Spinner from "../Spinner/Spinner";
+import "./CharactersOverviewPage.css";
 
 /**
  * An summarized overview of all characters.
@@ -11,16 +12,19 @@ import Spinner from "../Spinner";
  * @return {JSX.Element} The character overview.
  */
 const CharactersOverviewPage: FunctionComponent = (): JSX.Element => {
-	const { data, isLoading, startedLoading } = useSelect<CharacterSummary[]>( "getCharacterSummaries" );
+	const { data, isLoading, startedLoading } = useResolvingSelect<CharacterSummary[]>( "getCharacterSummaries" );
+	const refresh = useRefreshResolver( "getCharacterSummaries" );
 
-	if ( isLoading || ! startedLoading ) {
-		return <Spinner />;
-	}
-
-	return <div className="page--narrow">
+	return <Fragment>
+		<div className="controls">
+			<button className="btn-refresh" disabled={ isLoading } onClick={ refresh }>
+				<i className="fa fa-refresh" />
+			</button>
+		</div>
+		{ ( isLoading || ! startedLoading ) && <Spinner type={ "inline" } /> }
 		<CharacterSummaryList characterSummaries={ data } />
 		<Link className="card card--clickable btn--fullSize" to="/new-character">Create new character</Link>
-	</div>;
+	</Fragment>;
 };
 
 export default CharactersOverviewPage;

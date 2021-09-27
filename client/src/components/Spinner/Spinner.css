@@ -5,3 +5,6 @@
     transform: translate(-50%, -50%);
 }
 
+.spinner--inline {
+    text-align: center;
+}

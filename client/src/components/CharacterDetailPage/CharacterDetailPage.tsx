@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import useSelect from "../../functions/useSelect";
+import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import { CharacterDetails } from "../../interfaces/CharacterDetails";
-import Spinner from "../Spinner";
+import Spinner from "../Spinner/Spinner";
 import "./CharacterDetailPage.css";
 
 export type CharacterDetailPageProps = {
@@ -20,13 +20,16 @@ const CharacterDetailPage: FunctionComponent<CharacterDetailPageProps> = ( { cha
 		data: characterDetails,
 		isLoading,
 		startedLoading,
-	} = useSelect<CharacterDetails>( "getCharacterDetails", [], characterId );
+	} = useResolvingSelect<CharacterDetails>( "getCharacterDetails", characterId );
 
-	if ( isLoading || ! startedLoading ) {
-		return <Spinner />;
-	}
+	const refresh = useRefreshResolver( "getCharacterDetails", characterId );
+
 	return <div>
+		<div className="controls">
+			<button className="btn-refresh" disabled={ isLoading } onClick={ refresh }><i className="fa fa-refresh" /></button>
+		</div>
 		{ characterDetails.name }
+		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
 	</div>;
 };
 

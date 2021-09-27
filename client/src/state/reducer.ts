@@ -3,7 +3,25 @@ import { StateInterface } from "./store";
 
 const DEFAULT_STATE: StateInterface = {
 	characterSummaries: [],
-	characterDetails: {},
+	characterDetails: {
+		id: 0,
+		name: "",
+		experience: 0,
+		health: {
+			displayHealth: "0/1",
+			currentHealth: 0,
+			maxHealth: 0,
+		},
+		abilityScores: [],
+		alignment: "",
+		background: "",
+		"class": { name: "" },
+		bonds: "",
+		flaws: "",
+		level: 0,
+		race: "",
+		personalityTraits: "",
+	},
 };
 
 /**
@@ -25,10 +43,7 @@ const reducer = ( state = DEFAULT_STATE, action ): StateInterface => {
 		case ACTION_TYPE.SET_CHARACTER_DETAILS:
 			return {
 				...state,
-				characterDetails: {
-					...state.characterDetails,
-					[ action.characterDetails.id ]: action.characterDetails,
-				},
+				characterDetails: action.characterDetails,
 			};
 
 		case ACTION_TYPE.CREATE_CHARACTER:

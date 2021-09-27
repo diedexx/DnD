@@ -20,8 +20,8 @@ const CharacterSummaryListItem: FunctionComponent<CharacterListItemProps> = ( { 
 	return <Link to={ routes.characterDetails.path.replace( ":id", String( characterSummary.id ) ) }>
 		<li className="card characterSummaryListItem">
 			<KeyValuePair valueKey="Name" value={ characterSummary.name } />
-			<KeyValuePair valueKey="Level" value={ characterSummary.level } />
-			<KeyValuePair valueKey="Exp" value={ characterSummary.experience } />
+			<KeyValuePair valueKey="Level" value={ characterSummary.level.toString() } />
+			<KeyValuePair valueKey="Exp" value={ characterSummary.experience.toString() } />
 			<KeyValuePair valueKey="Race" value={ characterSummary.race } />
 			<KeyValuePair valueKey="Class" value={ characterSummary.class.name } />
 			<KeyValuePair valueKey="Health" value={ characterSummary.health.displayHealth } />

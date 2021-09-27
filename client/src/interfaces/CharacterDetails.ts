@@ -18,5 +18,5 @@ export interface CharacterDetails extends CharacterSummary {
 				readonly name: string;
 			}
 		}
-	};
+	}[];
 }

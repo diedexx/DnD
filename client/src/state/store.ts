@@ -8,7 +8,7 @@ import selectors, { resolvers } from "./selectors";
 
 export interface StateInterface {
 	characterSummaries: CharacterSummary[];
-	characterDetails: { [ id: number ]: CharacterDetails };
+	characterDetails: CharacterDetails;
 }
 
 export interface GraphQLData {

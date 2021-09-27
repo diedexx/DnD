@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
-import { CharacterDetails } from "../../interfaces/CharacterDetails";
+import CharacterDetails from "../../interfaces/CharacterDetails";
 import Spinner from "../Spinner/Spinner";
 import "./CharacterDetailPage.css";
 

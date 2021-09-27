@@ -1,5 +1,5 @@
-import { CharacterDetails } from "../interfaces/CharacterDetails";
-import { CharacterSummary } from "../interfaces/CharacterSummary";
+import CharacterDetails from "../interfaces/CharacterDetails";
+import CharacterSummary from "../interfaces/CharacterSummary";
 import getCharacterDetails from "../queries/getCharacterDetails";
 import getCharacterSummaries from "../queries/getCharacterSummaries";
 import actions from "./actions";

@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { CharacterSummary } from "../../interfaces/CharacterSummary";
+import CharacterSummary from "../../interfaces/CharacterSummary";
 import { routes } from "../../routes";
 import "./CharacterSummaryListItem.css";
 import KeyValuePair from "./KeyValuePair";

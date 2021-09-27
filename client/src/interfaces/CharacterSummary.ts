@@ -1,4 +1,4 @@
-export interface CharacterSummary {
+interface CharacterSummary {
 	readonly id: number;
 	readonly name: string;
 	readonly level: number;
@@ -13,3 +13,5 @@ export interface CharacterSummary {
 		readonly displayHealth: string;
 	};
 }
+
+export default CharacterSummary;

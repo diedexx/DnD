@@ -1,5 +1,5 @@
-import { CharacterDetails } from "../interfaces/CharacterDetails";
-import { CharacterSummary } from "../interfaces/CharacterSummary";
+import CharacterDetails from "../interfaces/CharacterDetails";
+import CharacterSummary from "../interfaces/CharacterSummary";
 import { GraphQLData } from "./store";
 
 // eslint-disable-next-line no-shadow

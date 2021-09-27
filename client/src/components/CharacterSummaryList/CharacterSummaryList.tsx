@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { CharacterSummary } from "../../interfaces/CharacterSummary";
+import CharacterSummary from "../../interfaces/CharacterSummary";
 import CharacterSummaryListItem from "./CharacterSummaryListItem";
 import "./CharacterSummaryList.css";
 

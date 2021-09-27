@@ -1,21 +1,11 @@
-export interface CharacterDetails {
-	readonly id: number;
-	readonly name: string;
-	readonly level: string;
-	readonly experience: string;
-	readonly race: string;
+import { CharacterSummary } from "./CharacterSummary";
+
+export interface CharacterDetails extends CharacterSummary {
 	readonly background: string;
 	readonly alignment: string;
 	readonly personalityTraits: string;
 	readonly bonds: string;
 	readonly flaws: string;
-	readonly class: {
-		readonly name: string;
-	};
-	readonly health: {
-		readonly currentHealth: number;
-		readonly maxHealth: number;
-	};
 	readonly abilityScores: {
 		readonly baseScore: number;
 		readonly modifier: {

@@ -17,6 +17,7 @@ const getCharacterDetails =
 			health {
 				currentHealth
 				maxHealth
+				displayHealth
 			}
 			abilityScores {
 				baseScore

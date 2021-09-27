@@ -44,6 +44,7 @@ a {
     padding: 0.5em;
     border-radius: 2px;
     box-shadow: 3px 3px rgba(3,3,3,0.2);
+    margin: 0.5em;
 }
 
 .card--clickable:hover {

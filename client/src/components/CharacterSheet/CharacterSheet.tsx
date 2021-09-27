@@ -1,9 +1,10 @@
 import { FunctionComponent } from "react";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import CharacterDetails from "../../interfaces/CharacterDetails";
-import AbilityScores from "../AbilityScores/AbilityScores";
 import Spinner from "../Spinner/Spinner";
-import "./CharacterDetailPage.css";
+import AbilityScores from "./AbilityScores/AbilityScores";
+import "./CharacterSheet.css";
+import CharacterSummary from "./CharacterSummary/CharacterSummary";
 
 export type CharacterDetailPageProps = {
 	characterId: number;
@@ -16,7 +17,7 @@ export type CharacterDetailPageProps = {
  *
  * @return {JSX.Element} The character detail page component.
  */
-const CharacterDetailPage: FunctionComponent<CharacterDetailPageProps> = ( { characterId }: CharacterDetailPageProps ): JSX.Element => {
+const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characterId }: CharacterDetailPageProps ): JSX.Element => {
 	const {
 		data: characterDetails,
 		isLoading,
@@ -32,10 +33,10 @@ const CharacterDetailPage: FunctionComponent<CharacterDetailPageProps> = ( { cha
 		</div>
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
 		<div className="character-sheet">
-			{ characterDetails.name }
+			<CharacterSummary characterDetails={ characterDetails } />
 			<AbilityScores abilityScores={ characterDetails.abilityScores } />
 		</div>
 	</div>;
 };
 
-export default CharacterDetailPage;
+export default CharacterSheet;

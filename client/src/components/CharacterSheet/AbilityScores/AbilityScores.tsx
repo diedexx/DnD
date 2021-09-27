@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import AbilityScoreInterface from "../../interfaces/AbilityScore";
+import AbilityScoreInterface from "../../../interfaces/AbilityScore";
 import AbilityScore from "./AbilityScore";
 import "./AbilityScores.css";
 

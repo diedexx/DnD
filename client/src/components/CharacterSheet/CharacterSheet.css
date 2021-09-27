@@ -1,0 +1,16 @@
+.controls{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.character-sheet{
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "character-summary     character-summary    character-summary        character-summary"
+        "ability-scores       skill-scores        character-info          character-details"
+        "ability-scores       skill-scores        character-info          character-details"
+        "ability-scores       skill-scores        character-info          character-details"
+        "ability-scores       skill-scores        character-info          character-details";
+}

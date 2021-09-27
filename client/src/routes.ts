@@ -1,5 +1,5 @@
 import React from "react";
-import CharacterDetailPage from "./components/CharacterDetailPage/CharacterDetailPage";
+import CharacterSheet from "./components/CharacterSheet/CharacterSheet";
 import CharactersOverviewPage from "./components/CharactersOverviewPage/CharactersOverviewPage";
 import CreateCharacterForm from "./components/CreateCharacterForm/CreateCharacterForm";
 import mapParamsToProps from "./functions/mapParamsToProps";
@@ -33,8 +33,8 @@ export const routes: { [ key: string ]: Route } = {
 	},
 
 	characterDetails: {
-		path: "/characters/:id/details",
-		component: mapParamsToProps( CharacterDetailPage, { id: { name: "characterId", normalize: parseInt } } ),
+		path: "/characters/:id/character-sheet",
+		component: mapParamsToProps( CharacterSheet, { id: { name: "characterId", normalize: parseInt } } ),
 		title: "Character sheet",
 		inNavMenu: false,
 		exact: true,

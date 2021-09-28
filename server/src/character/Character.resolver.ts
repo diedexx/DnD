@@ -2,6 +2,7 @@ import { Args, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql"
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
+import SkillScore from "../ability/models/SkillScore.valueobject";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
 import CharacterService from "./Character.service";
@@ -51,6 +52,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "abilityScores", () => [ AbilityScore ] )
 	public async getAbilityScores( @Parent() character: Character ): Promise<AbilityScore[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "abilityScores" ] ) ).abilityScores;
+	}
+
+	/**
+	 * Resolves the skillScores relationship.
+	 *
+	 * @param {Character} character The character to get skillScores for.
+	 *
+	 * @return {Promise<SkillScore[]>} The skillScores of the character.
+	 */
+	@ResolveField( "skillScores", () => [ SkillScore ] )
+	public async getSkillScores( @Parent() character: Character ): Promise<SkillScore[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "abilityScores.ability.skills.ability" ] ) ).skillScores;
 	}
 
 	/**

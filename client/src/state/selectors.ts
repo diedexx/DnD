@@ -1,13 +1,13 @@
-import CharacterDetails from "../interfaces/CharacterDetails";
-import CharacterSummary from "../interfaces/CharacterSummary";
+import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
+import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import getCharacterDetails from "../queries/getCharacterDetails";
 import getCharacterSummaries from "../queries/getCharacterSummaries";
 import actions from "./actions";
 import { StateInterface } from "./store";
 
 const selectors = {
-	getCharacterSummaries: ( state: StateInterface ): CharacterSummary[] => state.characterSummaries,
-	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetails => state.characterDetails,
+	getCharacterSummaries: ( state: StateInterface ): CharacterSummaryInterface[] => state.characterSummaries,
+	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetailsInterface => state.characterDetails,
 };
 export default selectors;
 
@@ -38,7 +38,7 @@ export const resolvers = {
 	* getCharacterDetails( id: number ) {
 		try {
 			const response = yield actions.graphQL( { query: getCharacterDetails, variables: { id } } );
-			const character: CharacterDetails = response.data.data.character;
+			const character: CharacterDetailsInterface = response.data.data.character;
 			return actions.setCharacterDetails( character );
 		} catch ( e ) {
 			console.error( e );

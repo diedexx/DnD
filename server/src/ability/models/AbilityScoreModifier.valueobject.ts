@@ -21,6 +21,16 @@ export default class AbilityScoreModifier {
 	}
 
 	/**
+	 * Gets the display friendly value for an ability score modifier.
+	 *
+	 * @return {string} The display friendly value for an ability score modifier.
+	 */
+	@Field( { name: "displayValue" } )
+	get displayValue(): string {
+		return this.toString();
+	}
+
+	/**
 	 * Gets the AbilityScoreModifier value in a human readable string.
 	 *
 	 * @return {string} The AbilityScoreModifier value in a human readable string.

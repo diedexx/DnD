@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
-import CharacterSummary from "../../interfaces/CharacterSummary";
+import CharacterSummaryInterface from "../../interfaces/CharacterSummary.interface";
 import CharacterSummaryList from "../CharacterSummaryList/CharacterSummaryList";
 import Spinner from "../Spinner/Spinner";
 import "./CharactersOverviewPage.css";
@@ -12,7 +12,7 @@ import "./CharactersOverviewPage.css";
  * @return {JSX.Element} The character overview.
  */
 const CharactersOverviewPage: FunctionComponent = (): JSX.Element => {
-	const { data, isLoading, startedLoading } = useResolvingSelect<CharacterSummary[]>( "getCharacterSummaries" );
+	const { data, isLoading, startedLoading } = useResolvingSelect<CharacterSummaryInterface[]>( "getCharacterSummaries" );
 	const refresh = useRefreshResolver( "getCharacterSummaries" );
 
 	return <Fragment>

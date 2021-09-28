@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
-import CharacterSummary from "../../interfaces/CharacterSummary";
+import CharacterSummaryInterface from "../../interfaces/CharacterSummary.interface";
 import CharacterSummaryListItem from "./CharacterSummaryListItem";
 import "./CharacterSummaryList.css";
 
 export type CharacterListProps = {
-	characterSummaries: CharacterSummary[];
+	characterSummaries: CharacterSummaryInterface[];
 }
 
 /**

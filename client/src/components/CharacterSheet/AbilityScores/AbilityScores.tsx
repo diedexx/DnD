@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import AbilityScoreInterface from "../../../interfaces/AbilityScore";
+import AbilityScoreInterface from "../../../interfaces/AbilityScore.interface";
 import AbilityScore from "./AbilityScore";
 import "./AbilityScores.css";
 
-export type AbilitiesProps = {
+export type AbilityScoresProps = {
 	abilityScores: AbilityScoreInterface[];
 }
 
@@ -14,7 +14,7 @@ export type AbilitiesProps = {
  *
  * @return {JSX.Element} The list of abilities and their scores.
  */
-const AbilityScores: FunctionComponent<AbilitiesProps> = ( { abilityScores } ): JSX.Element => {
+const AbilityScores: FunctionComponent<AbilityScoresProps> = ( { abilityScores } ): JSX.Element => {
 	return <div className="ability-scores card">
 		{ abilityScores.map( renderAbilityScore ) }
 	</div>;

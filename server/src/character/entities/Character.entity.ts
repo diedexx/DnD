@@ -84,6 +84,18 @@ export default class Character extends BaseEntity {
 	public abilityScores: AbilityScore[];
 
 	/**
+	 * Gets all skillScores for the character.
+	 *
+	 * @return {SkillScore[]} The skillScores.
+	 */
+	@Field( () => [ SkillScore ] )
+	get skillScores(): SkillScore[] {
+		// Nasty way to de-duplicate objects, using a set.
+		const skillSet = new Set( this.abilityScores.flatMap( abilityScore => abilityScore.ability.skills ) );
+		return Array.from( skillSet ).map( this.getSkillScore.bind( this ) );
+	}
+
+	/**
 	 * Gets a skill score object for a skill.
 	 *
 	 * @param {Skill} skill The skill.

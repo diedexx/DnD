@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import CharacterSummary from "../../interfaces/CharacterSummary";
+import CharacterSummaryInterface from "../../interfaces/CharacterSummary.interface";
 import { routes } from "../../routes";
 import "./CharacterSummaryListItem.css";
 import KeyValuePair from "../KeyValuePair/KeyValuePair";
 
 export type CharacterListItemProps = {
-	characterSummary: CharacterSummary;
+	characterSummary: CharacterSummaryInterface;
 }
 
 /**

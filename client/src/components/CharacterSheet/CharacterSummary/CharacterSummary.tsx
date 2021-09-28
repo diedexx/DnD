@@ -1,16 +1,16 @@
 import { FunctionComponent } from "react";
-import CharacterDetails from "../../../interfaces/CharacterDetails";
+import CharacterDetailsInterface from "../../../interfaces/CharacterDetails.interface";
 import KeyValuePair from "../../KeyValuePair/KeyValuePair";
 import "./CharacterSummary.css";
 
 export type CharacterSummaryProps = {
-	characterDetails: CharacterDetails;
+	characterDetails: CharacterDetailsInterface;
 }
 
 /**
  * Get a summary of the character for the character sheet.
  *
- * @param {CharacterDetails} characterDetails The character details.
+ * @param {CharacterDetailsInterface} characterDetails The character details.
  *
  * @return {JSX.Element} The character summary.
  */

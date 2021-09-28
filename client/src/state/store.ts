@@ -1,14 +1,14 @@
 import { createReduxStore, register } from "@wordpress/data";
-import CharacterDetails from "../interfaces/CharacterDetails";
-import CharacterSummary from "../interfaces/CharacterSummary";
+import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
+import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import actions from "./actions";
 import controls from "./controls";
 import reducer from "./reducer";
 import selectors, { resolvers } from "./selectors";
 
 export interface StateInterface {
-	characterSummaries: CharacterSummary[];
-	characterDetails: CharacterDetails;
+	characterSummaries: CharacterSummaryInterface[];
+	characterDetails: CharacterDetailsInterface;
 }
 
 export interface GraphQLData {

@@ -1,4 +1,4 @@
-interface CharacterSummary {
+interface CharacterSummaryInterface {
 	readonly id: number;
 	readonly name: string;
 	readonly level: number;
@@ -14,4 +14,4 @@ interface CharacterSummary {
 	};
 }
 
-export default CharacterSummary;
+export default CharacterSummaryInterface;

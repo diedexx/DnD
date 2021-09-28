@@ -23,13 +23,18 @@ const getCharacterDetails =
 				baseScore
 				modifier {
 					value
+					displayValue
 				}
 				ability {
 					name
-					shortName
-					skills {
-						name
-					}
+				}
+			}
+			skillScores {
+				abilityShortname
+				skillName
+				modifier {
+					value
+					displayValue
 				}
 			}
 		}

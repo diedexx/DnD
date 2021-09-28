@@ -1,5 +1,5 @@
-import CharacterDetails from "../interfaces/CharacterDetails";
-import CharacterSummary from "../interfaces/CharacterSummary";
+import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
+import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import { GraphQLData } from "./store";
 
 // eslint-disable-next-line no-shadow
@@ -14,12 +14,12 @@ export enum ACTION_TYPE {
 }
 
 const actions = {
-	setCharacterSummaries: ( characterSummaries: CharacterSummary[] ) => ( {
+	setCharacterSummaries: ( characterSummaries: CharacterSummaryInterface[] ) => ( {
 		type: ACTION_TYPE.SET_CHARACTER_SUMMARIES,
 		characterSummaries,
 	} ),
 
-	setCharacterDetails: ( characterDetails: CharacterDetails ) => ( {
+	setCharacterDetails: ( characterDetails: CharacterDetailsInterface ) => ( {
 		type: ACTION_TYPE.SET_CHARACTER_DETAILS,
 		characterDetails,
 	} ),

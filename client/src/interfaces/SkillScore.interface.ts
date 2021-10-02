@@ -1,10 +1,11 @@
-import ModifierInterface from "./modifier.interface";
+import ModifierInterface from "./Modifier.interface";
+import SkillInterface from "./Skill.interface";
+
 
 interface SkillScoreInterface {
-	readonly abilityShortname: string;
-	readonly skillName: string;
-	readonly modifier:ModifierInterface;
-
+	readonly isProficient: boolean;
+	readonly modifier: ModifierInterface;
+	readonly skill: SkillInterface;
 }
 
 export default SkillScoreInterface;

@@ -15,7 +15,7 @@ const AbilityScore: FunctionComponent<AbilitiesProps> = ( { abilityScore }: Abil
 	return <div className="ability-score">
 		<div className="ability-score__name">{ abilityScore.ability.name }</div>
 		<div className="ability-score__modifier">{ abilityScore.modifier.displayValue }</div>
-		<div className="ability-score__baseScore">{ abilityScore.baseScore }</div>
+		<div className="ability-score__baseScore">{ abilityScore.score }</div>
 	</div>;
 };
 

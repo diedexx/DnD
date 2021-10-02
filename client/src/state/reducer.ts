@@ -12,7 +12,6 @@ const DEFAULT_STATE: StateInterface = {
 			currentHealth: 0,
 			maxHealth: 0,
 		},
-		abilityScores: [],
 		alignment: "",
 		background: "",
 		"class": { name: "" },
@@ -21,6 +20,7 @@ const DEFAULT_STATE: StateInterface = {
 		level: 0,
 		race: "",
 		personalityTraits: "",
+		abilityScores: [],
 		skillScores: [],
 	},
 };

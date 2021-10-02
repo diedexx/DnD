@@ -29,7 +29,8 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 	return <div>
 		<div className="controls">
-			<button className="btn-refresh" disabled={ isLoading } onClick={ refresh }><i className="fa fa-refresh" />
+			<button className="btn-refresh" disabled={ isLoading } onClick={ refresh }>
+				<i className="fa fa-refresh" />
 			</button>
 		</div>
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }

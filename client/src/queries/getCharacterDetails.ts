@@ -20,21 +20,40 @@ const getCharacterDetails =
 				displayHealth
 			}
 			abilityScores {
-				baseScore
+				score
 				modifier {
 					value
 					displayValue
 				}
 				ability {
 					name
+					shortName
+					skills {
+						name
+					}
 				}
 			}
 			skillScores {
-				abilityShortname
-				skillName
+				skill {
+					name
+					ability {
+						name
+						shortName
+					}
+				}
+				isProficient
 				modifier {
-					value
 					displayValue
+					base
+					externalModifiers {
+						source
+						modifier {
+							displayValue
+							value
+						}
+						situational
+						description
+					}
 				}
 			}
 		}

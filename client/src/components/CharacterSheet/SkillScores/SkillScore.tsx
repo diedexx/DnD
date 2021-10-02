@@ -14,10 +14,10 @@ export type SkillScoreProps = {
 const SkillScore: FunctionComponent<SkillScoreProps> = ( { skillScore }: SkillScoreProps ): JSX.Element => {
 	return <div className="skill-score">
 		<span className="skill-score__modifier">{ skillScore.modifier.displayValue }</span>
-		<span className="skill-score__name">{ skillScore.skillName }
+		<span className="skill-score__name">{ skillScore.skill.name }
 			&nbsp;
 			<span className="skill-score__ability-source">
-				({ skillScore.abilityShortname })
+				({ skillScore.skill.ability.shortName })
 			</span>
 		</span>
 	</div>;

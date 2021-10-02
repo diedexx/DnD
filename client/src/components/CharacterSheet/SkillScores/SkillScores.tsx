@@ -28,7 +28,7 @@ const SkillScores: FunctionComponent<SkillScoresProps> = ( { skillScores } ): JS
  * @return {JSX.Element} The SkillScore component.
  */
 function renderSkillScore( skillScore: SkillScoreInterface ) {
-	return <SkillScore skillScore={ skillScore } />;
+	return <SkillScore key={ skillScore.skill.name } skillScore={ skillScore } />;
 }
 
 export default SkillScores;

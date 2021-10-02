@@ -28,7 +28,7 @@ const AbilityScores: FunctionComponent<AbilityScoresProps> = ( { abilityScores }
  * @return {JSX.Element} The AbilityScore component.
  */
 function renderAbilityScore( abilityScore: AbilityScoreInterface ) {
-	return <AbilityScore abilityScore={ abilityScore } />;
+	return <AbilityScore key={ abilityScore.ability.name } abilityScore={ abilityScore } />;
 }
 
 export default AbilityScores;

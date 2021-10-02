@@ -1,4 +1,4 @@
-import Skill from "../../ability/entities/Skill.entity";
+import Skill from "../../skill/entities/Skill.entity";
 import Character from "../entities/Character.entity";
 
 export default class NoAbilityScore extends Error {

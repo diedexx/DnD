@@ -37,8 +37,8 @@ describe( "The CharacterService", () => {
 		it( "creates a character object", async () => {
 			const score1 = new AbilityScore();
 			const score2 = new AbilityScore();
-			score1.baseScore = 1;
-			score2.baseScore = 2;
+			score1.score = 1;
+			score2.score = 2;
 			abilityScoreServiceMock.createAbilityScore
 				.mockResolvedValueOnce( score1 )
 				.mockResolvedValueOnce( score2 );
@@ -86,10 +86,10 @@ describe( "The CharacterService", () => {
 Character {
   "abilityScores": Array [
     AbilityScore {
-      "baseScore": 1,
+      "score": 1,
     },
     AbilityScore {
-      "baseScore": 2,
+      "score": 2,
     },
   ],
   "alignment": "Alignment",

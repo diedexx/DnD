@@ -1,10 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
-import Skill from "../../ability/entities/Skill.entity";
-import SkillScore from "../../ability/models/SkillScore.valueobject";
 import BaseEntity from "../../Base.entity";
-import NoAbilityScore from "../exceptions/NoAbilityScore.exception";
+import SkillScore from "../../skill/entities/SkillScore.entity";
 import Health from "../models/Health.valueobject";
 import HealthTransformer from "../transformers/Health.transformer";
 import CharacterClass from "./CharacterClass.entity";
@@ -80,37 +78,10 @@ export default class Character extends BaseEntity {
 	public readonly classId: number;
 
 	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ), { cascade: [ "insert" ] } )
-	@Field( () => AbilityScore )
+	@Field( () => [ AbilityScore ] )
 	public abilityScores: AbilityScore[];
 
-	/**
-	 * Gets all skillScores for the character.
-	 *
-	 * @return {SkillScore[]} The skillScores.
-	 */
+	@OneToMany( () => SkillScore, ( ( skillScore: SkillScore ) => skillScore.character ), { cascade: [ "insert" ] } )
 	@Field( () => [ SkillScore ] )
-	get skillScores(): SkillScore[] {
-		// Nasty way to de-duplicate objects, using a set.
-		const skillSet = new Set( this.abilityScores.flatMap( abilityScore => abilityScore.ability.skills ) );
-		return Array.from( skillSet ).map( this.getSkillScore.bind( this ) );
-	}
-
-	/**
-	 * Gets a skill score object for a skill.
-	 *
-	 * @param {Skill} skill The skill.
-	 *
-	 * @return {SkillScore} The skillScore object.
-	 *
-	 * @throws NoAbilityScore The character doesn't have an ability score for the ability related to the requested skill.
-	 */
-	public getSkillScore( skill: Skill ): SkillScore {
-		const abilityScoreForSkill: AbilityScore = this.abilityScores.find(
-			( abilityScore: AbilityScore ) => abilityScore.ability.isSameEntity( skill.ability ),
-		);
-		if ( ! abilityScoreForSkill ) {
-			throw NoAbilityScore.forSkill( skill, this );
-		}
-		return new SkillScore( skill, abilityScoreForSkill );
-	}
+	public skillScores: SkillScore[];
 }

@@ -39,6 +39,9 @@ module.exports = {
 				}
 			}
 		],
+		// Replace no-shadow with typescript no-shadow
+		"no-shadow": "off",
+		"@typescript-eslint/no-shadow": ["error"],
 		// Duplicate class members are overloads and are allowed in TypeScript
 		"no-dupe-class-members": "off",
 		// Allow space before async arrow function

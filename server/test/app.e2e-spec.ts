@@ -4,7 +4,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { getConnectionToken } from "@nestjs/typeorm";
 import * as request from "supertest";
 import { Connection, createConnection } from "typeorm";
-import { AppModule } from "../src/app.module";
+import { AppModule } from "../src/App.module";
 import { DatabaseConfigInterface } from "../src/config/database";
 import DatabaseModule from "../src/database/Database.module";
 

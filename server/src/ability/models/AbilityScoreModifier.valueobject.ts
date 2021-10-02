@@ -1,45 +1,17 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { ObjectType } from "@nestjs/graphql";
+import Modifier from "../../modifier/models/Modifier.valueobject";
 
 @ObjectType()
-export default class AbilityScoreModifier {
+export default class AbilityScoreModifier extends Modifier {
 	/**
-	 * The constructor.
+	 * Creates a new Modifier based on an a ability score.
 	 *
-	 * @param {number} modifier The ability score modifier value.
-	 */
-	public constructor( private readonly modifier: number ) {
-	}
-
-	/**
-	 * Gets the AbilityScoreModifier value.
+	 * @param {number} score The Ability score to create the Modifier for.
 	 *
-	 * @return {number} The AbilityScoreModifier value.
+	 * @return {AbilityScoreModifier} The AbilityScoreModifier.
 	 */
-	@Field( () => Int )
-	get value(): number {
-		return this.modifier;
-	}
-
-	/**
-	 * Gets the display friendly value for an ability score modifier.
-	 *
-	 * @return {string} The display friendly value for an ability score modifier.
-	 */
-	@Field( { name: "displayValue" } )
-	get displayValue(): string {
-		return this.toString();
-	}
-
-	/**
-	 * Gets the AbilityScoreModifier value in a human readable string.
-	 *
-	 * @return {string} The AbilityScoreModifier value in a human readable string.
-	 */
-	public toString(): string {
-		if ( this.modifier >= 0 ) {
-			return "+" + this.modifier;
-		}
-		return this.modifier.toString();
+	public static fromAbilityScore( score: number ): AbilityScoreModifier {
+		return new AbilityScoreModifier( Math.floor( ( score - 10 ) / 2 ) );
 	}
 }
 

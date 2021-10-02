@@ -1,48 +1,106 @@
 import { flatten } from "@nestjs/common";
-import { castArray } from "lodash";
 import Character from "../character/entities/Character.entity";
-import ModifierApplierInterface from "./interfaces/ModifierApplier.interface";
+import SkillScore from "../skill/entities/SkillScore.entity";
+import ExternalModifier from "./models/ExternalModifier.valueobject";
 import { ModifierCollectorService } from "./ModifierCollector.service";
 import ModificationTypesType from "./types/ModificationTypes.type";
 
 export class ModifierListBuilder {
-	private pendingQueries: Promise<ModifierApplierInterface[]>[];
-	private filters: ModificationTypesType[];
+	private readonly pendingQueries: Promise<ExternalModifier[]>[];
+	private readonly filters: ModificationTypesType[];
 
 	/**
 	 * The constructor.
+	 *
+	 * @param {ModifierCollectorService} modifierCollectorService A service which collects modifiers.
 	 */
 	public constructor( private readonly modifierCollectorService: ModifierCollectorService ) {
 		this.pendingQueries = [];
+		this.filters = [];
 	}
 
+	/**
+	 * Applies all modifiers that the owned gear gives.
+	 *
+	 * @param {Character} character The character to apply gear modifiers for.
+	 *
+	 * @return {this} The builder.
+	 */
 	public applyGearModifiers( character: Character ): this {
 		this.pendingQueries.push( this.modifierCollectorService.gatherGearModifiers( character ) );
 		return this;
 	}
 
+	/**
+	 * Applies all modifiers that a specific weapon gives.
+	 *
+	 * @param {Object} weapon The weapon to get modifiers for.
+	 *
+	 * @return {this} The builder.
+	 */
 	public applyWeaponModifier( weapon: any ): this {
 		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponModifiers( weapon ) );
 		return this;
 	}
 
-	public filterTypes( type: ModificationTypesType ): this;
-	public filterTypes( types: ModificationTypesType[] ): this;
-	public filterTypes( types: ModificationTypesType | ModificationTypesType[] ): this {
-		this.filters.push( ...castArray( types ) );
+	/**
+	 * Applies all modifiers that a proficiency adds to a specific skillScore.
+	 *
+	 * @param {SkillScore} skillScore The skillScore.
+	 *
+	 * @return {this} The builder.
+	 */
+	public applySkillProficiencyModifiers( skillScore: SkillScore ): this {
+		if ( skillScore.isProficient ) {
+			this.pendingQueries.push( this.modifierCollectorService.gatherSkillProficiencyModifiers() );
+		}
+
 		return this;
 	}
 
-	public async build(): Promise<ModifierApplierInterface[]> {
-		const modifiers = await this.awaitQueries();
+	/**
+	 * Filters out all modifiers that don't match the type.
+	 *
+	 * @param {ModificationTypesType[]} types The types to keep.
+	 *
+	 * @return {this} The builder.
+	 */
+	public filterTypes( ...types: ModificationTypesType[] ): this {
+		this.filters.push( ...types );
+		return this;
+	}
+
+	/**
+	 * Build the list of applicable external modifiers.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The external modifiers.
+	 */
+	public async build(): Promise<ExternalModifier[]> {
+		const modifiers = await this.queryResults();
 		return this.applyFilters( modifiers );
 	}
 
-	private async awaitQueries(): Promise<ModifierApplierInterface[]> {
+	/**
+	 * Gets and comines the results of all pending queries.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The combined list of external modifiers.
+	 *
+	 * @private
+	 */
+	private async queryResults(): Promise<ExternalModifier[]> {
 		return flatten( await Promise.all( this.pendingQueries ) );
 	}
 
-	private applyFilters( modifiers: ModifierApplierInterface[] ): ModifierApplierInterface[] {
-		return modifiers.filter( ( modifier: ModifierApplierInterface ) => this.filters.includes( modifier.type ) );
+	/**
+	 * Apply the registered filters.
+	 *
+	 * @param {ExternalModifier[]} modifiers The list of external modifiers to filter.
+	 *
+	 * @return {ExternalModifier[]} The filtered list of external modifiers.
+	 *
+	 * @private
+	 */
+	private applyFilters( modifiers: ExternalModifier[] ): ExternalModifier[] {
+		return modifiers.filter( ( modifier: ExternalModifier ) => this.filters.includes( modifier.type ) );
 	}
 }

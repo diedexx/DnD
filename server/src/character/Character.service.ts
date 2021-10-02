@@ -15,7 +15,7 @@ export default class CharacterService {
 	 *
 	 * @param {Repository<Character>} characterRepository The character repo.
 	 * @param {Repository<CharacterClass>} characterClassRepository The characterClass repo.
-	 * @param {AbilityScoreService} abilityScoreService A service for managing abilityscores.
+	 * @param {AbilityScoreService} abilityScoreService A service for managing abilityScores.
 	 */
 	public constructor(
 		@InjectRepository( Character )

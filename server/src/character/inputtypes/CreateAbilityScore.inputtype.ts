@@ -9,5 +9,5 @@ export default class CreateAbilityScoreInputType {
 	modifier: number;
 
 	@Field( () => Int )
-	baseScore: number;
+	score: number;
 }

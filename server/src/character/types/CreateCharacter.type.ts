@@ -3,7 +3,7 @@ import { CharacterAlignment, CharacterBackground, CharacterRace } from "../entit
 export type AbilityScoreType = {
 	abilityId: number;
 	modifier: number;
-	baseScore: number;
+	score: number;
 }
 
 type CreateCharacterType = {

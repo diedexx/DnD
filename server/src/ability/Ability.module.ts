@@ -6,17 +6,14 @@ import AbilityScoreResolver from "./AbilityScore.resolver";
 import AbilityScoreService from "./AbilityScore.service";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
-import Skill from "./entities/Skill.entity";
-import SkillResolver from "./Skill.resolver";
 
 @Module( {
 	imports: [
 		DatabaseModule,
-		TypeOrmModule.forFeature( [ Ability, Skill, AbilityScore ] ),
+		TypeOrmModule.forFeature( [ Ability, AbilityScore ] ),
 	],
 	providers: [
 		AbilityResolver,
-		SkillResolver,
 		AbilityScoreResolver,
 		AbilityScoreService,
 	],

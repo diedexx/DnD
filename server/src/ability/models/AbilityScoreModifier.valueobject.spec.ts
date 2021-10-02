@@ -1,26 +1,20 @@
 import AbilityScoreModifier from "./AbilityScoreModifier.valueobject";
 
 describe( "The AbilityScoreModifier", () => {
-	describe( "value getter", () => {
-		it.each( [ 1, 6, 9, 0, -1, -20 ] )( "returns the given value", ( modifier: number ) => {
-			const instance = new AbilityScoreModifier( modifier );
-			expect( instance.value ).toEqual( modifier );
-		} );
-	} );
-
-	describe( "toString function", () => {
+	describe( "fromAbilityScore", () => {
 		it.each(
 			[
-				[ 1, "+1" ],
-				[ 65, "+65" ],
-				[ 0, "+0" ],
-				[ -0, "+0" ],
-				[ -1, "-1" ],
-				[ -62, "-62" ],
+				{ score: 1, expected: -5 },
+				{ score: 9, expected: -1 },
+				{ score: 10, expected: 0 },
+				{ score: 11, expected: 0 },
+				{ score: 14, expected: 2 },
+				{ score: 15, expected: 2 },
+				{ score: 16, expected: 3 },
+				{ score: 30, expected: 10 },
 			],
-		)( "displays the AbilityScoreModifier in a human readable way", ( modifier: number, expected: string ) => {
-			const instance = new AbilityScoreModifier( modifier );
-			expect( instance.toString() ).toEqual( expected );
+		)( "maps an ability score to a modifier", ( { score, expected } ) => {
+			expect( AbilityScoreModifier.fromAbilityScore( score ).value ).toBe( expected );
 		} );
 	} );
 } );

@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Ability from "./entities/Ability.entity";
-import Skill from "./entities/Skill.entity";
+import Skill from "../skill/entities/Skill.entity";
 
 @Resolver( () => Ability )
 export default class AbilityResolver extends BaseResolver( Ability, "ability", "abilities" ) {

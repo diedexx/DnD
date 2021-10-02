@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Ability from "./entities/Ability.entity";
+import Ability from "../ability/entities/Ability.entity";
 import Skill from "./entities/Skill.entity";
 
 @Resolver( () => Skill )
@@ -30,7 +30,7 @@ export default class SkillResolver extends BaseResolver( Skill, "skill", "skills
 	 * @return {Promise<Skill>} The ability that benefit this skill.
 	 */
 	@ResolveField( "ability", () => Ability )
-	public async getSkills( @Parent() skill: Skill ): Promise<Ability> {
+	public async getAbility( @Parent() skill: Skill ): Promise<Ability> {
 		return ( await this.relationLoaderService.loadRelations( skill, [ "ability" ] ) ).ability;
 	}
 }

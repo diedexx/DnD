@@ -2,7 +2,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
-import AbilityScoreModifier from "./models/AbilityScoreModifier.valueobject";
 import CreateAbilityScoreType from "./types/CreateAbilityScore.type";
 
 export default class AbilityScoreService {
@@ -25,8 +24,7 @@ export default class AbilityScoreService {
 		const abilityScore: AbilityScore = new AbilityScore();
 		abilityScore.ability = await this.abilityRepository.findOne( args.abilityId );
 		abilityScore.character = args.character;
-		abilityScore.baseScore = args.baseScore;
-		abilityScore.modifier = new AbilityScoreModifier( args.modifier );
+		abilityScore.score = args.score;
 
 		return abilityScore;
 	}

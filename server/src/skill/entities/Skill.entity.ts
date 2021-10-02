@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
-import Ability from "./Ability.entity";
+import Ability from "../../ability/entities/Ability.entity";
 
 @Entity()
 @ObjectType()

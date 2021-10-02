@@ -37,26 +37,22 @@ describe( "The AbilityScoreService", () => {
 			const actual = await abilityScoreService.createAbilityScore( {
 				character: new Character(),
 				abilityId: 32,
-				baseScore: 10,
-				modifier: 3,
+				score: 10,
 			} );
 
 			expect( abilityRepositoryMock.findOne ).toHaveBeenCalledTimes( 1 );
 			expect( abilityRepositoryMock.findOne ).toBeCalledWith( 32 );
 
 			expect( actual ).toMatchInlineSnapshot( `
-        AbilityScore {
-          "ability": Ability {
-            "id": 32,
-            "name": "Strength",
-          },
-          "baseScore": 10,
-          "character": Character {},
-          "modifier": AbilityScoreModifier {
-            "modifier": 3,
-          },
-        }
-      ` );
+AbilityScore {
+  "ability": Ability {
+    "id": 32,
+    "name": "Strength",
+  },
+  "character": Character {},
+  "score": 10,
+}
+` );
 		} );
 	} );
 } );

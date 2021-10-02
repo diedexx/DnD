@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, OneToMany } from "typeorm";
 import BaseEntity from "../../Base.entity";
-import Skill from "./Skill.entity";
+import Skill from "../../skill/entities/Skill.entity";
 
 @Entity()
 @ObjectType()

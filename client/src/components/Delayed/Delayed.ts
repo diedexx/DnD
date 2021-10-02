@@ -17,7 +17,8 @@ const Delayed = ( { children, waitBeforeShow = 500 }: DelayedPros ) => {
 	const [ isShown, setIsShown ] = useState( false );
 
 	useEffect( () => {
-		setTimeout( () => setIsShown( true ), waitBeforeShow );
+		const timeout = setTimeout( () => setIsShown( true ), waitBeforeShow );
+		return () => clearTimeout( timeout );
 	}, [ waitBeforeShow ] );
 
 	return isShown ? children : null;

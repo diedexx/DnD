@@ -1,0 +1,9 @@
+.modifier-breakdown {
+    position: absolute;
+    z-index: 1;
+    margin-left:4em;
+}
+
+.modifier-breakdown--locked {
+    border: 1px solid #3f3;
+}

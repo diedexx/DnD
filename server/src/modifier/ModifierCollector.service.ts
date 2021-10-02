@@ -60,7 +60,7 @@ export class ModifierCollectorService {
 				ModificationTypesType.SKILL,
 				new Modifier( 2 ),
 				false,
-				"You are proficient with this skill",
+				"You are proficient at this skill",
 			),
 		];
 	}

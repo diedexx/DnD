@@ -13,6 +13,11 @@ export type SkillScoreProps = {
  */
 const SkillScore: FunctionComponent<SkillScoreProps> = ( { skillScore }: SkillScoreProps ): JSX.Element => {
 	return <div className="skill-score">
+		<span
+			className={ "skill_score__proficiency " + ( skillScore.isProficient && "skill_score__proficiency--proficient" ) }
+		>
+			{ skillScore.isProficient && "✓" }
+		</span>
 		<span className="skill-score__modifier">{ skillScore.modifier.displayValue }</span>
 		<span className="skill-score__name">{ skillScore.skill.name }
 			&nbsp;

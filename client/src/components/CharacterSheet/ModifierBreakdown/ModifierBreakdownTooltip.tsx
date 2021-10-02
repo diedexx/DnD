@@ -32,7 +32,7 @@ const ModifierBreakdownTooltip: FunctionComponent<ModifierBreakdownTooltipProps>
 	}, [] );
 
 	const toggleBreakdownLock = useCallback( ( e ) => {
-		if ( ! e.keyCode || e.keyCode !== 32 ) {
+		if ( e.keyCode && e.keyCode !== 32 ) {
 			return;
 		}
 		setLockBreakdown( ! lockBreakdown );

@@ -27,11 +27,11 @@ export default class SkillScoreResolver extends BaseResolver( SkillScore, "skill
 	}
 
 	/**
-	 * Get the ability that benefits a skillScore.
+	 * Get the skillScore modifier.
 	 *
-	 * @param {SkillScore} skillScore The skillScore to get the ability for.
+	 * @param {SkillScore} skillScore The skillScore to get the modifier for.
 	 *
-	 * @return {Promise<SkillScore>} The ability that benefits this skillScore.
+	 * @return {Promise<SkillScore>} The modifier for the skillScore.
 	 */
 	@ResolveField( "modifier", () => Modifier )
 	public async getModifier( @Parent() skillScore: SkillScore ): Promise<Modifier> {

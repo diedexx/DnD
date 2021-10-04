@@ -36,15 +36,20 @@ export default class Modifier {
 	}
 
 	/**
-	 * Gets the display friendly value for an ability score modifier.
+	 * Gets the display friendly value for an modifier.
 	 *
-	 * @return {string} The display friendly value for an ability score modifier.
+	 * @return {string} The display friendly value for a modifier.
 	 */
 	@Field()
 	get displayValue(): string {
 		return Modifier.getDisplayValue( this.value );
 	}
 
+	/**
+	 * Gets the display friendly value for an base modifier.
+	 *
+	 * @return {string} The display friendly value for a modifier.
+	 */
 	@Field()
 	get displayBaseValue(): string {
 		return Modifier.getDisplayValue( this.base );
@@ -59,6 +64,15 @@ export default class Modifier {
 		return Modifier.getDisplayValue( this.value );
 	}
 
+	/**
+	 * Gets a human readable value for a numeric modifier.
+	 *
+	 * @param {number} value The numeric modifier value.
+	 *
+	 * @return {string} The human readable modifier value.
+	 *
+	 * @private
+	 */
 	private static getDisplayValue( value: number ): string {
 		if ( value >= 0 ) {
 			return "+" + value;

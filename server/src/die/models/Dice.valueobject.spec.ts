@@ -32,20 +32,20 @@ describe( "The Dice class", () => {
 
 		it( "doesn't accept non-existent dice sides", () => {
 			expect( () => Dice.from( "3d300" ) )
-				.toThrowErrorMatchingInlineSnapshot( `"Invalid number of sides. There is no die with 300 sides."` );
+				.toThrowErrorMatchingInlineSnapshot( "\"Invalid number of sides. There is no die with 300 sides.\"" );
 		} );
 
 		it( "doesn't accept invalid number of dice", () => {
 			expect( () => Dice.from( "0d2" ) )
-				.toThrowErrorMatchingInlineSnapshot( `"The number of dice cannot be less than 1"` );
+				.toThrowErrorMatchingInlineSnapshot( "\"The number of dice cannot be less than 1\"" );
 		} );
 
 		it( "doesn't accept incorrectly formatted strings", () => {
 			expect( () => Dice.from( "3xd80" ) )
-				.toThrowErrorMatchingInlineSnapshot( `"Incorrectly formatted Dice string. \\"3xd80\\". Example format: 2d8"` );
+				.toThrowErrorMatchingInlineSnapshot( "\"Incorrectly formatted Dice string. \\\"3xd80\\\". Example format: 2d8\"" );
 
 			expect( () => Dice.from( "" ) )
-				.toThrowErrorMatchingInlineSnapshot( `"Incorrectly formatted Dice string. \\"\\". Example format: 2d8"` );
+				.toThrowErrorMatchingInlineSnapshot( "\"Incorrectly formatted Dice string. \\\"\\\". Example format: 2d8\"" );
 		} );
 	} );
 } );

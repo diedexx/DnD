@@ -49,7 +49,7 @@ export default class Dice {
 	 * @throws InvalidDie When the die object is brought in an invalid state.
 	 */
 	public static from( diceString: string ): Dice {
-		let matches = diceString.match( /(?<numberOfDice>\d+)d(?<sides>\d+)/ );
+		const matches = diceString.match( /(?<numberOfDice>\d+)d(?<sides>\d+)/ );
 
 		if ( ! matches ) {
 			InvalidDiceString.becauseOfInvalidFormat( diceString, "2d8" );

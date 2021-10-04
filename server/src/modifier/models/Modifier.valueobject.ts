@@ -29,7 +29,7 @@ export default class Modifier {
 	get value(): number {
 		return this.externalModifiers.reduce( ( acc: number, externalModifier: ExternalModifier ) => {
 			if ( externalModifier.situational ) {
-				return;
+				return acc;
 			}
 			return acc + externalModifier.modifier.value;
 		}, this.base );

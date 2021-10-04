@@ -42,6 +42,14 @@ describe( "The Modifier", () => {
 			false,
 		);
 
+		const externalModifierSituational: ExternalModifier = new ExternalModifier(
+			"situational",
+			ModificationTypesType.ABILITY,
+			new Modifier( 4 ),
+			true,
+			"situational",
+		);
+
 		it( "gets and sets modifiers", () => {
 			const instance = new Modifier( 2 );
 
@@ -57,6 +65,12 @@ describe( "The Modifier", () => {
 			const instance = new Modifier( base );
 			instance.addExternalModifier( ...externalModifiers );
 			expect( instance.value ).toEqual( expectedValue );
+		} );
+
+		it( "doesn't include situational modifiers in the total value", () => {
+			const instance = new Modifier( 2 );
+			instance.addExternalModifier( externalModifier1, externalModifierSituational );
+			expect( instance.value ).toEqual( 3 );
 		} );
 
 		it( "modifies the parent modifier value recursively", () => {

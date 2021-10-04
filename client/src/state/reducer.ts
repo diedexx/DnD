@@ -22,6 +22,7 @@ const DEFAULT_STATE: StateInterface = {
 		personalityTraits: "",
 		abilityScores: [],
 		skillScores: [],
+		weapons: [],
 	},
 };
 

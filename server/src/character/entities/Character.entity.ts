@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
+import { Weapon } from "../../weapon/entities/Weapon.entity";
 import Health from "../models/Health.valueobject";
 import HealthTransformer from "../transformers/Health.transformer";
 import CharacterClass from "./CharacterClass.entity";
@@ -84,4 +85,8 @@ export default class Character extends BaseEntity {
 	@OneToMany( () => SkillScore, ( skillScore: SkillScore ) => skillScore.character, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ SkillScore ] )
 	public skillScores: SkillScore[];
+
+	@OneToMany( () => Weapon, ( weapon: Weapon ) => weapon.owner, { cascade: [ "insert", "update" ] } )
+	@Field( () => [ Weapon ] )
+	public weapons: Weapon[];
 }

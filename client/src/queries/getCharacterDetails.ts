@@ -1,3 +1,19 @@
+const modifierQuery = `
+					value
+					base
+					displayValue
+					externalModifiers {
+						source
+						modifier {
+							value
+							base
+							displayValue
+						}
+						situational
+						description
+					}
+				`;
+
 const getCharacterDetails =
 	`query CharacterDetails($id: Int!) {
 		character(id: $id) {
@@ -22,8 +38,7 @@ const getCharacterDetails =
 			abilityScores {
 				score
 				modifier {
-					value
-					displayValue
+					${ modifierQuery }
 				}
 				ability {
 					name
@@ -43,17 +58,24 @@ const getCharacterDetails =
 				}
 				isProficient
 				modifier {
+					${ modifierQuery }
+				}
+			}
+			weapons {
+				name
+				description
+				attackRollModifier {
+					${ modifierQuery }
+				}
+				damageRoll {
 					displayValue
-					base
-					externalModifiers {
-						source
-						modifier {
-							displayValue
-							value
-						}
-						situational
-						description
+					dice {
+						displayValue
 					}
+					modifier {
+						${ modifierQuery }
+					}
+					type
 				}
 			}
 		}

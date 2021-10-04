@@ -9,6 +9,8 @@ import DatabaseConfig from "./config/database";
 import GraphQLConfig, { GraphQLConfigInterface } from "./config/graphQL";
 import { SkillModule } from "./skill/Skill.module";
 import { ModifierModule } from "./modifier/Modifier.module";
+import { WeaponModule } from "./weapon/Weapon.module";
+import { DamageModule } from "./damage/Damage.module";
 import DatabaseModule from "./database/Database.module";
 
 @Module( {
@@ -24,6 +26,8 @@ import DatabaseModule from "./database/Database.module";
 		AbilityModule,
 		SkillModule,
 		ModifierModule,
+		WeaponModule,
+		DamageModule,
 	],
 	controllers: [
 		AppController,

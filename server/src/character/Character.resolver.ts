@@ -2,9 +2,10 @@ import { Args, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql"
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
-import SkillScore from "../skill/entities/SkillScore.entity";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
+import SkillScore from "../skill/entities/SkillScore.entity";
+import { Weapon } from "../weapon/entities/Weapon.entity";
 import CharacterService from "./Character.service";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
@@ -64,6 +65,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "skillScores", () => [ SkillScore ] )
 	public async getSkillScores( @Parent() character: Character ): Promise<SkillScore[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "skillScores" ] ) ).skillScores;
+	}
+
+	/**
+	 * Resolves the weapons relationship.
+	 *
+	 * @param {Character} character The character to get weapons for.
+	 *
+	 * @return {Promise<Weapon[]>} The weapons of the character.
+	 */
+	@ResolveField( "weapons", () => [ Weapon ] )
+	public async getWeapons( @Parent() character: Character ): Promise<Weapon[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "weapons" ] ) ).weapons;
 	}
 
 	/**

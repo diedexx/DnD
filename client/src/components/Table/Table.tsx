@@ -2,8 +2,8 @@ import { get } from "lodash";
 import { FunctionComponent } from "react";
 import "./Table.css";
 
-type Heading = { field: string, name: string };
-type Object = Record<string, any>;
+export type Heading = { field: string, name: string };
+export type Object = Record<string, any>;
 export type TableProps = {
 	headings: Heading[];
 	objects: Object[];

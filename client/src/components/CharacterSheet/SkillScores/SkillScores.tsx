@@ -23,7 +23,7 @@ const SkillScores: FunctionComponent<SkillScoresProps> = ( { skillScores } ): JS
 /**
  * Gets an SkillScore component for an skillScore object.
  *
- *  @param {SkillScore} skillScore The SkillScore object.
+ * @param {SkillScore} skillScore The SkillScore object.
  *
  * @return {JSX.Element} The SkillScore component.
  */

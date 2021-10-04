@@ -77,11 +77,11 @@ export default class Character extends BaseEntity {
 	@Field( () => Int )
 	public readonly classId: number;
 
-	@OneToMany( () => AbilityScore, ( ( abilityScore: AbilityScore ) => abilityScore.character ), { cascade: [ "insert" ] } )
+	@OneToMany( () => AbilityScore, ( abilityScore: AbilityScore ) => abilityScore.character, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ AbilityScore ] )
 	public abilityScores: AbilityScore[];
 
-	@OneToMany( () => SkillScore, ( ( skillScore: SkillScore ) => skillScore.character ), { cascade: [ "insert" ] } )
+	@OneToMany( () => SkillScore, ( skillScore: SkillScore ) => skillScore.character, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ SkillScore ] )
 	public skillScores: SkillScore[];
 }

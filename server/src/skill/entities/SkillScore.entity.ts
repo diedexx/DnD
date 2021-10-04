@@ -21,7 +21,7 @@ export default class SkillScore extends BaseEntity {
 	@Field( () => Int )
 	public readonly skillId: string;
 
-	@ManyToOne( () => Character, ( ( character: Character ) => character.abilityScores ) )
+	@ManyToOne( () => Character, ( character: Character ) => character.abilityScores )
 	@Field( () => Character )
 	public character: Character;
 

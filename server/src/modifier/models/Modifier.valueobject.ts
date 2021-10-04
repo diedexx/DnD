@@ -7,7 +7,8 @@ export default class Modifier {
 	@Field( () => Int )
 	public readonly base: number;
 
-	private readonly _externalModifiers: ExternalModifier[];
+	@Field( () => [ ExternalModifier ] )
+	public readonly externalModifiers: ExternalModifier[];
 
 	/**
 	 * The constructor.
@@ -16,7 +17,7 @@ export default class Modifier {
 	 */
 	public constructor( base: number ) {
 		this.base = base;
-		this._externalModifiers = [];
+		this.externalModifiers = [];
 	}
 
 	/**
@@ -26,7 +27,7 @@ export default class Modifier {
 	 */
 	@Field( () => Int )
 	get value(): number {
-		return this._externalModifiers.reduce( ( acc: number, externalModifier: ExternalModifier ) => {
+		return this.externalModifiers.reduce( ( acc: number, externalModifier: ExternalModifier ) => {
 			if ( externalModifier.situational ) {
 				return;
 			}
@@ -41,7 +42,12 @@ export default class Modifier {
 	 */
 	@Field()
 	get displayValue(): string {
-		return this.toString();
+		return Modifier.getDisplayValue( this.value );
+	}
+
+	@Field()
+	get displayBaseValue(): string {
+		return Modifier.getDisplayValue( this.base );
 	}
 
 	/**
@@ -50,10 +56,14 @@ export default class Modifier {
 	 * @return {string} The Modifier value in a human readable string.
 	 */
 	public toString(): string {
-		if ( this.value >= 0 ) {
-			return "+" + this.value;
+		return Modifier.getDisplayValue( this.value );
+	}
+
+	private static getDisplayValue( value: number ): string {
+		if ( value >= 0 ) {
+			return "+" + value;
 		}
-		return this.value.toString();
+		return value.toString();
 	}
 
 	// eslint-disable-next-line no-warning-comments
@@ -67,17 +77,7 @@ export default class Modifier {
 	 * @return {void}
 	 */
 	public addExternalModifier( ...externalModifier: ExternalModifier[] ): void {
-		this._externalModifiers.push( ...castArray( externalModifier ) );
-	}
-
-	/**
-	 * Gets a list of applied external modifiers.
-	 *
-	 * @return {ExternalModifier[]} The list of applied externalModifiers.
-	 */
-	@Field( () => [ ExternalModifier ] )
-	get externalModifiers(): ExternalModifier[] {
-		return this._externalModifiers;
+		this.externalModifiers.push( ...castArray( externalModifier ) );
 	}
 }
 

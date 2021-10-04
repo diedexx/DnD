@@ -32,7 +32,7 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 	 */
 	@ResolveField( "character", () => [ Character ] )
 	public async getCharacter( @Parent() abilityScore: AbilityScore ): Promise<Character> {
-		return ( await this.relationLoaderService.loadRelations( abilityScore, [ "Character" ] ) ).character;
+		return ( await this.relationLoaderService.loadRelations( abilityScore, [ "character" ] ) ).character;
 	}
 
 	/**

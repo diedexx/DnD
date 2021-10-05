@@ -2762,6 +2762,11 @@ eslint-config-yoast@^5.0.17:
   dependencies:
     js-yaml "^3.6.0"
 
+eslint-formatter-json-relative@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-formatter-json-relative/-/eslint-formatter-json-relative-0.1.0.tgz#cc1d5f202574de269db1aea9ca525b3140cddd1b"
+  integrity sha512-8uLnyLO3OGAmIsDi4XFkkpYELUOupEqkuzdh6HX3NSNdRhzVFNPBPsvUyujEkUJ2KVUuSjyQG+v5yzLYQFNrhw==
+
 eslint-plugin-jsx-a11y@^6.4.1:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.4.1.tgz#a2d84caa49756942f42f1ffab9002436391718fd"

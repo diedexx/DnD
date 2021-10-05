@@ -41,7 +41,7 @@ module.exports = {
 		],
 		// Replace no-shadow with typescript no-shadow
 		"no-shadow": "off",
-		"@typescript-eslint/no-shadow": ["error"],
+		"@typescript-eslint/no-shadow": [ "error" ],
 		// Duplicate class members are overloads and are allowed in TypeScript
 		"no-dupe-class-members": "off",
 		// Allow space before async arrow function
@@ -54,6 +54,14 @@ module.exports = {
 			}
 		],
 	},
+	overrides: [
+		{
+			files: [ "*.spec.ts" ],
+			rules: {
+				"no-new": "off"
+			}
+		},
+	],
 	// Stupid, but required for extending the `Yoast` eslint config.
 	settings: {
 		"react": {

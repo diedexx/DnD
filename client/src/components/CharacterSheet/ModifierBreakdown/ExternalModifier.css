@@ -1,0 +1,5 @@
+.external-modifier--situational::after {
+    opacity: 75%;
+    content:"*";
+    vertical-align: super;
+}

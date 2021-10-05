@@ -1,13 +1,19 @@
 const modifierQuery = `
 					value
 					base
+					situationalValue
 					displayValue
+					displayBaseValue
+					displaySituationalValue
 					externalModifiers {
 						source
 						modifier {
 							value
 							base
+							situationalValue
 							displayValue
+							displayBaseValue
+							displaySituationalValue
 						}
 						situational
 						description

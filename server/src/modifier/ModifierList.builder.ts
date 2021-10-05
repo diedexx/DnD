@@ -1,6 +1,7 @@
 import { flatten } from "@nestjs/common";
 import Character from "../character/entities/Character.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
+import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
 import { ModifierCollectorService } from "./ModifierCollector.service";
 import ModificationTypesType from "./types/ModificationTypes.type";
@@ -34,12 +35,25 @@ export class ModifierListBuilder {
 	/**
 	 * Applies all modifiers that a specific weapon gives.
 	 *
-	 * @param {Object} weapon The weapon to get modifiers for.
+	 * @param {Weapon} weapon The weapon to get modifiers for.
 	 *
 	 * @return {this} The builder.
 	 */
-	public applyWeaponModifier( weapon: any ): this {
+	public applyWeaponModifier( weapon: Weapon ): this {
 		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponModifiers( weapon ) );
+		return this;
+	}
+
+	/**
+	 * Applies all modifiers that weapon proficiency gives for a specific weapon.
+	 *
+	 *  @param {Character} character The character to get the proficiency bonus for.
+	 * @param {Weapon} weapon The weapon to get the proficiency bonus for.
+	 *
+	 * @return {this} The builder
+	 */
+	public applyWeaponProficiencyModifiers( character: Character, weapon: Weapon ): this {
+		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponProficiencyModifiers( character, weapon ) );
 		return this;
 	}
 

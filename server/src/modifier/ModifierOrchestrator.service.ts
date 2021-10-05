@@ -31,12 +31,12 @@ export class ModifierOrchestratorService {
 	public async applyAttackRollModifiers( base: Modifier, character: Character, weapon: any ): Promise<Modifier> {
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
 			.applyWeaponModifier( weapon )
+			.applyWeaponProficiencyModifiers( character, weapon )
 			.applyGearModifiers( character )
 			.filterTypes( ModificationTypesType.ATTACK_ROLL )
 			.build();
 
-		base.addExternalModifier( ...externalModifiers );
-		return base;
+		return base.withExternalModifier( ...externalModifiers );
 	}
 
 	/**
@@ -53,7 +53,6 @@ export class ModifierOrchestratorService {
 			.filterTypes( ModificationTypesType.SKILL )
 			.build();
 
-		base.addExternalModifier( ...externalModifiers );
-		return base;
+		return base.withExternalModifier( ...externalModifiers );
 	}
 }

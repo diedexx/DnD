@@ -1,13 +1,29 @@
 import { get } from "lodash";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import "./Table.css";
 
-export type Heading = { field: string, name: string };
+export type Heading = { field?: string, name: string, renderer?: ( subject: any ) => ReactNode };
 export type Object = Record<string, any>;
 export type TableProps = {
 	headings: Heading[];
 	objects: Object[];
 	defaultValue: string,
+}
+
+/**
+ * Gets the value of a heading's field for an object.
+ *
+ * @param {Object} object The object to get the field for.
+ * @param {Heading} heading The heading to the value for.
+ * @param {string} defaultValue The fallback value.
+ *
+ * @return {any} The value.
+ */
+function getFieldValue( object: Object, heading: Heading, defaultValue: string ): any {
+	if ( ! heading.field ) {
+		return object;
+	}
+	return get( object, heading.field, defaultValue );
 }
 
 /**
@@ -17,24 +33,25 @@ export type TableProps = {
  *
  * @return {JSX.Element} The table
  */
-const Table: FunctionComponent<TableProps> = ( props: TableProps ): JSX.Element => {
-	const headings = [];
-	for ( const [ key, heading ] of Object.entries( props.headings ) ) {
-		headings.push( <th key={ key }>{ heading.name }</th> );
+const Table: FunctionComponent<TableProps> = ( { headings, objects, defaultValue }: TableProps ): JSX.Element => {
+	const headingElements = [];
+	for ( const [ key, heading ] of Object.entries( headings ) ) {
+		headingElements.push( <th key={ key }>{ heading.name }</th> );
 	}
 	const rows = [];
-	for ( const [ objectKey, object ] of Object.entries( props.objects ) ) {
-		const columns = [];
-		for ( const [ headingKey, heading ] of Object.entries( props.headings ) ) {
-			columns.push(
+	for ( const [ objectKey, object ] of Object.entries( objects ) ) {
+		const columnElements = [];
+		for ( const [ headingKey, heading ] of Object.entries( headings ) ) {
+			const renderer = heading.renderer || ( x => x );
+			columnElements.push(
 				<td key={ objectKey + headingKey }>
-					{ get( object, heading.field, props.defaultValue ) }
+					{ renderer( getFieldValue( object, heading, defaultValue ) ) }
 				</td>,
 			);
 		}
 		rows.push(
 			<tr key={ objectKey }>
-				{ columns }
+				{ columnElements }
 			</tr>,
 		);
 	}
@@ -42,7 +59,7 @@ const Table: FunctionComponent<TableProps> = ( props: TableProps ): JSX.Element 
 	return <table className="table">
 		<thead>
 			<tr>
-				{ headings }
+				{ headingElements }
 			</tr>
 		</thead>
 		<tbody>

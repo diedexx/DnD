@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import Character from "../character/entities/Character.entity";
+import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
 import Modifier from "./models/Modifier.valueobject";
 import ModificationTypesType from "./types/ModificationTypes.type";
@@ -29,11 +30,11 @@ export class ModifierCollectorService {
 	/**
 	 * Gathers a list of external modifiers that a weapon gives.
 	 *
-	 * @param {Object} weapon The weapon to get modifiers for.
+	 * @param {Weapon} weapon The weapon to get modifiers for.
 	 *
 	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
 	 */
-	public async gatherWeaponModifiers( weapon: any ): Promise<ExternalModifier[]> {
+	public async gatherWeaponModifiers( weapon: Weapon ): Promise<ExternalModifier[]> {
 		// This.equipmentModifierService.gatherModifiers(), This does query to database
 		return [
 			new ExternalModifier(
@@ -46,6 +47,25 @@ export class ModifierCollectorService {
 		];
 	}
 
+	/**
+	 * Gathers a list of external modifiers that weapon proficiency gives.
+	 *
+	 * @param {Character} character The character that owns the weapon.
+	 * @param {Weapon} weapon The weapon to get proficiency bonus for.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
+	 */
+	public async gatherWeaponProficiencyModifiers( character: Character, weapon: Weapon ): Promise<ExternalModifier[]> {
+		return [
+			new ExternalModifier(
+				"Proficiency",
+				ModificationTypesType.ATTACK_ROLL,
+				new Modifier( 2 ),
+				false,
+				"You are proficient with this type of weapon",
+			),
+		];
+	}
 	/* eslint-enable */
 
 	/**

@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
+import ModifierInterface from "../../../interfaces/Modifier.interface";
 import WeaponInterface from "../../../interfaces/Weapon.interface";
 import Table, { Heading } from "../../Table/Table";
+import WeaponAttackModifier from "./WeaponAttackModifier";
 import "./Weapons.css";
 
 export type WeaponsProps = {
@@ -8,10 +10,23 @@ export type WeaponsProps = {
 }
 
 const heading: Heading[] = [
-	{ name: "name", field: "name" },
-	{ name: "Atk bonus", field: "attackRollModifier.displayValue" },
-	{ name: "Dmg", field: "damageRoll.modifier.displayValue" },
-	{ name: "description", field: "description" },
+	{
+		name: "Name",
+		field: "name",
+	},
+	{
+		name: "Attack bonus",
+		field: "attackRollModifier",
+		renderer: ( ( modifier: ModifierInterface ) => <WeaponAttackModifier modifier={ modifier } /> ),
+	},
+	{
+		name: "Damage",
+		field: "damageRoll.displayValue",
+	},
+	{
+		name: "Description",
+		field: "description",
+	},
 ];
 
 /**

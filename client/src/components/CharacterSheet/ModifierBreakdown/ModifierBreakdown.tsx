@@ -1,6 +1,8 @@
 import { Fragment, FunctionComponent, useCallback } from "react";
+import ExternalModifierInterface from "../../../interfaces/ExternalModifier.interface";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
 import Table from "../../Table/Table";
+import ExternalModifier from "./ExternalModifier";
 import "./ModifierBreakdown.css";
 
 export type ModifierBreakdownProps = {
@@ -18,39 +20,43 @@ export type ModifierBreakdownProps = {
  */
 const ModifierBreakdown: FunctionComponent<ModifierBreakdownProps> = ( { modifier, locked } ): JSX.Element => {
 	const listExternalModifiers = useCallback( () => {
-		if ( modifier.externalModifiers && modifier.externalModifiers.length ) {
-			return (
-				<Fragment>
-					<hr />
-					External bonuses
-					<Table
-						defaultValue={ "" }
-						headings={
-							[
-								{ field: "modifier.displayValue", name: "Bonus" },
-								{ field: "source", name: "Source" },
-								{ field: "description", name: "Description" },
-							]
-						}
-						objects={ modifier.externalModifiers }
-					/>
-				</Fragment> );
+		if ( ! ( modifier.externalModifiers && modifier.externalModifiers.length ) ) {
+			return null;
 		}
+		return (
+			<Fragment>
+				<Table
+					defaultValue={ "" }
+					headings={
+						[
+							{
+								name: "Bonus",
+								renderer: ( externalModifier: ExternalModifierInterface ) =>
+									<ExternalModifier externalModifier={ externalModifier } />,
+							},
+							{
+								field: "source",
+								name: "Source",
+							},
+							{
+								field: "description",
+								name: "Description",
+							},
+						]
+					}
+					objects={ modifier.externalModifiers }
+				/>
+			</Fragment> );
 	}, [ modifier.externalModifiers ] );
 
 	return <div className={ "modifier-breakdown card " + ( locked && "modifier-breakdown--locked" ) }>
-		<table>
-			<tbody>
-				<tr>
-					<td>Total:</td>
-					<td>{ modifier.displayValue }</td>
-				</tr>
-				<tr>
-					<td>Base:</td>
-					<td>{ modifier.base }</td>
-				</tr>
-			</tbody>
-		</table>
+		<div className={ "modifier-breakdown__summary" }>
+			{ modifier.displayBaseValue }
+			{ modifier.externalModifiers.map( externalModifier =>
+				<ExternalModifier key={ externalModifier.source } externalModifier={ externalModifier } />,
+			) }
+		</div>
+		<hr />
 		{ listExternalModifiers() }
 	</div>;
 };

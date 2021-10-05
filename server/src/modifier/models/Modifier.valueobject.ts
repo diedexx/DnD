@@ -14,14 +14,20 @@ export default class Modifier {
 	 * The constructor.
 	 *
 	 * @param {number} base The modifier value.
+	 * @param {ExternalModifier[]} externalModifiers The external modifiers.
 	 */
-	public constructor( base: number ) {
+	public constructor( base: number, externalModifiers: ExternalModifier[] = [] ) {
 		this.base = base;
-		this.externalModifiers = [];
+		this.externalModifiers = externalModifiers.sort( ( a: ExternalModifier, b: ExternalModifier ): number => {
+			if ( a.situational !== b.situational ) {
+				return a.situational ? 1 : -1;
+			}
+			return b.modifier.value - a.modifier.value;
+		} );
 	}
 
 	/**
-	 * Gets the Modifier value with external modifiers.
+	 * Gets the Modifier value with external modifiers without situational modifiers.
 	 *
 	 * @return {number} The Modifier value.
 	 */
@@ -36,13 +42,35 @@ export default class Modifier {
 	}
 
 	/**
-	 * Gets the display friendly value for an modifier.
+	 * Gets the Modifier value with external modifiers including situational modifiers.
+	 *
+	 * @return {number} The Modifier value.
+	 */
+	@Field( () => Int )
+	get situationalValue(): number {
+		return this.externalModifiers.reduce( ( acc: number, externalModifier: ExternalModifier ) => {
+			return acc + externalModifier.modifier.value;
+		}, this.base );
+	}
+
+	/**
+	 * Gets the display friendly value for a modifier without situational modifiers.
 	 *
 	 * @return {string} The display friendly value for a modifier.
 	 */
 	@Field()
 	get displayValue(): string {
 		return Modifier.getDisplayValue( this.value );
+	}
+
+	/**
+	 * Gets the display friendly value for a modifier with situational modifiers.
+	 *
+	 * @return {string} The display friendly value for a modifier.
+	 */
+	@Field()
+	get displaySituationalValue(): string {
+		return Modifier.getDisplayValue( this.situationalValue );
 	}
 
 	/**
@@ -80,18 +108,15 @@ export default class Modifier {
 		return value.toString();
 	}
 
-	// eslint-disable-next-line no-warning-comments
 	/**
-	 * Adds a list of externalModifiers.
-	 *
-	 * todo This is not a proper valueObject because of these mutations. May fix later.
+	 * Creates a new Modifier with an added external modifier.
 	 *
 	 * @param {ExternalModifier[]} externalModifier The external modifiers to add.
 	 *
-	 * @return {void}
+	 * @return {Modifier} The new modifier.
 	 */
-	public addExternalModifier( ...externalModifier: ExternalModifier[] ): void {
-		this.externalModifiers.push( ...castArray( externalModifier ) );
+	public withExternalModifier( ...externalModifier: ExternalModifier[] ): Modifier {
+		return new Modifier( this.base, this.externalModifiers.concat( ...castArray( externalModifier ) ) );
 	}
 }
 

@@ -19,6 +19,6 @@ export default class CharacterClass extends BaseEntity {
 	public description: string;
 
 	@Column( { type: "integer", transformer: new DieTransformer() } )
-	@Field( () => Die )
+	@Field()
 	public hitDie: Die;
 }

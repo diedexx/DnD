@@ -10,10 +10,10 @@ export class DamageRoll {
 	@Field()
 	public readonly type: DamageType;
 
-	@Field( () => Modifier )
+	@Field()
 	public readonly modifier: Modifier;
 
-	@Field( () => Dice )
+	@Field()
 	public readonly dice: Dice;
 
 	/**

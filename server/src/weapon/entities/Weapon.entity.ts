@@ -19,11 +19,11 @@ export class Weapon extends BaseEntity {
 	public description: string;
 
 	@Column( "int", { transformer: new ModifierTransformer() } )
-	@Field( () => Modifier )
+	@Field()
 	public attackRollModifierBase: Modifier;
 
 	@Column( "varchar", { transformer: new DamageRollTransformer(), comment: "Example: 2d8 +3 Piercing" } )
-	@Field( () => DamageRoll )
+	@Field()
 	public damageRoll: DamageRoll;
 
 	@ManyToOne( () => Character, ( character: Character ) => character.weapons )

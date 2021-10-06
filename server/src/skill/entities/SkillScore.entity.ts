@@ -13,7 +13,7 @@ export default class SkillScore extends BaseEntity {
 	public isProficient: boolean;
 
 	@ManyToOne( () => Skill, { cascade: [ "insert" ] } )
-	@Field( () => Skill )
+	@Field()
 	public skill: Skill;
 
 	@Column( "int" )
@@ -30,6 +30,6 @@ export default class SkillScore extends BaseEntity {
 	@Field( () => Int )
 	public readonly characterId: string;
 
-	@Field( () => Modifier )
+	@Field()
 	public readonly modifier: Modifier;
 }

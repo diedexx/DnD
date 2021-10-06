@@ -50,7 +50,7 @@ export default class Character extends BaseEntity {
 		transformer: new HealthTransformer(),
 		comment: "The current and total health formatted like current/total (9/10)",
 	} )
-	@Field( () => Health )
+	@Field()
 	public health: Health;
 
 	@Column( "text" )
@@ -70,7 +70,7 @@ export default class Character extends BaseEntity {
 	public flaws: string;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )
-	@Field( () => CharacterClass )
+	@Field()
 	public class: CharacterClass;
 
 	@Column( "int" )

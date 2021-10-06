@@ -20,7 +20,7 @@ export default class AbilityScore extends BaseEntity {
 	 *
 	 * @return {AbilityScoreModifier} The modifier.
 	 */
-	@Field( () => AbilityScoreModifier )
+	@Field()
 	get modifier(): AbilityScoreModifier {
 		return AbilityScoreModifier.fromAbilityScore( this.score );
 	}
@@ -35,7 +35,7 @@ export default class AbilityScore extends BaseEntity {
 	public readonly characterId: string;
 
 	@ManyToOne( () => Ability, { eager: true, cascade: [ "insert" ] } )
-	@Field( () => Ability )
+	@Field()
 	public ability: Ability;
 
 	@Column( "int" )

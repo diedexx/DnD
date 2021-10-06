@@ -5,7 +5,7 @@ import Die, { Sides } from "./Die.valueobject";
 
 @ObjectType()
 export default class Dice {
-	@Field( () => Die )
+	@Field()
 	public readonly die: Die;
 
 	@Field( () => Int )

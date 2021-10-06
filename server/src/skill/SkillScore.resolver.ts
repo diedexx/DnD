@@ -8,7 +8,7 @@ import Skill from "./entities/Skill.entity";
 import SkillScore from "./entities/SkillScore.entity";
 import SkillScoreService from "./SkillScore.service";
 
-@Resolver( () => SkillScore )
+@Resolver( SkillScore )
 export default class SkillScoreResolver extends BaseResolver( SkillScore, "skillScore", "skillScores" ) {
 	/**
 	 * The constructor.

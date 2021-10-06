@@ -5,7 +5,7 @@ import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
 import CharacterClass from "./entities/CharacterClass.entity";
 
-@Resolver( () => CharacterClass )
+@Resolver( CharacterClass )
 export default class CharacterClassResolver extends BaseResolver( CharacterClass, "class", "classes" ) {
 	/**
 	 * The constructor.

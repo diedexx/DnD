@@ -13,7 +13,7 @@ import CreateAbilityScoreInputType from "./inputtypes/CreateAbilityScore.inputty
 import CreateCharacterInputType from "./inputtypes/CreateCharacter.inputtype";
 import CreateCharacterType from "./types/CreateCharacter.type";
 
-@Resolver( () => Character )
+@Resolver( Character )
 export default class CharacterResolver extends BaseResolver( Character, "character", "characters" ) {
 	/**
 	 * The constructor.

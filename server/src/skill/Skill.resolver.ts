@@ -6,7 +6,7 @@ import RelationLoaderService from "../database/RelationLoader.service";
 import Ability from "../ability/entities/Ability.entity";
 import Skill from "./entities/Skill.entity";
 
-@Resolver( () => Skill )
+@Resolver( Skill )
 export default class SkillResolver extends BaseResolver( Skill, "skill", "skills" ) {
 	/**
 	 * The constructor.

@@ -9,7 +9,7 @@ import Modifier from "../modifier/models/Modifier.valueobject";
 import { Weapon } from "./entities/Weapon.entity";
 import WeaponService from "./weapon.service";
 
-@Resolver( () => Weapon )
+@Resolver( Weapon )
 export default class WeaponResolver extends BaseResolver( Weapon, "weapon", "weapons" ) {
 	/**
 	 * The constructor.

@@ -84,6 +84,13 @@ const getCharacterDetails =
 					type
 				}
 			}
+			wallet {
+				copper
+				silver
+				electrum
+				gold
+				platinum
+			}
 		}
 	}`;
 export default getCharacterDetails;

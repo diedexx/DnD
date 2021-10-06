@@ -6,6 +6,7 @@ import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import SkillScores from "./SkillScores/SkillScores";
+import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
 
 export type CharacterDetailPageProps = {
@@ -40,6 +41,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 			<AbilityScores abilityScores={ characterDetails.abilityScores } />
 			<SkillScores skillScores={ characterDetails.skillScores } />
 			<Weapons weapons={ characterDetails.weapons } />
+			<Wallet wallet={ characterDetails.wallet } />
 		</div>
 	</div>;
 };

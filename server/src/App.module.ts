@@ -11,6 +11,7 @@ import { SkillModule } from "./skill/Skill.module";
 import { ModifierModule } from "./modifier/Modifier.module";
 import { WeaponModule } from "./weapon/Weapon.module";
 import { DamageModule } from "./damage/Damage.module";
+import { MoneyModule } from "./money/Money.module";
 import DatabaseModule from "./database/Database.module";
 
 @Module( {
@@ -28,6 +29,7 @@ import DatabaseModule from "./database/Database.module";
 		ModifierModule,
 		WeaponModule,
 		DamageModule,
+		MoneyModule,
 	],
 	controllers: [
 		AppController,

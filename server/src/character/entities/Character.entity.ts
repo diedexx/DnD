@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
+import Wallet from "../../money/entities/Wallet.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
 import Health from "../models/Health.valueobject";
@@ -68,6 +69,15 @@ export default class Character extends BaseEntity {
 	@Column( "text" )
 	@Field()
 	public flaws: string;
+
+	@ManyToOne( () => Wallet, { nullable: false, cascade: [ "insert", "update" ] } )
+	@Field()
+	public wallet: Wallet;
+
+	@Column()
+	@RelationId( ( character: Character ) => character.wallet )
+	@Field( () => Int )
+	public readonly walletId: number;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )
 	@Field()

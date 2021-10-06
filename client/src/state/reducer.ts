@@ -23,6 +23,13 @@ const DEFAULT_STATE: StateInterface = {
 		abilityScores: [],
 		skillScores: [],
 		weapons: [],
+		wallet: {
+			copper: 0,
+			silver: 0,
+			electrum: 0,
+			gold: 0,
+			platinum: 0,
+		},
 	},
 };
 

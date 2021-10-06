@@ -1,0 +1,29 @@
+.wallet{
+    display: flex;
+    flex-direction: row;
+    gap:1em
+}
+
+.wallet_coin.copper {
+    color: #B87333;
+}
+
+.wallet_coin.copper {
+    color: #B87333;
+}
+
+.wallet_coin.silver {
+    color: #C0C0C0;
+}
+
+.wallet_coin.electrum {
+    color: #F2E279;
+}
+
+.wallet_coin.gold {
+    color: #FFD700;
+}
+
+.wallet_coin.platinum {
+    color: #e5e4e2;
+}

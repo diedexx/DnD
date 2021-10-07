@@ -16,10 +16,9 @@ export type WalletProps = {
  * @return {JSX.Element} The element.
  */
 const getCoin = ( label: string, value: number, className: string ): JSX.Element => {
-	return <div className={ "wallet_coin " + className }>
-		<span className="wallet__coin-label">{ label }</span>
-		&nbsp;
-		<span className="wallet__coin-value">{ value }</span>
+	return <div className={ "wallet__coin " + className }>
+		<div className="wallet__coin-label">{ label }</div>
+		<div className="wallet__coin-value">{ value }</div>
 	</div>;
 };
 

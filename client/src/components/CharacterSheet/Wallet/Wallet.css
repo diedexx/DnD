@@ -1,29 +1,52 @@
-.wallet{
+.wallet {
     display: flex;
     flex-direction: row;
-    gap:1em
+    flex-wrap: wrap;
+    gap: 1em;
+    height: fit-content;
 }
 
-.wallet_coin.copper {
-    color: #B87333;
+.wallet__coin {
+    display: flex;
+    align-items: center;
 }
 
-.wallet_coin.copper {
-    color: #B87333;
+.wallet__coin-label {
+    padding: 5px;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid var(--background-color);
 }
 
-.wallet_coin.silver {
-    color: #C0C0C0;
+.wallet__coin-value {
+    border: 1px solid var(--background-color);
+    padding: 5px;
+    border-radius: 0 5px  5px 0;
 }
 
-.wallet_coin.electrum {
-    color: #F2E279;
+.copper .wallet__coin-label {
+    background-color: rgba(184, 115, 51, .5);
 }
 
-.wallet_coin.gold {
-    color: #FFD700;
+/*.copper .wallet__coin-label {*/
+/*    background-color: #B87333;*/
+/*}*/
+
+.silver .wallet__coin-label {
+    /*background-color: #C0C0C0;*/
+    background-color: rgba(192, 192, 192, .5);
 }
 
-.wallet_coin.platinum {
-    color: #e5e4e2;
+.electrum .wallet__coin-label {
+    /*background-color: #F2E279;*/
+    background-color: rgba(242, 226, 121, 0.5);
+}
+
+.gold .wallet__coin-label {
+    /*background-color: #FFD700;*/
+    background-color: rgba(255, 215, 0, .5);
+}
+
+.platinum .wallet__coin-label {
+    /*background-color: #e5e4e2;*/
+    background-color: rgba(229, 228, 226, .5);
 }

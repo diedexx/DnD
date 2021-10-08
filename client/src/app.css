@@ -21,8 +21,9 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: "Open Sans", sans-serif;
-    margin:0;
+    margin: 0;
 }
+
 a {
     color: var(--text-color);
 }
@@ -30,9 +31,11 @@ a {
 .page--full-width {
     width: 100%;
 }
+
 .page--normal-width {
     margin: 0 1em;
 }
+
 .page--narrow {
     margin: 0 auto;
     width: 700px;
@@ -43,9 +46,13 @@ a {
     color: var(--text-color);
     padding: 0.5em;
     border-radius: 2px;
-    box-shadow: 3px 3px rgba(3,3,3,0.2);
+    box-shadow: 3px 3px rgba(3, 3, 3, 0.2);
     margin: 0.5em;
     border: 1px solid black;
+}
+
+.value {
+    font-family: "monospace";
 }
 
 .card--clickable:hover {
@@ -53,13 +60,13 @@ a {
 }
 
 .card--full-width {
-    width:100%;
+    width: 100%;
 }
 
-.btn--fullSize{
+.btn--fullSize {
     display: block;
     text-align: center;
-    padding:1em;
+    padding: 1em;
 }
 
 

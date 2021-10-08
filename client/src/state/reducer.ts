@@ -20,6 +20,7 @@ const DEFAULT_STATE: StateInterface = {
 		level: 0,
 		race: "",
 		personalityTraits: "",
+		ideals: "",
 		abilityScores: [],
 		skillScores: [],
 		weapons: [],

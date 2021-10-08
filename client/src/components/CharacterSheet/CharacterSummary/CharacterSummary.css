@@ -1,5 +1,4 @@
 .character-summary {
-    grid-area: character-summary;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

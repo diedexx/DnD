@@ -6,6 +6,7 @@ import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import SkillScores from "./SkillScores/SkillScores";
+import TextCard from "./TextCard/TextCard";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
 
@@ -38,10 +39,24 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
 		<div className="character-sheet">
 			<CharacterSummary characterDetails={ characterDetails } />
-			<AbilityScores abilityScores={ characterDetails.abilityScores } />
-			<SkillScores skillScores={ characterDetails.skillScores } />
-			<Weapons weapons={ characterDetails.weapons } />
-			<Wallet wallet={ characterDetails.wallet } />
+			<div className="columns">
+				<div className="column">
+					<div className="columns">
+						<AbilityScores abilityScores={ characterDetails.abilityScores } />
+						<SkillScores skillScores={ characterDetails.skillScores } />
+					</div>
+					<Wallet wallet={ characterDetails.wallet } />
+				</div>
+				<div className="column">
+					<Weapons weapons={ characterDetails.weapons } />
+				</div>
+				<div className="column">
+					<TextCard label="Personality traits" text={ characterDetails.personalityTraits } />
+					<TextCard label="ideals" text={ characterDetails.ideals } />
+					<TextCard label="bonds" text={ characterDetails.bonds } />
+					<TextCard label="flaws" text={ characterDetails.flaws } />
+				</div>
+			</div>
 		</div>
 	</div>;
 };

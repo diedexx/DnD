@@ -8,6 +8,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly background: string;
 	readonly alignment: string;
 	readonly personalityTraits: string;
+	readonly ideals: string;
 	readonly bonds: string;
 	readonly flaws: string;
 	readonly abilityScores: AbilityScoreInterface[];

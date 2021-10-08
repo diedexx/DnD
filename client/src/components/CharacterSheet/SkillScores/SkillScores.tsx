@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import SkillScoreInterface from "../../../interfaces/SkillScore.interface";
 import SkillScore from "./SkillScore";
-import "./SkillScores.css";
 
 export type SkillScoresProps = {
 	skillScores: SkillScoreInterface[];

@@ -31,6 +31,7 @@ const getCharacterDetails =
 			background
 			alignment
 			personalityTraits
+			ideals
 			bonds
 			flaws
 			class {

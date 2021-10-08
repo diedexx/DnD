@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import AbilityScoreInterface from "../../../interfaces/AbilityScore.interface";
 import AbilityScore from "./AbilityScore";
-import "./AbilityScores.css";
 
 export type AbilityScoresProps = {
 	abilityScores: AbilityScoreInterface[];

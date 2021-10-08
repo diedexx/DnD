@@ -3,7 +3,6 @@ import ModifierInterface from "../../../interfaces/Modifier.interface";
 import WeaponInterface from "../../../interfaces/Weapon.interface";
 import Table, { Heading } from "../../Table/Table";
 import WeaponAttackModifier from "./WeaponAttackModifier";
-import "./Weapons.css";
 
 export type WeaponsProps = {
 	weapons: WeaponInterface[];

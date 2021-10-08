@@ -30,8 +30,8 @@ export class Weapon extends BaseEntity {
 	@Field( () => Character )
 	public owner: Character;
 
-	@Column( "int" )
+	@Column()
 	@RelationId( ( weapon: Weapon ) => weapon.owner )
 	@Field( () => Int )
-	public readonly ownerId: string;
+	public readonly ownerId: number;
 }

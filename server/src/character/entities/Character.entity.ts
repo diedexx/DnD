@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, ManyToOne, OneToMany, RelationId } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
 import Wallet from "../../money/entities/Wallet.entity";
@@ -70,7 +70,10 @@ export default class Character extends BaseEntity {
 	@Field()
 	public flaws: string;
 
-	@ManyToOne( () => Wallet, { nullable: false, cascade: [ "insert", "update" ] } )
+	@OneToOne( () => Wallet, ( wallet: Wallet ) => wallet.owner, {
+		nullable: false,
+		cascade: [ "insert", "update" ],
+	} )
 	@Field()
 	public wallet: Wallet;
 

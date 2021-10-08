@@ -1,27 +1,38 @@
-import { Field, Float, ObjectType } from "@nestjs/graphql";
-import { Column, Entity } from "typeorm";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
+import { Column, Entity, JoinColumn, OneToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
+import Character from "../../character/entities/Character.entity";
 
 @Entity()
 @ObjectType()
 export default class Wallet extends BaseEntity {
 	@Column( "float", { "default": 0 } )
 	@Field( () => Float )
-	private readonly copper: number;
+	public readonly copper: number;
 
 	@Column( "float", { "default": 0 } )
 	@Field( () => Float )
-	private readonly silver: number;
+	public readonly silver: number;
 
 	@Column( "float", { "default": 0 } )
 	@Field( () => Float )
-	private readonly electrum: number;
+	public readonly electrum: number;
 
 	@Column( "float", { "default": 0 } )
 	@Field( () => Float )
-	private readonly gold: number;
+	public readonly gold: number;
 
 	@Column( "float", { "default": 0 } )
 	@Field( () => Float )
-	private readonly platinum: number;
+	public readonly platinum: number;
+
+	@OneToOne( () => Character, ( character: Character ) => character.wallet )
+	@JoinColumn()
+	@Field( () => Character )
+	public owner: Character;
+
+	@Column()
+	@RelationId( ( wallet: Wallet ) => wallet.owner )
+	@Field( () => Int )
+	public readonly ownerId: number;
 }

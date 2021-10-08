@@ -36,7 +36,7 @@ const heading: Heading[] = [
  * @return {JSX.Element} The list of weapons and their properties.
  */
 const Weapons: FunctionComponent<WeaponsProps> = ( { weapons } ): JSX.Element => {
-	return <div className="weapons card">
+	return <div className="weapons">
 		<Table defaultValue="-" headings={ heading } objects={ weapons } />
 	</div>;
 };

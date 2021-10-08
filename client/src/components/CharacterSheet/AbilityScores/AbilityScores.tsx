@@ -14,7 +14,7 @@ export type AbilityScoresProps = {
  * @return {JSX.Element} The list of abilities and their scores.
  */
 const AbilityScores: FunctionComponent<AbilityScoresProps> = ( { abilityScores } ): JSX.Element => {
-	return <div className="ability-scores card">
+	return <div className="ability-scores">
 		{ abilityScores.map( renderAbilityScore ) }
 	</div>;
 };

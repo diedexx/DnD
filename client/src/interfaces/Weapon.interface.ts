@@ -1,3 +1,4 @@
+import DiceInterface from "./Dice.interface";
 import ModifierInterface from "./Modifier.interface";
 
 interface WeaponInterface {
@@ -8,9 +9,7 @@ interface WeaponInterface {
 		readonly displayValue: string;
 		readonly modifier: ModifierInterface;
 		readonly type: string;
-		readonly dice: {
-			readonly displayValue;
-		}
+		readonly dice: DiceInterface;
 	};
 }
 

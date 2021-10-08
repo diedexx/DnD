@@ -34,6 +34,9 @@ const getCharacterDetails =
 			ideals
 			bonds
 			flaws
+			hitDice {
+				displayValue
+			}
 			class {
 				name
 			}

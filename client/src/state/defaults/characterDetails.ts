@@ -32,6 +32,9 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 		successes: 0,
 		failures: 0,
 	},
+	hitDice: {
+		displayValue: "",
+	},
 };
 
 export default defaultCharacterDetails;

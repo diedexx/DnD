@@ -4,6 +4,8 @@ import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
 import DeathSave from "../../damage/models/DeathSave.valueobject";
 import DeathSaveTransformer from "../../damage/transformers/DeathSave.transformer";
+import Dice from "../../die/models/Dice.valueobject";
+import DiceTransformer from "../../die/transformers/Dice.transformer";
 import Wallet from "../../money/entities/Wallet.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
@@ -46,6 +48,10 @@ export default class Character extends BaseEntity {
 	@Column()
 	@Field()
 	public alignment: CharacterAlignment;
+
+	@Column( { type: "varchar", transformer: new DiceTransformer() } )
+	@Field()
+	public hitDice: Dice;
 
 	@Column( {
 		type: "varchar",

@@ -10,6 +10,11 @@
     flex-wrap: wrap;
 }
 
+.columns--fill {
+    display: flex;
+    justify-content: center;
+}
+
 .column {
     max-width: 500px;
 }

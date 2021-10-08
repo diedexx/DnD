@@ -1,14 +1,16 @@
 import { FunctionComponent } from "react";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
+import BigValueDisplay from "../BigValueDisplay/BigValueDisplay";
+import HeadingCard from "../Card/HeadingCard";
 import Spinner from "../Spinner/Spinner";
+import TextValueDisplay from "../TextValueDisplay/TextValueDisplay";
 import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import DeathSave from "./DeathSave/DeathSave";
 import Health from "./Health/Health";
 import SkillScores from "./SkillScores/SkillScores";
-import TextCard from "./TextCard/TextCard";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
 
@@ -42,26 +44,53 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 		<div className="character-sheet">
 			<CharacterSummary characterDetails={ characterDetails } />
 			<div className="columns">
+
 				<div className="column">
 					<div className="columns">
-						<AbilityScores abilityScores={ characterDetails.abilityScores } />
-						<SkillScores skillScores={ characterDetails.skillScores } />
+						<HeadingCard heading="Ability scores">
+							<AbilityScores abilityScores={ characterDetails.abilityScores } />
+						</HeadingCard>
+						<HeadingCard heading="Skill scores">
+							<SkillScores skillScores={ characterDetails.skillScores } />
+						</HeadingCard>
 					</div>
-					<Wallet wallet={ characterDetails.wallet } />
+					<HeadingCard heading="Wallet">
+						<Wallet wallet={ characterDetails.wallet } />
+					</HeadingCard>
 				</div>
+
 				<div className="column">
-					<Health health={ characterDetails.health } />
-					<Weapons weapons={ characterDetails.weapons } />
-					<div className="columns">
-						<DeathSave deathSave={ characterDetails.deathSave } />
+					<HeadingCard heading="Current HP">
+						<Health health={ characterDetails.health } />
+					</HeadingCard>
+					<div className="columns--fill">
+						<HeadingCard heading="Hit dice" className="card--full-width">
+							<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
+						</HeadingCard>
+						<HeadingCard heading="Death saves" className="card--full-width">
+							<DeathSave deathSave={ characterDetails.deathSave } />
+						</HeadingCard>
 					</div>
+					<HeadingCard heading="Weapons">
+						<Weapons weapons={ characterDetails.weapons } />
+					</HeadingCard>
 				</div>
+
 				<div className="column">
-					<TextCard label="Personality traits" text={ characterDetails.personalityTraits } />
-					<TextCard label="ideals" text={ characterDetails.ideals } />
-					<TextCard label="bonds" text={ characterDetails.bonds } />
-					<TextCard label="flaws" text={ characterDetails.flaws } />
+					<HeadingCard heading="Personality traits">
+						<TextValueDisplay text={ characterDetails.personalityTraits } />
+					</HeadingCard>
+					<HeadingCard heading="Ideals">
+						<TextValueDisplay text={ characterDetails.ideals } />
+					</HeadingCard>
+					<HeadingCard heading="Bonds">
+						<TextValueDisplay text={ characterDetails.bonds } />
+					</HeadingCard>
+					<HeadingCard heading="Flaws">
+						<TextValueDisplay text={ characterDetails.flaws } />
+					</HeadingCard>
 				</div>
+
 			</div>
 		</div>
 	</div>;

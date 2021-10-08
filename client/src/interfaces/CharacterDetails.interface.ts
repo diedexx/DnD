@@ -1,6 +1,7 @@
 import AbilityScoreInterface from "./AbilityScore.interface";
 import CharacterSummaryInterface from "./CharacterSummary.interface";
 import DeathSaveInterface from "./DeathSave.interface";
+import DiceInterface from "./Dice.interface";
 import SkillScore from "./SkillScore.interface";
 import WalletInterface from "./Wallet.interface";
 import WeaponInterface from "./Weapon.interface";
@@ -17,6 +18,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly weapons: WeaponInterface[];
 	readonly wallet: WalletInterface;
 	readonly deathSave: DeathSaveInterface;
+	readonly hitDice: DiceInterface;
 }
 
 export default CharacterDetailsInterface;

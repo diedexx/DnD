@@ -15,8 +15,7 @@ export type DeathSaveProps = {
  * @return {JSX.Element} The component.
  */
 const DeathSave: FunctionComponent<DeathSaveProps> = ( { deathSave }: DeathSaveProps ): JSX.Element => {
-	return <div className="card">
-		<h3 className="block-title--small">Death saves</h3>
+	return <div>
 		<div className="death-save__type">
 			<span>Successes</span>
 			<div className="death-save__checkboxes">

@@ -1,5 +1,6 @@
 import { FunctionComponent, useCallback } from "react";
 import HealthInterface from "../../../interfaces/Health.interface";
+import BigValueDisplay from "../../BigValueDisplay/BigValueDisplay";
 import "./Health.css";
 
 export type HealthProps = {
@@ -35,17 +36,18 @@ const Health: FunctionComponent<HealthProps> = ( { health }: HealthProps ): JSX.
 		return "";
 	}, [ healthIsLow, healthIsHigh ] );
 
-	return <div className="health card">
-		<h3>Current HP</h3>
-		<span className="health-display">
-			<span className={ "health-display__current-value" + getClassSuffix() }>
-				{ health.currentHealth }
+	return <div className="health">
+		<BigValueDisplay>
+			<span className="health-display">
+				<span className={ "health-display__current-value" + getClassSuffix() }>
+					{ health.currentHealth }
+				</span>
+				/
+				<span>
+					{ health.maxHealth }
+				</span>
 			</span>
-			/
-			<span>
-				{ health.maxHealth }
-			</span>
-		</span>
+		</BigValueDisplay>
 	</div>;
 };
 

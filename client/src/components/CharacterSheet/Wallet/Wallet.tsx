@@ -30,7 +30,7 @@ const getCoin = ( label: string, value: number, className: string ): JSX.Element
  * @return {JSX.Element} The wallet.
  */
 const Wallet: FunctionComponent<WalletProps> = ( { wallet }: WalletProps ): JSX.Element => {
-	return <div className="wallet card">
+	return <div className="wallet">
 		{ getCoin( "CP", wallet.copper, "copper" ) }
 		{ getCoin( "SP", wallet.silver, "silver" ) }
 		{ getCoin( "EP", wallet.electrum, "electrum" ) }

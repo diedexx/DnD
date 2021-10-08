@@ -3,10 +3,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
-import Health from "./models/Health.valueobject";
-import CreateCharacterType, { AbilityScoreType } from "./types/CreateCharacter.type";
+import Modifier from "../modifier/models/Modifier.valueobject";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
+import Health from "./models/Health.valueobject";
+import CreateCharacterType, { AbilityScoreType } from "./types/CreateCharacter.type";
 
 @Injectable()
 export default class CharacterService {
@@ -51,5 +52,41 @@ export default class CharacterService {
 			),
 		);
 		return character;
+	}
+
+	/**
+	 * Gets the armor class modifier.
+	 *
+	 * @param {Character} character The character to get the armor class modifier for.
+	 *
+	 * @return {Promise<Modifier>} The modifier.
+	 */
+	public async getArmorClassModifier( character: Character ): Promise<Modifier> {
+		const base = new Modifier( character.baseArmorClass );
+		return base;
+	}
+
+	/**
+	 * Gets the initiative modifier.
+	 *
+	 * @param {Character} character The character to get the initiative modifier for.
+	 *
+	 * @return {Promise<Modifier>} The modifier.
+	 */
+	public async getInitiativeModifier( character: Character ): Promise<Modifier> {
+		const base = new Modifier( character.baseInitiative );
+		return base;
+	}
+
+	/**
+	 * Gets the speed modifier.
+	 *
+	 * @param {Character} character The character to get the speed modifier for.
+	 *
+	 * @return {Promise<Modifier>} The modifier.
+	 */
+	public async getSpeedModifier( character: Character ): Promise<Modifier> {
+		const base = new Modifier( character.baseSpeed );
+		return base;
 	}
 }

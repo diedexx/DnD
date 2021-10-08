@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
+import Modifier from "../modifier/models/Modifier.valueobject";
 import Wallet from "../money/entities/Wallet.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
@@ -90,6 +91,42 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "wallet", () => Wallet )
 	public async getWallet( @Parent() character: Character ): Promise<Wallet> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "wallet" ] ) ).wallet;
+	}
+
+	/**
+	 * Get the armorClass modifier.
+	 *
+	 * @param {Character} character The character to get the modifier for.
+	 *
+	 * @return {Promise<SkillScore>} The armorClass modifier for the character.
+	 */
+	@ResolveField( "armorClassModifier", () => Modifier )
+	public async getArmorClassModifier( @Parent() character: Character ): Promise<Modifier> {
+		return this.characterService.getArmorClassModifier( character );
+	}
+
+	/**
+	 * Get the initiative modifier.
+	 *
+	 * @param {Character} character The character to get the modifier for.
+	 *
+	 * @return {Promise<SkillScore>} The initiative modifier for the character.
+	 */
+	@ResolveField( "initiativeModifier", () => Modifier )
+	public async getInitiativeModifier( @Parent() character: Character ): Promise<Modifier> {
+		return this.characterService.getInitiativeModifier( character );
+	}
+
+	/**
+	 * Get the speed modifier.
+	 *
+	 * @param {Character} character The character to get the modifier for.
+	 *
+	 * @return {Promise<SkillScore>} The speed modifier for the character.
+	 */
+	@ResolveField( "speedModifier", () => Modifier )
+	public async getSpeedModifier( @Parent() character: Character ): Promise<Modifier> {
+		return this.characterService.getSpeedModifier( character );
 	}
 
 	/**

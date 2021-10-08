@@ -10,6 +10,7 @@ import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import DeathSave from "./DeathSave/DeathSave";
 import Health from "./Health/Health";
+import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownTooltip";
 import SkillScores from "./SkillScores/SkillScores";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
@@ -60,6 +61,32 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 				</div>
 
 				<div className="column">
+
+					<div className="columns--fill">
+						<HeadingCard heading="Armor class" className="card--full-width">
+							<BigValueDisplay>
+								<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
+									{ characterDetails.armorClassModifier.displayValue }
+								</ModifierBreakdownTooltip>
+							</BigValueDisplay>
+						</HeadingCard>
+						<HeadingCard heading="Initiative" className="card--full-width">
+							<BigValueDisplay>
+								<ModifierBreakdownTooltip modifier={ characterDetails.initiativeModifier }>
+									{ characterDetails.initiativeModifier.displayValue }
+								</ModifierBreakdownTooltip>
+							</BigValueDisplay>
+						</HeadingCard>
+
+						<HeadingCard heading="Speed" className="card--full-width">
+							<BigValueDisplay>
+								<ModifierBreakdownTooltip modifier={ characterDetails.speedModifier }>
+									{ characterDetails.speedModifier.displayValue }
+								</ModifierBreakdownTooltip>
+							</BigValueDisplay>
+						</HeadingCard>
+					</div>
+
 					<HeadingCard heading="Current HP">
 						<Health health={ characterDetails.health } />
 					</HeadingCard>

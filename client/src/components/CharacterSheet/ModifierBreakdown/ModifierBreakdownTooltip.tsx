@@ -1,16 +1,16 @@
-import { Fragment, FunctionComponent, ReactElement, useCallback, useState } from "react";
+import { Fragment, FunctionComponent, ReactNode, useCallback, useState } from "react";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
 import ModifierBreakdown from "./ModifierBreakdown";
 
 export type ModifierBreakdownTooltipProps = {
 	modifier: ModifierInterface;
-	children: ReactElement;
+	children: ReactNode;
 }
 
 /**
  * Renders a component which shows a ModifierBreakdown as a tooltip on hover.
  * @param {ModifierInterface} modifier The modifier to show.
- * @param {React.ReactElement} children A child component which will trigger showing the breakdown on hover.
+ * @param {ReactNode} children A child component which will trigger showing the breakdown on hover.
  *
  * @return {JSX.Element} The breakdown tooltip.
  */

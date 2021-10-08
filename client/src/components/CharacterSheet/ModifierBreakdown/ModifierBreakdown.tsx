@@ -49,6 +49,12 @@ const ModifierBreakdown: FunctionComponent<ModifierBreakdownProps> = ( { modifie
 			</Fragment> );
 	}, [ modifier.externalModifiers ] );
 
+	if ( ! ( modifier.externalModifiers && modifier.externalModifiers.length ) ) {
+		return <div className={ "modifier-breakdown card " + ( locked && "modifier-breakdown--locked" ) }>
+			No bonuses
+		</div>;
+	}
+
 	return <div className={ "modifier-breakdown card " + ( locked && "modifier-breakdown--locked" ) }>
 		<div className={ "modifier-breakdown__summary" }>
 			{ modifier.displayBaseValue }

@@ -78,6 +78,18 @@ export default class Character extends BaseEntity {
 	@Field()
 	public flaws: string;
 
+	@Column()
+	@Field()
+	public baseArmorClass: number;
+
+	@Column()
+	@Field()
+	public baseInitiative: number;
+
+	@Column()
+	@Field()
+	public baseSpeed: number;
+
 	@Column( {
 		type: "varchar",
 		length: 50,

@@ -1,4 +1,5 @@
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
+import defaultModifier from "./modifier";
 
 const defaultCharacterDetails: CharacterDetailsInterface = {
 	id: 0,
@@ -35,6 +36,9 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	hitDice: {
 		displayValue: "",
 	},
+	armorClassModifier: defaultModifier,
+	initiativeModifier: defaultModifier,
+	speedModifier: defaultModifier,
 };
 
 export default defaultCharacterDetails;

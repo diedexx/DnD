@@ -1,7 +1,8 @@
 import { Fragment, FunctionComponent } from "react";
 import SkillScoreInterface from "../../../interfaces/SkillScore.interface";
-import "./SkillScore.css";
+import Checkbox from "../../Checkbox/Checkbox";
 import ModifierBreakdownTooltip from "../ModifierBreakdown/ModifierBreakdownTooltip";
+import "./SkillScore.css";
 
 export type SkillScoreProps = {
 	skillScore: SkillScoreInterface;
@@ -15,11 +16,7 @@ export type SkillScoreProps = {
 const SkillScore: FunctionComponent<SkillScoreProps> = ( { skillScore }: SkillScoreProps ): JSX.Element => {
 	return <Fragment>
 		<div className="skill-score">
-			<span
-				className={ "skill_score__proficiency " + ( skillScore.isProficient && "skill_score__proficiency--proficient" ) }
-			>
-				{ skillScore.isProficient && "✓" }
-			</span>
+			<Checkbox checked={ skillScore.isProficient } />
 			<ModifierBreakdownTooltip modifier={ skillScore.modifier }>
 				<span className="skill-score__modifier">{ skillScore.modifier.displayValue }</span>
 			</ModifierBreakdownTooltip>

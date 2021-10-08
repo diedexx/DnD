@@ -2,6 +2,8 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
+import DeathSave from "../../damage/models/DeathSave.valueobject";
+import DeathSaveTransformer from "../../damage/transformers/DeathSave.transformer";
 import Wallet from "../../money/entities/Wallet.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
@@ -69,6 +71,16 @@ export default class Character extends BaseEntity {
 	@Column( "text" )
 	@Field()
 	public flaws: string;
+
+	@Column( {
+		type: "varchar",
+		length: 50,
+		"default": "0|0",
+		transformer: new DeathSaveTransformer(),
+		comment: "The amount of successful and failed death saves formatted like success|failures (2|1)",
+	} )
+	@Field()
+	public readonly deathSave: DeathSave;
 
 	@OneToOne( () => Wallet, ( wallet: Wallet ) => wallet.owner, {
 		nullable: false,

@@ -3,11 +3,12 @@ import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface"
 import getCharacterDetails from "../queries/getCharacterDetails";
 import getCharacterSummaries from "../queries/getCharacterSummaries";
 import actions from "./actions";
+import defaultCharacterDetails from "./defaults/characterDetails";
 import { StateInterface } from "./store";
 
 const selectors = {
 	getCharacterSummaries: ( state: StateInterface ): CharacterSummaryInterface[] => state.characterSummaries,
-	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetailsInterface => state.characterDetails,
+	getCharacterDetails: ( state: StateInterface, id: number ): CharacterDetailsInterface => state.characterDetails[ id ] || defaultCharacterDetails,
 };
 export default selectors;
 

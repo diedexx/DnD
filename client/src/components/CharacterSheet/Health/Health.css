@@ -1,0 +1,14 @@
+.health-display {
+    font-size: 30px;
+    display: flex;
+    gap: 0.3em;
+    justify-content: center;
+}
+
+.health-display__current-value--low {
+    color: rgb(255, 0, 0);
+}
+
+.health-display__current-value--high {
+    color: rgb(0, 255, 0);
+}

@@ -5,6 +5,7 @@ import Spinner from "../Spinner/Spinner";
 import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
+import Health from "./Health/Health";
 import SkillScores from "./SkillScores/SkillScores";
 import TextCard from "./TextCard/TextCard";
 import Wallet from "./Wallet/Wallet";
@@ -48,6 +49,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 					<Wallet wallet={ characterDetails.wallet } />
 				</div>
 				<div className="column">
+					<Health health={ characterDetails.health } />
 					<Weapons weapons={ characterDetails.weapons } />
 				</div>
 				<div className="column">

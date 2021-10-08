@@ -69,4 +69,9 @@ a {
     padding: 1em;
 }
 
+.card h3 {
+    margin: 0.5em;
+    text-align: center;
+}
+
 

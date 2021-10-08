@@ -92,6 +92,10 @@ const getCharacterDetails =
 				gold
 				platinum
 			}
+			deathSave {
+				successes
+				failures
+			}
 		}
 	}`;
 export default getCharacterDetails;

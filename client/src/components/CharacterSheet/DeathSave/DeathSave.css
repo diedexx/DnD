@@ -1,0 +1,8 @@
+.death-save__type{
+    display: flex;
+    justify-content: space-between;
+    gap:0.5em
+}
+.death-save__checkboxes{
+    display: flex;
+}

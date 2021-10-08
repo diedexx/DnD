@@ -10,7 +10,7 @@ const DEFAULT_STATE: StateInterface = {
 		health: {
 			displayHealth: "0/1",
 			currentHealth: 0,
-			maxHealth: 0,
+			maxHealth: 1,
 		},
 		alignment: "",
 		background: "",
@@ -30,6 +30,10 @@ const DEFAULT_STATE: StateInterface = {
 			electrum: 0,
 			gold: 0,
 			platinum: 0,
+		},
+		deathSave: {
+			successes: 0,
+			failures: 0,
 		},
 	},
 };

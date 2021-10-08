@@ -79,7 +79,7 @@ export default class Character extends BaseEntity {
 		transformer: new DeathSaveTransformer(),
 		comment: "The amount of successful and failed death saves formatted like success|failures (2|1)",
 	} )
-	@Field()
+	@Field( () => DeathSave )
 	public readonly deathSave: DeathSave;
 
 	@OneToOne( () => Wallet, ( wallet: Wallet ) => wallet.owner, {

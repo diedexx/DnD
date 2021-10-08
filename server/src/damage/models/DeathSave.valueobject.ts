@@ -3,10 +3,10 @@ import InvalidDeathSave from "../exceptions/InvalidDeathSave.exception";
 
 @ObjectType()
 export default class DeathSave {
-	@Field( Int )
+	@Field( () => Int )
 	public readonly failures: number;
 
-	@Field( Int )
+	@Field( () => Int )
 	public readonly successes: number;
 
 	/**

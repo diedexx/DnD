@@ -51,16 +51,19 @@ a {
     border: 1px solid black;
 }
 
-.value {
-    font-family: "monospace";
+.card--full-width {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 0.5em;
+    border-radius: 2px;
+    box-shadow: 3px 3px rgba(3, 3, 3, 0.2);
+    margin: 0.5em;
+    border: 1px solid black;
+    width: 100%;
 }
 
 .card--clickable:hover {
     background-color: var(--secondary-color);
-}
-
-.card--full-width {
-    width: 100%;
 }
 
 .btn--fullSize {
@@ -72,6 +75,10 @@ a {
 .card h3 {
     margin: 0.5em;
     text-align: center;
+}
+
+.value {
+    font-family: "monospace";
 }
 
 

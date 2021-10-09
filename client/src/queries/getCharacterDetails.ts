@@ -78,6 +78,7 @@ const getCharacterDetails =
 			weapons {
 				name
 				description
+				equipped
 				attackRollModifier {
 					${ modifierQuery }
 				}
@@ -91,6 +92,13 @@ const getCharacterDetails =
 					}
 					type
 				}
+			}
+			equipment {
+				name
+				description
+				equippable
+				equipped
+				number
 			}
 			wallet {
 				copper

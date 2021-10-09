@@ -6,6 +6,7 @@ import DeathSave from "../../damage/models/DeathSave.valueobject";
 import DeathSaveTransformer from "../../damage/transformers/DeathSave.transformer";
 import Dice from "../../die/models/Dice.valueobject";
 import DiceTransformer from "../../die/transformers/Dice.transformer";
+import Equipment from "../../equipment/entities/Equipment.entity";
 import Wallet from "../../money/entities/Wallet.entity";
 import Proficiency from "../../proficiency/entities/Proficiency.entity";
 import ProficiencyBonus from "../../proficiency/models/ProficiencyBonus.valueobject";
@@ -138,6 +139,10 @@ export default class Character extends BaseEntity {
 	@OneToMany( () => Weapon, ( weapon: Weapon ) => weapon.owner, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ Weapon ] )
 	public weapons: Weapon[];
+
+	@OneToMany( () => Equipment, ( equipment: Equipment ) => equipment.owner, { cascade: [ "insert", "update" ] } )
+	@Field( () => [ Equipment ] )
+	public equipment: Equipment[];
 
 	/**
 	 * Gets the proficiencyBonus of the character.

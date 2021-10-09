@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
 import WeaponInterface from "../../../interfaces/Weapon.interface";
+import Checkbox from "../../Checkbox/Checkbox";
 import Table, { Heading } from "../../Table/Table";
 import WeaponAttackModifier from "./WeaponAttackModifier";
 
@@ -10,13 +11,17 @@ export type WeaponsProps = {
 
 const heading: Heading[] = [
 	{
+		name: "",
+		renderer: ( weapon: WeaponInterface ) => <Checkbox checked={ weapon.equipped } />,
+	},
+	{
 		name: "Name",
 		field: "name",
 	},
 	{
 		name: "Attack bonus",
 		field: "attackRollModifier",
-		renderer: ( ( modifier: ModifierInterface ) => <WeaponAttackModifier modifier={ modifier } /> ),
+		renderer: ( modifier: ModifierInterface ) => <WeaponAttackModifier modifier={ modifier } />,
 	},
 	{
 		name: "Damage",
@@ -37,7 +42,7 @@ const heading: Heading[] = [
  */
 const Weapons: FunctionComponent<WeaponsProps> = ( { weapons } ): JSX.Element => {
 	return <div className="weapons">
-		<Table defaultValue="-" headings={ heading } objects={ weapons } />
+		<Table headings={ heading } objects={ weapons } />
 	</div>;
 };
 

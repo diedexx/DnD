@@ -5,6 +5,7 @@ interface WeaponInterface {
 	readonly name: string;
 	readonly description: string;
 	readonly attackRollModifier: ModifierInterface;
+	readonly equipped: boolean;
 	readonly damageRoll: {
 		readonly displayValue: string;
 		readonly modifier: ModifierInterface;

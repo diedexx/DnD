@@ -26,7 +26,6 @@ const ModifierBreakdown: FunctionComponent<ModifierBreakdownProps> = ( { modifie
 		return (
 			<Fragment>
 				<Table
-					defaultValue={ "" }
 					headings={
 						[
 							{

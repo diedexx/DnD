@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
+import Equipment from "../equipment/entities/Equipment.entity";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import Wallet from "../money/entities/Wallet.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
@@ -79,6 +80,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "weapons", () => [ Weapon ] )
 	public async getWeapons( @Parent() character: Character ): Promise<Weapon[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "weapons" ] ) ).weapons;
+	}
+
+	/**
+	 * Resolves the equipment relationship.
+	 *
+	 * @param {Character} character The character to get equipment for.
+	 *
+	 * @return {Promise<Equipment[]>} The equipment of the character.
+	 */
+	@ResolveField( "equipment", () => [ Equipment ] )
+	public async getEquipment( @Parent() character: Character ): Promise<Equipment[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "equipment" ] ) ).equipment;
 	}
 
 	/**

@@ -7,7 +7,7 @@ export type Object = Record<string, any>;
 export type TableProps = {
 	headings: Heading[];
 	objects: Object[];
-	defaultValue: string,
+	defaultValue?: string,
 }
 
 /**
@@ -66,6 +66,10 @@ const Table: FunctionComponent<TableProps> = ( { headings, objects, defaultValue
 			{ rows }
 		</tbody>
 	</table>;
+};
+
+Table.defaultProps = {
+	defaultValue: "-",
 };
 
 export default Table;

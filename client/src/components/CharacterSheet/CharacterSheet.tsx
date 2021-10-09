@@ -9,6 +9,7 @@ import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import DeathSave from "./DeathSave/DeathSave";
+import Equipment from "./Equipment/Equipment";
 import Health from "./Health/Health";
 import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownTooltip";
 import SkillScores from "./SkillScores/SkillScores";
@@ -108,6 +109,10 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 					<HeadingCard heading="Weapons">
 						<Weapons weapons={ characterDetails.weapons } />
+					</HeadingCard>
+
+					<HeadingCard heading="Equipment">
+						<Equipment equipment={ characterDetails.equipment } />
 					</HeadingCard>
 
 				</div>

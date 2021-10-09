@@ -22,7 +22,7 @@ const WeaponAttackModifier: FunctionComponent<WeaponAttackValueProps> = ( { modi
 	return <ModifierBreakdownTooltip modifier={ modifier }>
 		<Fragment>
 			<span>{ modifier.displayValue }</span>
-			{ hasSituationalModifiers && <sup className="weapon-attack-modifier__situational_marker">*</sup> }
+			{ hasSituationalModifiers && <sup className="weapon-attack-modifier__situational_marker">+</sup> }
 		</Fragment>
 	</ModifierBreakdownTooltip>;
 };

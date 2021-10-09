@@ -2,6 +2,7 @@ import AbilityScoreInterface from "./AbilityScore.interface";
 import CharacterSummaryInterface from "./CharacterSummary.interface";
 import DeathSaveInterface from "./DeathSave.interface";
 import DiceInterface from "./Dice.interface";
+import EquipmentInterface from "./Equipment.interface";
 import ModifierInterface from "./Modifier.interface";
 import SkillScore from "./SkillScore.interface";
 import WalletInterface from "./Wallet.interface";
@@ -17,6 +18,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly abilityScores: AbilityScoreInterface[];
 	readonly skillScores: SkillScore[];
 	readonly weapons: WeaponInterface[];
+	readonly equipment: EquipmentInterface[];
 	readonly wallet: WalletInterface;
 	readonly deathSave: DeathSaveInterface;
 	readonly hitDice: DiceInterface;
@@ -24,7 +26,6 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly armorClassModifier: ModifierInterface;
 	readonly initiativeModifier: ModifierInterface;
 	readonly speedModifier: ModifierInterface;
-
 }
 
 export default CharacterDetailsInterface;

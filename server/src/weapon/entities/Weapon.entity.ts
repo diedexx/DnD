@@ -20,6 +20,10 @@ export class Weapon extends BaseEntity {
 	@Field()
 	public description: string;
 
+	@Column()
+	@Field()
+	public equipped: boolean;
+
 	@Column( "int", { transformer: new ModifierTransformer() } )
 	@Field()
 	public attackRollModifierBase: Modifier;

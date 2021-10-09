@@ -14,6 +14,7 @@ import { DamageModule } from "./damage/Damage.module";
 import { MoneyModule } from "./money/Money.module";
 import { ProficiencyModule } from "./proficiency/Proficiency.module";
 import { CategoryModule } from "./category/Category.module";
+import { EquipmentModule } from "./equipment/Equipment.module";
 import DatabaseModule from "./database/Database.module";
 
 @Module( {
@@ -34,6 +35,7 @@ import DatabaseModule from "./database/Database.module";
 		MoneyModule,
 		ProficiencyModule,
 		CategoryModule,
+		EquipmentModule,
 	],
 	controllers: [
 		AppController,

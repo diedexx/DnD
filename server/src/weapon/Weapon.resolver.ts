@@ -1,11 +1,11 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import AbilityScore from "../ability/entities/AbilityScore.entity";
 import BaseResolver from "../Base.resolver";
 import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Modifier from "../modifier/models/Modifier.valueobject";
+import Property from "./entities/Property.entity";
 import { Weapon } from "./entities/Weapon.entity";
 import WeaponService from "./weapon.service";
 
@@ -28,15 +28,27 @@ export default class WeaponResolver extends BaseResolver( Weapon, "weapon", "wea
 	}
 
 	/**
-	 * Gets the character to whom the weapon belongs.
+	 * Gets the owner of a weapon.
 	 *
-	 * @param {AbilityScore} abilityScore The abilityScore to get the character for.
+	 * @param {Weapon} weapon The weapon to get the owner for.
 	 *
-	 * @return {Promise<Skill>} The character to whom the ability score belongs.
+	 * @return {Promise<Character>} The owner of the weapon.
 	 */
-	@ResolveField( "character", () => [ Character ] )
-	public async getCharacter( @Parent() abilityScore: AbilityScore ): Promise<Character> {
-		return ( await this.relationLoaderService.loadRelations( abilityScore, [ "character" ] ) ).character;
+	@ResolveField( "owner", () => [ Character ] )
+	public async getOwner( @Parent() weapon: Weapon ): Promise<Character> {
+		return ( await this.relationLoaderService.loadRelations( weapon, [ "owner" ] ) ).owner;
+	}
+
+	/**
+	 * Gets the properties of a weapon.
+	 *
+	 * @param {Weapon} weapon The weapon to get the properties for.
+	 *
+	 * @return {Promise<Property[]>} The properties of the weapon.
+	 */
+	@ResolveField( "properties", () => [ Property ] )
+	public async getProperties( @Parent() weapon: Weapon ): Promise<Property[]> {
+		return ( await this.relationLoaderService.loadRelations( weapon, [ "properties" ] ) ).properties;
 	}
 
 	/**

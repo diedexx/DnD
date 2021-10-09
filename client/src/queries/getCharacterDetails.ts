@@ -45,6 +45,7 @@ const getCharacterDetails =
 				maxHealth
 				displayHealth
 			}
+			proficiencyBonus { ${ modifierQuery } }
 			armorClassModifier { ${ modifierQuery } }
 			initiativeModifier { ${ modifierQuery } }
 			speedModifier { ${ modifierQuery } }

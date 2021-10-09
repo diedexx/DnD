@@ -47,6 +47,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 			<div className="columns">
 
 				<div className="column">
+
 					<div className="columns">
 						<HeadingCard heading="Ability scores">
 							<AbilityScores abilityScores={ characterDetails.abilityScores } />
@@ -55,14 +56,19 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 							<SkillScores skillScores={ characterDetails.skillScores } />
 						</HeadingCard>
 					</div>
+
 					<HeadingCard heading="Wallet">
 						<Wallet wallet={ characterDetails.wallet } />
 					</HeadingCard>
+
 				</div>
 
 				<div className="column">
 
 					<div className="columns--fill">
+						<HeadingCard heading="Proficiency bonus" className="card--full-width">
+							<BigValueDisplay>{ characterDetails.proficiencyBonus.displayValue }</BigValueDisplay>
+						</HeadingCard>
 						<HeadingCard heading="Armor class" className="card--full-width">
 							<BigValueDisplay>
 								<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
@@ -90,6 +96,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 					<HeadingCard heading="Current HP">
 						<Health health={ characterDetails.health } />
 					</HeadingCard>
+
 					<div className="columns--fill">
 						<HeadingCard heading="Hit dice" className="card--full-width">
 							<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
@@ -98,12 +105,15 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 							<DeathSave deathSave={ characterDetails.deathSave } />
 						</HeadingCard>
 					</div>
+
 					<HeadingCard heading="Weapons">
 						<Weapons weapons={ characterDetails.weapons } />
 					</HeadingCard>
+
 				</div>
 
 				<div className="column">
+
 					<HeadingCard heading="Personality traits">
 						<TextValueDisplay text={ characterDetails.personalityTraits } />
 					</HeadingCard>
@@ -116,8 +126,8 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 					<HeadingCard heading="Flaws">
 						<TextValueDisplay text={ characterDetails.flaws } />
 					</HeadingCard>
-				</div>
 
+				</div>
 			</div>
 		</div>
 	</div>;

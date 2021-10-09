@@ -36,6 +36,7 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	hitDice: {
 		displayValue: "",
 	},
+	proficiencyBonus: defaultModifier,
 	armorClassModifier: defaultModifier,
 	initiativeModifier: defaultModifier,
 	speedModifier: defaultModifier,

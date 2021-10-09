@@ -20,6 +20,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly wallet: WalletInterface;
 	readonly deathSave: DeathSaveInterface;
 	readonly hitDice: DiceInterface;
+	readonly proficiencyBonus: ModifierInterface;
 	readonly armorClassModifier: ModifierInterface;
 	readonly initiativeModifier: ModifierInterface;
 	readonly speedModifier: ModifierInterface;

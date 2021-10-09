@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import RelationLoaderService from "../database/RelationLoader.service";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
 import { Weapon } from "./entities/Weapon.entity";
@@ -8,10 +7,11 @@ import { Weapon } from "./entities/Weapon.entity";
 export default class WeaponService {
 	/**
 	 * The constructor.
+	 *
+	 * @param {ModifierOrchestratorService} modifierOrchestratorService A service that handles modifiers.
 	 */
 	public constructor(
 		private readonly modifierOrchestratorService: ModifierOrchestratorService,
-		private readonly relationLoaderService: RelationLoaderService,
 	) {
 	}
 
@@ -23,7 +23,6 @@ export default class WeaponService {
 	 * @return {Promise<Modifier>} The modifier.
 	 */
 	public async getAttackRollModifier( weapon: Weapon ): Promise<Modifier> {
-		const owner = ( await this.relationLoaderService.loadRelations( weapon, [ "owner" ] ) ).owner;
-		return this.modifierOrchestratorService.applyAttackRollModifiers( weapon.attackRollModifierBase, owner, weapon );
+		return this.modifierOrchestratorService.applyAttackRollModifiers( weapon.attackRollModifierBase, weapon );
 	}
 }

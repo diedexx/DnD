@@ -7,6 +7,8 @@ import DeathSaveTransformer from "../../damage/transformers/DeathSave.transforme
 import Dice from "../../die/models/Dice.valueobject";
 import DiceTransformer from "../../die/transformers/Dice.transformer";
 import Wallet from "../../money/entities/Wallet.entity";
+import Proficiency from "../../proficiency/entities/Proficiency.entity";
+import ProficiencyBonus from "../../proficiency/models/ProficiencyBonus.valueobject";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
 import Health from "../models/Health.valueobject";
@@ -129,7 +131,21 @@ export default class Character extends BaseEntity {
 	@Field( () => [ SkillScore ] )
 	public skillScores: SkillScore[];
 
+	@OneToMany( () => Proficiency, ( proficiency: Proficiency ) => proficiency.owner )
+	@Field( () => [ Proficiency ] )
+	public proficiencies: Proficiency[];
+
 	@OneToMany( () => Weapon, ( weapon: Weapon ) => weapon.owner, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ Weapon ] )
 	public weapons: Weapon[];
+
+	/**
+	 * Gets the proficiencyBonus of the character.
+	 *
+	 * @return {ProficiencyBonus} The proficiency bonus.
+	 */
+	@Field()
+	get proficiencyBonus(): ProficiencyBonus {
+		return ProficiencyBonus.forLevel( this.level );
+	}
 }

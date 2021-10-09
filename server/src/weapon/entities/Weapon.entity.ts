@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
+import Category from "../../category/entity/Category.entity";
 import Character from "../../character/entities/Character.entity";
 import { DamageRoll } from "../../damage/models/DamageRoll.valueobject";
 import DamageRollTransformer from "../../damage/transformers/DamageRollTransformer";
@@ -38,5 +39,9 @@ export class Weapon extends BaseEntity {
 
 	@ManyToMany( () => Property, { cascade: [ "insert" ] } )
 	@JoinTable( { name: "weapon_property" } )
-	public readonly properties: Property[];
+	public properties: Property[];
+
+	@ManyToMany( () => Category, { cascade: [ "insert" ] } )
+	@JoinTable()
+	public categories: Category[];
 }

@@ -48,7 +48,7 @@ export default class RelationLoaderService {
 	 *
 	 * @returns {Promise<any | any[]>} The entity or entities with relations assigned.
 	 */
-	public async loadRelations<T>( entities: T| T[], relations: string[] ): Promise<T | T[]> {
+	public async loadRelations<T>( entities: T | T[], relations: string[] ): Promise<T | T[]> {
 		if ( ! entities ) {
 			return entities;
 		}
@@ -70,9 +70,9 @@ export default class RelationLoaderService {
 
 		// First get the direct relations with their own nested relations so we can load them recursively.
 		const directRelations = this.getDirectRelations( relations );
-		const entityName      = entities[ 0 ].constructor.name;
-		const metadata        = this.connection.getMetadata( entityName );
-		const promises        = [];
+		const entityName = entities[ 0 ].constructor.name;
+		const metadata = this.connection.getMetadata( entityName );
+		const promises = [];
 
 		for ( const relation in directRelations ) {
 			if ( ! Object.prototype.hasOwnProperty.call( directRelations, relation ) ) {
@@ -119,7 +119,7 @@ export default class RelationLoaderService {
 	protected getDirectRelations( relations: string[] ): { string?: string[] } {
 		const directRelations = {};
 		for ( const relation of relations ) {
-			const splitRelation  = relation.split( "." );
+			const splitRelation = relation.split( "." );
 			const directRelation = splitRelation.shift();
 
 			if ( ! directRelations[ directRelation ] ) {
@@ -158,9 +158,9 @@ export default class RelationLoaderService {
 		} else {
 			const columns = relationMetadata.isOwning ? relationMetadata.joinColumns : relationMetadata.inverseRelation.joinColumns;
 			for ( const joinColumn of columns ) {
-				const propertyName        = relationMetadata.isOwning ? joinColumn.propertyName : joinColumn.referencedColumn.propertyName;
+				const propertyName = relationMetadata.isOwning ? joinColumn.propertyName : joinColumn.referencedColumn.propertyName;
 				const relatedPropertyName = relationMetadata.isOwning ? joinColumn.referencedColumn.propertyName : joinColumn.propertyName;
-				const foreignKeys         = uniq( entities.map( e => e[ propertyName ] ).filter( e => e ) );
+				const foreignKeys = uniq( entities.map( e => e[ propertyName ] ).filter( e => e ) );
 
 				if ( foreignKeys.length === 0 ) {
 					return [];
@@ -187,7 +187,11 @@ export default class RelationLoaderService {
 	): Promise<FindConditions<T> | false> {
 		const joinWhere: string[] = [];
 		const joinVars: { string?: string[] } = {};
-		const { joinTableName, joinColumns, inverseJoinColumns } = this.getManyToManyJoinDataFromRelationMetadata( relationMetadata );
+		const {
+			joinTableName,
+			joinColumns,
+			inverseJoinColumns,
+		} = this.getManyToManyJoinDataFromRelationMetadata( relationMetadata );
 
 		for ( const joinColumn of joinColumns ) {
 			const foreignKeys = entities.map( e => e[ joinColumn.referencedColumn.propertyName ] ).filter( e => e );
@@ -196,7 +200,7 @@ export default class RelationLoaderService {
 				return false;
 			}
 
-			joinWhere.push( `join.${joinColumn.databaseName} IN (:...${joinColumn.propertyName})` );
+			joinWhere.push( `join.${ joinColumn.databaseName } IN (:...${ joinColumn.propertyName })` );
 			joinVars[ joinColumn.propertyName ] = foreignKeys;
 		}
 
@@ -210,7 +214,7 @@ export default class RelationLoaderService {
 
 		const findConditions: FindConditions<T> = {};
 		for ( const joinColumn of inverseJoinColumns ) {
-			const foreignKeys = uniq( joinEntities.map( e => e[ `join_${joinColumn.propertyName}` ] ).filter( e => e ) );
+			const foreignKeys = uniq( joinEntities.map( e => e[ `join_${ joinColumn.propertyName }` ] ).filter( e => e ) );
 
 			if ( foreignKeys.length === 0 ) {
 				return false;
@@ -239,7 +243,7 @@ export default class RelationLoaderService {
 		const { joinColumns, inverseJoinColumns } = this.getManyToManyJoinDataFromRelationMetadata( relationMetadata );
 
 		for ( const joinColumn of joinColumns ) {
-			joinMap[ joinColumn.propertyName ] = groupBy( joinEntities, `join_${joinColumn.propertyName}` );
+			joinMap[ joinColumn.propertyName ] = groupBy( joinEntities, `join_${ joinColumn.propertyName }` );
 		}
 
 		// Add join data to each entity so we can find the records to assign.
@@ -253,14 +257,14 @@ export default class RelationLoaderService {
 			// If there's only one inverse join column just build an array of those properties.
 			if ( inverseJoinColumns.length === 1 ) {
 				const joinColumn = inverseJoinColumns[ 0 ];
-				entity[ relationMetadata.propertyName + "Ids" ] = relatedJoinEntities.map( e => e[ `join_${joinColumn.propertyName}` ] ).filter( e => e );
+				entity[ relationMetadata.propertyName + "Ids" ] = relatedJoinEntities.map( e => e[ `join_${ joinColumn.propertyName }` ] ).filter( e => e );
 				continue;
 			}
 
 			// If there are multiple build an array of objects with each property.
 			entity[ relationMetadata.propertyName + "Ids" ] = relatedJoinEntities.map( e => {
 				return inverseJoinColumns.reduce( ( obj, column ) => {
-					obj[ column.referencedColumn.propertyName ] = e[ `join_${column.propertyName}` ];
+					obj[ column.referencedColumn.propertyName ] = e[ `join_${ column.propertyName }` ];
 					return obj;
 				}, {} );
 			} );
@@ -300,9 +304,9 @@ export default class RelationLoaderService {
 
 		const joinMap = {};
 		for ( const joinColumn of columns ) {
-			const propertyName        = get( joinColumn, propertyNamePath );
+			const propertyName = get( joinColumn, propertyNamePath );
 			const relatedPropertyName = get( joinColumn, relatedPropertyNamePath );
-			joinMap[ propertyName ]   = groupBy( relatedEntities, relatedPropertyName );
+			joinMap[ propertyName ] = groupBy( relatedEntities, relatedPropertyName );
 		}
 
 		for ( const entity of entities ) {
@@ -340,7 +344,7 @@ export default class RelationLoaderService {
 		const { joinColumns, inverseJoinColumns } = this.getManyToManyJoinDataFromRelationMetadata( relationMetadata );
 
 		if ( inverseJoinColumns.length === 1 ) {
-			const joinColumn    = inverseJoinColumns[ 0 ];
+			const joinColumn = inverseJoinColumns[ 0 ];
 			const simpleJoinMap = groupBy( relatedEntities, joinColumn.referencedColumn.propertyName );
 
 			for ( const entity of entities ) {

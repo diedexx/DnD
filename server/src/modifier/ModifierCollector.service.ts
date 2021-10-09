@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import Character from "../character/entities/Character.entity";
+import RelationLoaderService from "../database/RelationLoader.service";
+import Proficiency from "../proficiency/entities/Proficiency.entity";
+import { ProficiencyService } from "../proficiency/Proficiency.service";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
 import Modifier from "./models/Modifier.valueobject";
@@ -7,6 +10,18 @@ import ModificationTypesType from "./types/ModificationTypes.type";
 
 @Injectable()
 export class ModifierCollectorService {
+	/**
+	 * The constructor.
+	 *
+	 * @param {ProficiencyService} proficiencyService A service that knows about proficiencies.
+	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
+	 */
+	public constructor(
+		private readonly proficiencyService: ProficiencyService,
+		private readonly relationLoaderService: RelationLoaderService,
+	) {
+	}
+
 	/* eslint-disable @typescript-eslint/no-unused-vars */
 	/**
 	 * Gathers a list of external modifiers that all owned gear gives.
@@ -50,22 +65,27 @@ export class ModifierCollectorService {
 	/**
 	 * Gathers a list of external modifiers that weapon proficiency gives.
 	 *
-	 * @param {Character} character The character that owns the weapon.
 	 * @param {Weapon} weapon The weapon to get proficiency bonus for.
 	 *
 	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
 	 */
-	public async gatherWeaponProficiencyModifiers( character: Character, weapon: Weapon ): Promise<ExternalModifier[]> {
-		return [
-			new ExternalModifier(
-				"Proficiency",
-				ModificationTypesType.ATTACK_ROLL,
-				new Modifier( 2 ),
-				false,
-				"You are proficient with this type of weapon",
-			),
-		];
+	public async gatherWeaponProficiencyModifiers( weapon: Weapon ): Promise<ExternalModifier[]> {
+		try {
+			const proficiency: Proficiency = await this.proficiencyService.getWeaponProficiency( weapon );
+			return [
+				new ExternalModifier(
+					weapon.name,
+					ModificationTypesType.ATTACK_ROLL,
+					proficiency.bonus,
+					false,
+					proficiency.description,
+				),
+			];
+		} catch ( e ) {
+			return [];
+		}
 	}
+
 	/* eslint-enable */
 
 	/**

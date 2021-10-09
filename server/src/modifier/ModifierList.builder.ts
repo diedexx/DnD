@@ -47,13 +47,12 @@ export class ModifierListBuilder {
 	/**
 	 * Applies all modifiers that weapon proficiency gives for a specific weapon.
 	 *
-	 *  @param {Character} character The character to get the proficiency bonus for.
 	 * @param {Weapon} weapon The weapon to get the proficiency bonus for.
 	 *
 	 * @return {this} The builder
 	 */
-	public applyWeaponProficiencyModifiers( character: Character, weapon: Weapon ): this {
-		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponProficiencyModifiers( character, weapon ) );
+	public applyWeaponProficiencyModifiers( weapon: Weapon ): this {
+		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponProficiencyModifiers( weapon ) );
 		return this;
 	}
 

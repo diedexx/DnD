@@ -57,12 +57,12 @@ describe( "The CharacterService", () => {
 				abilityScores: [
 					{
 						abilityId: 1,
-						baseScore: 10,
+						score: 10,
 						modifier: 2,
 					},
 					{
 						abilityId: 2,
-						baseScore: 11,
+						score: 11,
 						modifier: 1,
 					},
 				],
@@ -71,13 +71,13 @@ describe( "The CharacterService", () => {
 			expect( abilityScoreServiceMock.createAbilityScore ).toBeCalledTimes( 2 );
 			expect( abilityScoreServiceMock.createAbilityScore ).toBeCalledWith( {
 				abilityId: 1,
-				baseScore: 10,
+				score: 10,
 				modifier: 2,
 				character: expect.anything(),
 			} );
 			expect( abilityScoreServiceMock.createAbilityScore ).toBeCalledWith( {
 				abilityId: 2,
-				baseScore: 11,
+				score: 11,
 				modifier: 1,
 				character: expect.anything(),
 			} );

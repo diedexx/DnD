@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import Character from "../character/entities/Character.entity";
+import RelationLoaderService from "../database/RelationLoader.service";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
 import Modifier from "./models/Modifier.valueobject";
@@ -13,9 +13,11 @@ export class ModifierOrchestratorService {
 	 * The constructor.
 	 *
 	 * @param {ModifierCollectorService} modifierCollectorService A service which collects modifiers.
+	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
 	 */
 	public constructor(
 		private readonly modifierCollectorService: ModifierCollectorService,
+		private readonly relationLoaderService: RelationLoaderService,
 	) {
 	}
 
@@ -23,16 +25,17 @@ export class ModifierOrchestratorService {
 	 * Applies all attack roll modifiers.
 	 *
 	 * @param {Modifier} base The base modifier to apply external modifiers to.
-	 * @param {Character} character The character to apply modifiers for.
 	 * @param {object} weapon The weapon that is used for the attack roll.
 	 *
 	 * @return {Promise<Modifier>} The modifier with applied external modifiers.
 	 */
-	public async applyAttackRollModifiers( base: Modifier, character: Character, weapon: any ): Promise<Modifier> {
+	public async applyAttackRollModifiers( base: Modifier, weapon: any ): Promise<Modifier> {
+		const owner = ( await this.relationLoaderService.loadRelations( weapon, [ "owner" ] ) ).owner;
+
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
 			.applyWeaponModifier( weapon )
-			.applyWeaponProficiencyModifiers( character, weapon )
-			.applyGearModifiers( character )
+			.applyWeaponProficiencyModifiers( weapon )
+			.applyGearModifiers( owner )
 			.filterTypes( ModificationTypesType.ATTACK_ROLL )
 			.build();
 

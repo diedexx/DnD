@@ -87,7 +87,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						<HeadingCard heading="Speed" className="card--full-width">
 							<BigValueDisplay>
 								<ModifierBreakdownTooltip modifier={ characterDetails.speedModifier }>
-									{ characterDetails.speedModifier.displayValue }
+									{ characterDetails.speedModifier.value } ft.
 								</ModifierBreakdownTooltip>
 							</BigValueDisplay>
 						</HeadingCard>

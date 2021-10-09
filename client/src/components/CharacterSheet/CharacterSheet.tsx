@@ -72,7 +72,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						<HeadingCard heading="Armor class" className="card--full-width">
 							<BigValueDisplay>
 								<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
-									{ characterDetails.armorClassModifier.displayValue }
+									{ characterDetails.armorClassModifier.value }
 								</ModifierBreakdownTooltip>
 							</BigValueDisplay>
 						</HeadingCard>

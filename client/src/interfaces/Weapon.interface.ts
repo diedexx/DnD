@@ -1,4 +1,4 @@
-import DiceInterface from "./Dice.interface";
+import DamageInterface from "./Damage.interface";
 import ModifierInterface from "./Modifier.interface";
 
 interface WeaponInterface {
@@ -6,12 +6,7 @@ interface WeaponInterface {
 	readonly description: string;
 	readonly attackRollModifier: ModifierInterface;
 	readonly equipped: boolean;
-	readonly damageRoll: {
-		readonly displayValue: string;
-		readonly modifier: ModifierInterface;
-		readonly type: string;
-		readonly dice: DiceInterface;
-	};
+	readonly damageRoll: DamageInterface;
 }
 
 export default WeaponInterface;

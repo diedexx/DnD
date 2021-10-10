@@ -11,6 +11,7 @@ import Wallet from "../../money/entities/Wallet.entity";
 import Proficiency from "../../proficiency/entities/Proficiency.entity";
 import ProficiencyBonus from "../../proficiency/models/ProficiencyBonus.valueobject";
 import SkillScore from "../../skill/entities/SkillScore.entity";
+import Spell from "../../spell/entities/Spell.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
 import Health from "../models/Health.valueobject";
 import HealthTransformer from "../transformers/Health.transformer";
@@ -143,6 +144,10 @@ export default class Character extends BaseEntity {
 	@OneToMany( () => Equipment, ( equipment: Equipment ) => equipment.owner, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ Equipment ] )
 	public equipment: Equipment[];
+
+	@OneToMany( () => Spell, ( spell: Spell ) => spell.owner, { cascade: [ "insert", "update" ] } )
+	@Field( () => [ Spell ] )
+	public spells: Spell[];
 
 	/**
 	 * Gets the proficiencyBonus of the character.

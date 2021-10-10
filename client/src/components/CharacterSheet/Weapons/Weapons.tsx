@@ -3,7 +3,7 @@ import ModifierInterface from "../../../interfaces/Modifier.interface";
 import WeaponInterface from "../../../interfaces/Weapon.interface";
 import Checkbox from "../../Checkbox/Checkbox";
 import Table, { Heading } from "../../Table/Table";
-import WeaponAttackModifier from "./WeaponAttackModifier";
+import ModifierDisplay from "../ModifierBreakdown/ModifierDisplay";
 
 export type WeaponsProps = {
 	weapons: WeaponInterface[];
@@ -21,7 +21,7 @@ const heading: Heading[] = [
 	{
 		name: "Attack bonus",
 		field: "attackRollModifier",
-		renderer: ( modifier: ModifierInterface ) => <WeaponAttackModifier modifier={ modifier } />,
+		renderer: ( modifier: ModifierInterface ) => <ModifierDisplay modifier={ modifier } />,
 	},
 	{
 		name: "Damage",

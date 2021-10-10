@@ -8,6 +8,7 @@ import Equipment from "../equipment/entities/Equipment.entity";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import Wallet from "../money/entities/Wallet.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
+import Spell from "../spell/entities/Spell.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import CharacterService from "./Character.service";
 import Character from "./entities/Character.entity";
@@ -92,6 +93,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "equipment", () => [ Equipment ] )
 	public async getEquipment( @Parent() character: Character ): Promise<Equipment[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "equipment" ] ) ).equipment;
+	}
+
+	/**
+	 * Resolves the spells relationship.
+	 *
+	 * @param {Character} character The character to get spells for.
+	 *
+	 * @return {Promise<Spell[]>} The spells of the character.
+	 */
+	@ResolveField( "spells", () => [ Spell ] )
+	public async getSpells( @Parent() character: Character ): Promise<Spell[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "spells" ] ) ).spells;
 	}
 
 	/**

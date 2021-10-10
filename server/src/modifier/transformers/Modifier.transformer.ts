@@ -7,7 +7,7 @@ export default class ModifierTransformer implements ValueTransformer {
 	 *
 	 * @param {number} base The value to transform.
 	 *
-	 * @return {AbilityScoreModifier} The Modifier object.
+	 * @return {Modifier} The Modifier object.
 	 */
 	public from( base: number ): Modifier {
 		return new Modifier( base );
@@ -16,11 +16,11 @@ export default class ModifierTransformer implements ValueTransformer {
 	/**
 	 * Transform a Modifier object value into a database value.
 	 *
-	 * @param {Modifier} abilityScoreModifier The Modifier object.
+	 * @param {Modifier} modifier The Modifier object.
 	 *
 	 * @return {number} The database value.
 	 */
-	public to( abilityScoreModifier: Modifier ): number {
-		return abilityScoreModifier.base;
+	public to( modifier: Modifier ): number {
+		return modifier.base;
 	}
 }

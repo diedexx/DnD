@@ -13,6 +13,7 @@ import Equipment from "./Equipment/Equipment";
 import Health from "./Health/Health";
 import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownTooltip";
 import SkillScores from "./SkillScores/SkillScores";
+import Spells from "./Spell/Spell";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
 
@@ -109,6 +110,10 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 					<HeadingCard heading="Weapons">
 						<Weapons weapons={ characterDetails.weapons } />
+					</HeadingCard>
+
+					<HeadingCard heading="Spells">
+						<Spells spells={ characterDetails.spells } />
 					</HeadingCard>
 
 					<HeadingCard heading="Equipment">

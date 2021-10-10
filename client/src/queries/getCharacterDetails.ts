@@ -20,6 +20,15 @@ const modifierQuery = `
 					}
 				`;
 
+const damageQuery = `displayValue
+					dice {
+						displayValue
+					}
+					modifier {
+						${ modifierQuery }
+					}
+					type`;
+
 const getCharacterDetails =
 	`query CharacterDetails($id: Int!) {
 		character(id: $id) {
@@ -82,16 +91,7 @@ const getCharacterDetails =
 				attackRollModifier {
 					${ modifierQuery }
 				}
-				damageRoll {
-					displayValue
-					dice {
-						displayValue
-					}
-					modifier {
-						${ modifierQuery }
-					}
-					type
-				}
+				damageRoll { ${ damageQuery } }
 			}
 			equipment {
 				name
@@ -99,6 +99,14 @@ const getCharacterDetails =
 				equippable
 				equipped
 				number
+			}
+			spells {
+				name
+				description
+				level
+				unlockLevel
+				damage { ${ damageQuery } }
+				prepared
 			}
 			wallet {
 				copper

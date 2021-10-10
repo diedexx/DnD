@@ -23,6 +23,7 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	skillScores: [],
 	weapons: [],
 	equipment: [],
+	spells: [],
 	wallet: {
 		copper: 0,
 		silver: 0,

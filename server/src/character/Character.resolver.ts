@@ -7,6 +7,7 @@ import RelationLoaderService from "../database/RelationLoader.service";
 import Equipment from "../equipment/entities/Equipment.entity";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import Wallet from "../money/entities/Wallet.entity";
+import Proficiency from "../proficiency/entities/Proficiency.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import Spell from "../spell/entities/Spell.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
@@ -117,6 +118,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "wallet", () => Wallet )
 	public async getWallet( @Parent() character: Character ): Promise<Wallet> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "wallet" ] ) ).wallet;
+	}
+
+	/**
+	 * Resolves the proficiencies relationship.
+	 *
+	 * @param {Character} character The character to get proficiencies for.
+	 *
+	 * @return {Promise<Proficiency[]>} The proficiencies of the character.
+	 */
+	@ResolveField( "proficiencies", () => [ Proficiency ] )
+	public async getProficiencies( @Parent() character: Character ): Promise<Proficiency[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "proficiencies" ] ) ).proficiencies;
 	}
 
 	/**

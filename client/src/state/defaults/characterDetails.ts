@@ -19,6 +19,7 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	race: "",
 	personalityTraits: "",
 	ideals: "",
+	proficiencies: [],
 	abilityScores: [],
 	skillScores: [],
 	weapons: [],

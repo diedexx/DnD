@@ -63,6 +63,10 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						<Wallet wallet={ characterDetails.wallet } />
 					</HeadingCard>
 
+					<HeadingCard heading="Proficiencies">
+						<TextValueDisplay text={ characterDetails.proficiencies.map( x=>x.affectedCategoryName ).join( ", " ) } />
+					</HeadingCard>
+
 				</div>
 
 				<div className="column">

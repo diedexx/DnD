@@ -4,6 +4,7 @@ import DeathSaveInterface from "./DeathSave.interface";
 import DiceInterface from "./Dice.interface";
 import EquipmentInterface from "./Equipment.interface";
 import ModifierInterface from "./Modifier.interface";
+import ProficiencyInterface from "./Proficiency.interface";
 import SkillScore from "./SkillScore.interface";
 import SpellInterface from "./Spell.interface";
 import WalletInterface from "./Wallet.interface";
@@ -16,6 +17,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly ideals: string;
 	readonly bonds: string;
 	readonly flaws: string;
+	readonly proficiencies: ProficiencyInterface[];
 	readonly abilityScores: AbilityScoreInterface[];
 	readonly skillScores: SkillScore[];
 	readonly weapons: WeaponInterface[];

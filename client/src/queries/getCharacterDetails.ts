@@ -54,6 +54,9 @@ const getCharacterDetails =
 				maxHealth
 				displayHealth
 			}
+			proficiencies {
+				affectedCategoryName
+			}
 			proficiencyBonus { ${ modifierQuery } }
 			armorClassModifier { ${ modifierQuery } }
 			initiativeModifier { ${ modifierQuery } }

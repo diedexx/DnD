@@ -19,7 +19,7 @@ export default class SkillScore extends BaseEntity {
 	@Column( "int" )
 	@RelationId( ( skillScore: SkillScore ) => skillScore.skill )
 	@Field( () => Int )
-	public readonly skillId: string;
+	public readonly skillId: number;
 
 	@ManyToOne( () => Character, ( character: Character ) => character.abilityScores )
 	@Field( () => Character )
@@ -28,7 +28,7 @@ export default class SkillScore extends BaseEntity {
 	@Column( "int" )
 	@RelationId( ( skillScore: SkillScore ) => skillScore.character )
 	@Field( () => Int )
-	public readonly characterId: string;
+	public readonly characterId: number;
 
 	@Field()
 	public readonly modifier: Modifier;

@@ -8,6 +8,7 @@ import Equipment from "../equipment/entities/Equipment.entity";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import Wallet from "../money/entities/Wallet.entity";
 import Proficiency from "../proficiency/entities/Proficiency.entity";
+import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import Spell from "../spell/entities/Spell.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
@@ -70,6 +71,18 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "skillScores", () => [ SkillScore ] )
 	public async getSkillScores( @Parent() character: Character ): Promise<SkillScore[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "skillScores" ] ) ).skillScores;
+	}
+
+	/**
+	 * Resolves the savingThrows relationship.
+	 *
+	 * @param {Character} character The character to get savingThrows for.
+	 *
+	 * @return {Promise<SkillScore[]>} The savingThrows of the character.
+	 */
+	@ResolveField( "savingThrows", () => [ SavingThrow ] )
+	public async getSavingThrows( @Parent() character: Character ): Promise<SavingThrow[]> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "savingThrows" ] ) ).savingThrows;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 import { flatten } from "@nestjs/common";
 import Character from "../character/entities/Character.entity";
+import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
@@ -66,6 +67,21 @@ export class ModifierListBuilder {
 	public applySkillProficiencyModifiers( skillScore: SkillScore ): this {
 		if ( skillScore.isProficient ) {
 			this.pendingQueries.push( this.modifierCollectorService.gatherSkillProficiencyModifiers() );
+		}
+
+		return this;
+	}
+
+	/**
+	 * Applies all modifiers that a proficiency adds to a specific savingThrow.
+	 *
+	 * @param {SkillScore} savingThrow The savingThrow.
+	 *
+	 * @return {this} The builder.
+	 */
+	public applySavingThrowProficiencyModifiers( savingThrow: SavingThrow ): this {
+		if ( savingThrow.isProficient ) {
+			this.pendingQueries.push( this.modifierCollectorService.gatherSavingThrowProficiencyModifiers() );
 		}
 
 		return this;

@@ -1,8 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import Ability from "../ability/entities/Ability.entity";
-import AbilityScore from "../ability/entities/AbilityScore.entity";
+import AbilityScoreService from "../ability/AbilityScore.service";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
@@ -13,17 +10,17 @@ import Mocked = jest.Mocked;
 
 describe( "The SkillScoreService", () => {
 	let instance: SkillScoreService;
-	const abilityScoreRepositoryMock: Partial<Mocked<Repository<AbilityScore>>> = { findOne: jest.fn() };
 	const relationLoaderServiceMock: Partial<Mocked<RelationLoaderService>> = { loadRelations: jest.fn() };
 	const modifierOrchestratorServiceMock: Partial<Mocked<ModifierOrchestratorService>> = { applySkillScoreModifiers: jest.fn() };
+	const abilityScoreServiceMock: Partial<Mocked<AbilityScoreService>> = { getAbilityScoreModifier: jest.fn() };
 
 	beforeEach( async () => {
 		const module: TestingModule = await Test.createTestingModule( {
 			providers: [
 				SkillScoreService,
-				{ provide: getRepositoryToken( AbilityScore ), useValue: abilityScoreRepositoryMock },
 				{ provide: RelationLoaderService, useValue: relationLoaderServiceMock },
 				{ provide: ModifierOrchestratorService, useValue: modifierOrchestratorServiceMock },
+				{ provide: AbilityScoreService, useValue: abilityScoreServiceMock },
 			],
 		} ).compile();
 
@@ -35,17 +32,12 @@ describe( "The SkillScoreService", () => {
 			const skillScore: SkillScore = new SkillScore();
 
 			relationLoaderServiceMock.loadRelations.mockImplementationOnce( async ( targetSkillScore: SkillScore ) => {
-				targetSkillScore.skill = new Skill();
-				targetSkillScore.skill.ability = new Ability();
-				targetSkillScore.skill.ability.id = 3;
+				targetSkillScore.skill = Object.assign( new Skill(), { abilityId: 3 } );
 
 				return targetSkillScore;
 			} );
 
-			const abilityScore: AbilityScore = new AbilityScore();
-			abilityScore.score = 14;
-			abilityScoreRepositoryMock.findOne.mockResolvedValueOnce( abilityScore );
-
+			abilityScoreServiceMock.getAbilityScoreModifier.mockResolvedValueOnce( new Modifier( 2 ) );
 			modifierOrchestratorServiceMock.applySkillScoreModifiers.mockImplementationOnce( async ( x ) => x );
 
 			const actualModifier: Modifier = await instance.getSkillScoreModifier( skillScore );

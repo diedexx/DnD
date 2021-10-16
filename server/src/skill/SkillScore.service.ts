@@ -1,25 +1,24 @@
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import Ability from "../ability/entities/Ability.entity";
-import AbilityScore from "../ability/entities/AbilityScore.entity";
+import { Injectable } from "@nestjs/common";
+import AbilityScoreService from "../ability/AbilityScore.service";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Modifier from "../modifier/models/Modifier.valueobject";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
+import Skill from "./entities/Skill.entity";
 import SkillScore from "./entities/SkillScore.entity";
 
+@Injectable()
 export default class SkillScoreService {
 	/**
 	 * The constructor.
 	 *
-	 * @param {Repository<AbilityScore>} abilityScoreRepository The AbilityScore repo.
 	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
 	 * @param {ModifierOrchestratorService} modifierOrchestratorService A service that resolves external modifiers.
+	 * @param {AbilityScoreService} abilityScoreService A service for managing abilityScores.
 	 */
 	public constructor(
-		@InjectRepository( AbilityScore )
-		private readonly abilityScoreRepository: Repository<AbilityScore>,
 		private readonly relationLoaderService: RelationLoaderService,
 		private readonly modifierOrchestratorService: ModifierOrchestratorService,
+		private readonly abilityScoreService: AbilityScoreService,
 	) {
 	}
 
@@ -45,8 +44,7 @@ export default class SkillScoreService {
 	 * @private
 	 */
 	private async getSkillScoreBaseModifier( skillScore: SkillScore ): Promise<Modifier> {
-		const ability: Ability = ( await this.relationLoaderService.loadRelations( skillScore, [ "skill.ability" ] ) ).skill.ability;
-		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOne( { where: { abilityId: ability.id } } );
-		return abilityScore.modifier;
+		const skill: Skill = ( await this.relationLoaderService.loadRelations( skillScore, [ "skill" ] ) ).skill;
+		return await this.abilityScoreService.getAbilityScoreModifier( skill.abilityId, skillScore.characterId );
 	}
 }

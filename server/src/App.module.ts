@@ -7,6 +7,7 @@ import { AppService } from "./App.service";
 import { CharacterModule } from "./character/Character.module";
 import DatabaseConfig from "./config/database";
 import GraphQLConfig, { GraphQLConfigInterface } from "./config/graphQL";
+import { SavingThrowModule } from "./savingthrow/SavingThrow.module";
 import { SkillModule } from "./skill/Skill.module";
 import { ModifierModule } from "./modifier/Modifier.module";
 import { WeaponModule } from "./weapon/Weapon.module";
@@ -30,6 +31,7 @@ import DatabaseModule from "./database/Database.module";
 		CharacterModule,
 		AbilityModule,
 		SkillModule,
+		SavingThrowModule,
 		ModifierModule,
 		WeaponModule,
 		DamageModule,

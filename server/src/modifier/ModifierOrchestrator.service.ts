@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import RelationLoaderService from "../database/RelationLoader.service";
+import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import ExternalModifier from "./models/ExternalModifier.valueobject";
 import Modifier from "./models/Modifier.valueobject";
@@ -54,6 +55,23 @@ export class ModifierOrchestratorService {
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
 			.applySkillProficiencyModifiers( skillScore )
 			.filterTypes( ModificationTypesType.SKILL )
+			.build();
+
+		return base.withExternalModifier( ...externalModifiers );
+	}
+
+	/**
+	 * Applies all saving throw modifiers.
+	 *
+	 * @param {Modifier} base The base modifier to apply external modifiers to.
+	 * @param {SavingThrow} savingThrow The saving throw to apply modifiers for.
+	 *
+	 * @return {Promise<Modifier>} The modifier with applied external modifiers.
+	 */
+	public async applySavingThrowModifiers( base: Modifier, savingThrow: SavingThrow ): Promise<Modifier> {
+		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
+			.applySavingThrowProficiencyModifiers( savingThrow )
+			.filterTypes( ModificationTypesType.SAVING_THROW )
 			.build();
 
 		return base.withExternalModifier( ...externalModifiers );

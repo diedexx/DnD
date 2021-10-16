@@ -104,4 +104,21 @@ export class ModifierCollectorService {
 			),
 		];
 	}
+
+	/**
+	 * Gathers a list of external modifiers that saving throw proficiency gives.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
+	 */
+	public async gatherSavingThrowProficiencyModifiers(): Promise<ExternalModifier[]> {
+		return [
+			new ExternalModifier(
+				"Proficiency",
+				ModificationTypesType.SAVING_THROW,
+				new Modifier( 2 ),
+				false,
+				"You are proficient at this saving throw",
+			),
+		];
+	}
 }

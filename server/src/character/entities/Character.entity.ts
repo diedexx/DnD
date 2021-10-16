@@ -10,6 +10,7 @@ import Equipment from "../../equipment/entities/Equipment.entity";
 import Wallet from "../../money/entities/Wallet.entity";
 import Proficiency from "../../proficiency/entities/Proficiency.entity";
 import ProficiencyBonus from "../../proficiency/models/ProficiencyBonus.valueobject";
+import SavingThrow from "../../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import Spell from "../../spell/entities/Spell.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
@@ -132,6 +133,10 @@ export default class Character extends BaseEntity {
 	@OneToMany( () => SkillScore, ( skillScore: SkillScore ) => skillScore.character, { cascade: [ "insert", "update" ] } )
 	@Field( () => [ SkillScore ] )
 	public skillScores: SkillScore[];
+
+	@OneToMany( () => SavingThrow, ( skillScore: SavingThrow ) => skillScore.character, { cascade: [ "insert", "update" ] } )
+	@Field( () => [ SavingThrow ] )
+	public savingThrows: SavingThrow[];
 
 	@OneToMany( () => Proficiency, ( proficiency: Proficiency ) => proficiency.owner )
 	@Field( () => [ Proficiency ] )

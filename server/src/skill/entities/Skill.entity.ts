@@ -20,5 +20,5 @@ export default class Skill extends BaseEntity {
 
 	@Column( "int" )
 	@RelationId( ( skill: Skill ) => skill.ability )
-	public readonly abilityId: string;
+	public readonly abilityId: number;
 }

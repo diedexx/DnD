@@ -87,6 +87,16 @@ const getCharacterDetails =
 					${ modifierQuery }
 				}
 			}
+			savingThrows {
+				isProficient
+				ability {
+					name
+					shortName
+				}
+				modifier {
+					${ modifierQuery }
+				}
+			}
 			weapons {
 				name
 				description

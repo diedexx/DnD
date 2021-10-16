@@ -1,0 +1,11 @@
+.saving-throw {
+    display: flex;
+    gap: 10px;
+    margin: 0.5em 0;
+}
+
+.saving-throw__modifier {
+    align-self: center;
+    border-bottom: 1px solid #ececec;
+    padding: 0 10px;
+}

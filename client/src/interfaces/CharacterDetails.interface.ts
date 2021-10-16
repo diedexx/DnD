@@ -5,6 +5,7 @@ import DiceInterface from "./Dice.interface";
 import EquipmentInterface from "./Equipment.interface";
 import ModifierInterface from "./Modifier.interface";
 import ProficiencyInterface from "./Proficiency.interface";
+import SavingThrowInterface from "./SavingThrow.interface";
 import SkillScore from "./SkillScore.interface";
 import SpellInterface from "./Spell.interface";
 import WalletInterface from "./Wallet.interface";
@@ -20,6 +21,7 @@ interface CharacterDetailsInterface extends CharacterSummaryInterface {
 	readonly proficiencies: ProficiencyInterface[];
 	readonly abilityScores: AbilityScoreInterface[];
 	readonly skillScores: SkillScore[];
+	readonly savingThrows: SavingThrowInterface[];
 	readonly weapons: WeaponInterface[];
 	readonly equipment: EquipmentInterface[];
 	readonly spells: SpellInterface[];

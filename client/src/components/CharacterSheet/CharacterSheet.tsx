@@ -12,6 +12,7 @@ import DeathSave from "./DeathSave/DeathSave";
 import Equipment from "./Equipment/Equipment";
 import Health from "./Health/Health";
 import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownTooltip";
+import SavingThrows from "./SavingThrows/SavingThrows";
 import SkillScores from "./SkillScores/SkillScores";
 import Spells from "./Spell/Spell";
 import Wallet from "./Wallet/Wallet";
@@ -54,9 +55,14 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						<HeadingCard heading="Ability scores">
 							<AbilityScores abilityScores={ characterDetails.abilityScores } />
 						</HeadingCard>
-						<HeadingCard heading="Skill scores">
-							<SkillScores skillScores={ characterDetails.skillScores } />
-						</HeadingCard>
+						<div>
+							<HeadingCard heading="Saving throws">
+								<SavingThrows savingThrows={ characterDetails.savingThrows } />
+							</HeadingCard>
+							<HeadingCard heading="Skill scores">
+								<SkillScores skillScores={ characterDetails.skillScores } />
+							</HeadingCard>
+						</div>
 					</div>
 
 					<HeadingCard heading="Wallet">
@@ -64,7 +70,9 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 					</HeadingCard>
 
 					<HeadingCard heading="Proficiencies">
-						<TextValueDisplay text={ characterDetails.proficiencies.map( x=>x.affectedCategoryName ).join( ", " ) } />
+						<TextValueDisplay
+							text={ characterDetails.proficiencies.map( x => x.affectedCategoryName ).join( ", " ) }
+						/>
 					</HeadingCard>
 
 				</div>

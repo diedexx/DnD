@@ -22,6 +22,7 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	proficiencies: [],
 	abilityScores: [],
 	skillScores: [],
+	savingThrows: [],
 	weapons: [],
 	equipment: [],
 	spells: [],

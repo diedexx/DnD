@@ -8,7 +8,7 @@ export default class Modifier {
 	public readonly base: number;
 
 	@Field( () => [ ExternalModifier ] )
-	public readonly externalModifiers: ExternalModifier[];
+	public readonly externalModifiers: ReadonlyArray<ExternalModifier>;
 
 	/**
 	 * The constructor.
@@ -111,11 +111,11 @@ export default class Modifier {
 	/**
 	 * Creates a new Modifier with an added external modifier.
 	 *
-	 * @param {ExternalModifier[]} externalModifier The external modifiers to add.
+	 * @param {ReadonlyArray<ExternalModifier>} externalModifier The external modifiers to add.
 	 *
 	 * @return {Modifier} The new modifier.
 	 */
-	public withExternalModifier( ...externalModifier: ExternalModifier[] ): Modifier {
+	public withExternalModifier( ...externalModifier: ReadonlyArray<ExternalModifier> ): Modifier {
 		return new Modifier( this.base, this.externalModifiers.concat( ...castArray( externalModifier ) ) );
 	}
 }

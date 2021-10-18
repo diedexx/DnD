@@ -1,6 +1,6 @@
-import Dice from "../../die/models/Dice.valueobject";
-import Modifier from "../../modifier/models/Modifier.valueobject";
-import { DamageRoll } from "../models/DamageRoll.valueobject";
+import Dice from "../../die/values/Dice.value";
+import Modifier from "../../modifier/values/Modifier.value";
+import { DamageRoll } from "../values/DamageRoll.value";
 import DamageType from "../types/DamageType.type";
 import DamageRollTransformer from "./DamageRollTransformer";
 

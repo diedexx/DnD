@@ -1,4 +1,4 @@
-import AbilityScoreModifier from "./AbilityScoreModifier.valueobject";
+import AbilityScoreModifier from "./AbilityScoreModifier.value";
 
 describe( "The AbilityScoreModifier", () => {
 	describe( "fromAbilityScore", () => {

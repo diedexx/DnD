@@ -1,7 +1,7 @@
-import Dice from "../../die/models/Dice.valueobject";
-import Modifier from "../../modifier/models/Modifier.valueobject";
+import Dice from "../../die/values/Dice.value";
+import Modifier from "../../modifier/values/Modifier.value";
 import DamageType from "../types/DamageType.type";
-import { DamageRoll } from "./DamageRoll.valueobject";
+import { DamageRoll } from "./DamageRoll.value";
 
 describe( "The DamageRoll value object", () => {
 	describe( "constructor", () => {

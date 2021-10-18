@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Dice from "../models/Dice.valueobject";
+import Dice from "../values/Dice.value";
 
 export default class DiceTransformer implements ValueTransformer {
 	/**

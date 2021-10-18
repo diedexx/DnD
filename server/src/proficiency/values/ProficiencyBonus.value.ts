@@ -1,5 +1,5 @@
 import { ObjectType } from "@nestjs/graphql";
-import Modifier from "../../modifier/models/Modifier.valueobject";
+import Modifier from "../../modifier/values/Modifier.value";
 import InvalidProficiency from "../exceptions/InvalidProficiency.exception";
 
 @ObjectType()

@@ -2,9 +2,9 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
 import Character from "../../character/entities/Character.entity";
-import { DamageRoll } from "../../damage/models/DamageRoll.valueobject";
+import { DamageRoll } from "../../damage/values/DamageRoll.value";
 import DamageRollTransformer from "../../damage/transformers/DamageRollTransformer";
-import SpellLevel from "../models/SpellLevel.valueobject";
+import SpellLevel from "../values/SpellLevel.value";
 import SpellLevelTransformer from "../transformers/SpellLevel.transformer";
 
 @Entity()

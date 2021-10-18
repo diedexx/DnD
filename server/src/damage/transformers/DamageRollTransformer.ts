@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import { DamageRoll } from "../models/DamageRoll.valueobject";
+import { DamageRoll } from "../values/DamageRoll.value";
 
 export default class DamageRollTransformer implements ValueTransformer {
 	/**

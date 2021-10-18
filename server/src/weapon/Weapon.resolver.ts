@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import BaseResolver from "../Base.resolver";
 import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import Property from "./entities/Property.entity";
 import { Weapon } from "./entities/Weapon.entity";
 import WeaponService from "./weapon.service";

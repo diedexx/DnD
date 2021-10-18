@@ -1,4 +1,4 @@
-import ProficiencyBonus from "./ProficiencyBonus.valueobject";
+import ProficiencyBonus from "./ProficiencyBonus.value";
 
 describe( "The ProficiencyBonus object", () => {
 	describe( "the constructor", () => {

@@ -3,9 +3,9 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, RelationId } from "ty
 import BaseEntity from "../../Base.entity";
 import Category from "../../category/entity/Category.entity";
 import Character from "../../character/entities/Character.entity";
-import { DamageRoll } from "../../damage/models/DamageRoll.valueobject";
+import { DamageRoll } from "../../damage/values/DamageRoll.value";
 import DamageRollTransformer from "../../damage/transformers/DamageRollTransformer";
-import Modifier from "../../modifier/models/Modifier.valueobject";
+import Modifier from "../../modifier/values/Modifier.value";
 import ModifierTransformer from "../../modifier/transformers/Modifier.transformer";
 import Property from "./Property.entity";
 

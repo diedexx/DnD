@@ -6,8 +6,8 @@ import { ProficiencyService } from "../proficiency/Proficiency.service";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
-import ExternalModifier from "./models/ExternalModifier.valueobject";
-import Modifier from "./models/Modifier.valueobject";
+import ExternalModifier from "./values/ExternalModifier.value";
+import Modifier from "./values/Modifier.value";
 import ModificationTypesType from "./types/ModificationTypes.type";
 
 @Injectable()

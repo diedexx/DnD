@@ -3,10 +3,10 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
-import Health from "./models/Health.valueobject";
+import Health from "./values/Health.value";
 import CreateCharacterType, { AbilityScoreType } from "./types/CreateCharacter.type";
 
 @Injectable()

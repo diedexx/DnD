@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import DeathSave from "../models/DeathSave.valueobject";
+import DeathSave from "../values/DeathSave.value";
 
 export default class DeathSaveTransformer implements ValueTransformer {
 	/**

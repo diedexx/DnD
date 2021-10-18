@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import InvalidDice from "../exceptions/InvalidDice.exception";
 import InvalidDiceString from "../exceptions/InvalidDiceString.exception";
-import Die, { Sides } from "./Die.valueobject";
+import Die, { Sides } from "./Die.value";
 
 @ObjectType()
 export default class Dice {

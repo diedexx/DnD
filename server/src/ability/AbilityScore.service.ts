@@ -2,7 +2,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
-import AbilityScoreModifier from "./models/AbilityScoreModifier.valueobject";
+import AbilityScoreModifier from "./values/AbilityScoreModifier.value";
 import CreateAbilityScoreType from "./types/CreateAbilityScore.type";
 
 export default class AbilityScoreService {

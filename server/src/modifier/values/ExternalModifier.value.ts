@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import InvalidExternalModifier from "../exceptions/InvalidExternalModifier.exception";
 import ModificationTypesType from "../types/ModificationTypes.type";
-import Modifier from "./Modifier.valueobject";
+import Modifier from "./Modifier.value";
 
 @ObjectType()
 export default class ExternalModifier {

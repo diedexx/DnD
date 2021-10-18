@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import SpellLevel from "../models/SpellLevel.valueobject";
+import SpellLevel from "../values/SpellLevel.value";
 
 export default class SpellLevelTransformer implements ValueTransformer {
 	/**

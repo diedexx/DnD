@@ -1,4 +1,4 @@
-import Modifier from "../models/Modifier.valueobject";
+import Modifier from "../values/Modifier.value";
 import ModifierTransformer from "./Modifier.transformer";
 
 describe( "The ModifierTransformer class", () => {

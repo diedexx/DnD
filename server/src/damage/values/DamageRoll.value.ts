@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import Dice from "../../die/models/Dice.valueobject";
-import Modifier from "../../modifier/models/Modifier.valueobject";
+import Dice from "../../die/values/Dice.value";
+import Modifier from "../../modifier/values/Modifier.value";
 import { InvalidDamage } from "../exceptions/InvalidDamage.exception";
 import InvalidDamageString from "../exceptions/InvalidDamageString.exception";
 import DamageType from "../types/DamageType.type";

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import AbilityScoreService from "../ability/AbilityScore.service";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
 import SavingThrow from "./entities/SavingThrow.entity";
 import SavingThrowService from "./SavingThrow.service";

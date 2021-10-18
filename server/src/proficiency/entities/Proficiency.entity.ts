@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
 import Category from "../../category/entity/Category.entity";
 import Character from "../../character/entities/Character.entity";
-import ProficiencyBonus from "../models/ProficiencyBonus.valueobject";
+import ProficiencyBonus from "../values/ProficiencyBonus.value";
 
 @Entity()
 @ObjectType()

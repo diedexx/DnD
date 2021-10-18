@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { castArray } from "lodash";
-import ExternalModifier from "./ExternalModifier.valueobject";
+import ExternalModifier from "./ExternalModifier.value";
 
 @ObjectType()
 export default class Modifier {

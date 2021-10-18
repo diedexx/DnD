@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
 import { Weapon } from "./entities/Weapon.entity";
 

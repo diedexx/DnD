@@ -1,4 +1,4 @@
-import Die, { Sides } from "./Die.valueobject";
+import Die, { Sides } from "./Die.value";
 
 describe( "The Die class", () => {
 	describe( "toString", () => {

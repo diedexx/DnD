@@ -5,7 +5,7 @@ import AbilityScore from "../ability/entities/AbilityScore.entity";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Equipment from "../equipment/entities/Equipment.entity";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import Wallet from "../money/entities/Wallet.entity";
 import Proficiency from "../proficiency/entities/Proficiency.entity";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";

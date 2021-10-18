@@ -1,6 +1,6 @@
 import ModificationTypesType from "../types/ModificationTypes.type";
-import ExternalModifier from "./ExternalModifier.valueobject";
-import Modifier from "./Modifier.valueobject";
+import ExternalModifier from "./ExternalModifier.value";
+import Modifier from "./Modifier.value";
 
 describe( "The ExternalModifier class", () => {
 	describe( "constructor", () => {

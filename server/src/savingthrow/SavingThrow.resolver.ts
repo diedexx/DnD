@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import Ability from "../ability/entities/Ability.entity";
 import BaseResolver from "../Base.resolver";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Modifier from "../modifier/models/Modifier.valueobject";
+import Modifier from "../modifier/values/Modifier.value";
 import SavingThrow from "./entities/SavingThrow.entity";
 import SavingThrowService from "./SavingThrow.service";
 

@@ -1,4 +1,4 @@
-import SpellLevel from "./SpellLevel.valueobject";
+import SpellLevel from "./SpellLevel.value";
 
 describe( "The SpellLevel class", () => {
 	describe( "constructor", () => {

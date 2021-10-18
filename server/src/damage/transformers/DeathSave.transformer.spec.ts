@@ -1,4 +1,4 @@
-import DeathSave from "../models/DeathSave.valueobject";
+import DeathSave from "../values/DeathSave.value";
 import DeathSaveTransformer from "./DeathSave.transformer";
 
 describe( "The DeathSaveTransformer class", () => {

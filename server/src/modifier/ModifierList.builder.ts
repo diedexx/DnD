@@ -3,7 +3,7 @@ import Character from "../character/entities/Character.entity";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
-import ExternalModifier from "./models/ExternalModifier.valueobject";
+import ExternalModifier from "./values/ExternalModifier.value";
 import { ModifierCollectorService } from "./ModifierCollector.service";
 import ModificationTypesType from "./types/ModificationTypes.type";
 

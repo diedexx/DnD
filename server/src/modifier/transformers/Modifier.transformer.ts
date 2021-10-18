@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Modifier from "../models/Modifier.valueobject";
+import Modifier from "../values/Modifier.value";
 
 export default class ModifierTransformer implements ValueTransformer {
 	/**

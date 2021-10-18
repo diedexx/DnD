@@ -1,10 +1,10 @@
 import { ObjectType } from "@nestjs/graphql";
-import Modifier from "../../modifier/models/Modifier.valueobject";
+import Modifier from "../../modifier/values/Modifier.value";
 
 @ObjectType()
 export default class AbilityScoreModifier extends Modifier {
 	/**
-	 * Creates a new Modifier based on an a ability score.
+	 * Creates a new Modifier based on an ability score.
 	 *
 	 * @param {number} score The Ability score to create the Modifier for.
 	 *

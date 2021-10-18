@@ -1,4 +1,4 @@
-import SpellLevel from "../models/SpellLevel.valueobject";
+import SpellLevel from "../values/SpellLevel.value";
 import SpellLevelTransformer from "./SpellLevel.transformer";
 
 describe( "The SpellLevelTransformer class", () => {

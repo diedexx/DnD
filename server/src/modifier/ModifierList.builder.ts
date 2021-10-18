@@ -60,14 +60,12 @@ export class ModifierListBuilder {
 	/**
 	 * Applies all modifiers that a proficiency adds to a specific skillScore.
 	 *
-	 * @param {SkillScore} skillScore The skillScore.
+	 * @param {SkillScore} skillScore The skillScore to apply the proficiency bonus to.
 	 *
 	 * @return {this} The builder.
 	 */
 	public applySkillProficiencyModifiers( skillScore: SkillScore ): this {
-		if ( skillScore.isProficient ) {
-			this.pendingQueries.push( this.modifierCollectorService.gatherSkillProficiencyModifiers() );
-		}
+		this.pendingQueries.push( this.modifierCollectorService.gatherSkillProficiencyModifiers( skillScore ) );
 
 		return this;
 	}
@@ -75,13 +73,13 @@ export class ModifierListBuilder {
 	/**
 	 * Applies all modifiers that a proficiency adds to a specific savingThrow.
 	 *
-	 * @param {SkillScore} savingThrow The savingThrow.
+	 * @param {SkillScore} savingThrow The savingThrow to apply the proficiency bonus to./
 	 *
 	 * @return {this} The builder.
 	 */
 	public applySavingThrowProficiencyModifiers( savingThrow: SavingThrow ): this {
 		if ( savingThrow.isProficient ) {
-			this.pendingQueries.push( this.modifierCollectorService.gatherSavingThrowProficiencyModifiers() );
+			this.pendingQueries.push( this.modifierCollectorService.gatherSavingThrowProficiencyModifiers( savingThrow ) );
 		}
 
 		return this;

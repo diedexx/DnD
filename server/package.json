@@ -24,6 +24,7 @@
     "migrate": "yarn run-migration",
     "run-migration": "docker compose exec server ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
     "generate-migration": "docker compose exec server ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate",
+    "create-migration": "docker compose exec server ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:create",
     "revert-migration": "docker compose exec server ./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert"
   },
   "dependencies": {

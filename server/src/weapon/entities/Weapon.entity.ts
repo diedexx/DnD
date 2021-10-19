@@ -1,12 +1,13 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, RelationId } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
 import Category from "../../category/entity/Category.entity";
 import Character from "../../character/entities/Character.entity";
-import { DamageRoll } from "../../damage/values/DamageRoll.value";
 import DamageRollTransformer from "../../damage/transformers/DamageRollTransformer";
-import Modifier from "../../modifier/values/Modifier.value";
+import { DamageRoll } from "../../damage/values/DamageRoll.value";
+import Modification from "../../modifier/entities/Modification.entity";
 import ModifierTransformer from "../../modifier/transformers/Modifier.transformer";
+import Modifier from "../../modifier/values/Modifier.value";
 import Property from "./Property.entity";
 
 @Entity()
@@ -31,6 +32,9 @@ export class Weapon extends BaseEntity {
 	@Column( "varchar", { transformer: new DamageRollTransformer(), comment: "Example: 2d8 +3 Piercing" } )
 	@Field()
 	public damageRoll: DamageRoll;
+
+	@OneToMany( () => Modification, ( modification: Modification ) => modification.sourceWeapon, { cascade: true } )
+	public bonuses: Modification[];
 
 	@ManyToOne( () => Character, ( character: Character ) => character.weapons )
 	@Field( () => Character )

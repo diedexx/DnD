@@ -1,0 +1,23 @@
+.tooltip__handle {
+    text-decoration: underline dotted #cccccc;
+    text-underline-offset: 2px
+}
+
+.tooltip {
+    width: max-content;
+    position: absolute;
+    z-index: 1;
+    font-size: initial;
+}
+
+.tooltip--locked {
+    width: max-content;
+    position: absolute;
+    z-index: 1;
+    font-size: initial;
+    box-shadow: 0 0 10px 1px #1f2935;
+}
+
+.tooltip__target {
+    position: relative;
+}

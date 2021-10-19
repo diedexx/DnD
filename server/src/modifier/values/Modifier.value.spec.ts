@@ -1,25 +1,25 @@
-import ModificationTypesType from "../types/ModificationTypes.type";
+import ModificationTypes from "../types/ModificationTypes.type";
 import ExternalModifier from "./ExternalModifier.value";
 import Modifier from "./Modifier.value";
 
 describe( "The Modifier", () => {
 	const externalModifierPlus1: ExternalModifier = new ExternalModifier(
 		"testing",
-		ModificationTypesType.SKILL,
+		ModificationTypes.SKILL,
 		new Modifier( 1 ),
 		false,
 	);
 
 	const externalModifierPlus2: ExternalModifier = new ExternalModifier(
 		"more testing",
-		ModificationTypesType.ARMOR_CLASS,
+		ModificationTypes.ARMOR_CLASS,
 		new Modifier( 2 ),
 		false,
 	);
 
 	const situationalModifierPlus4: ExternalModifier = new ExternalModifier(
 		"situational",
-		ModificationTypesType.ABILITY,
+		ModificationTypes.ABILITY,
 		new Modifier( 4 ),
 		true,
 		"situational",
@@ -27,7 +27,7 @@ describe( "The Modifier", () => {
 
 	const nestedModifierPlus2Plus1: ExternalModifier = new ExternalModifier(
 		"with modifiers",
-		ModificationTypesType.INITIATIVE,
+		ModificationTypes.INITIATIVE,
 		new Modifier( 2, [ externalModifierPlus1 ] ),
 		false,
 	);

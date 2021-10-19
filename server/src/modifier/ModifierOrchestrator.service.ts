@@ -6,7 +6,7 @@ import ExternalModifier from "./values/ExternalModifier.value";
 import Modifier from "./values/Modifier.value";
 import { ModifierCollectorService } from "./ModifierCollector.service";
 import { ModifierListBuilder } from "./ModifierList.builder";
-import ModificationTypesType from "./types/ModificationTypes.type";
+import ModificationTypes from "./types/ModificationTypes.type";
 
 @Injectable()
 export class ModifierOrchestratorService {
@@ -37,7 +37,7 @@ export class ModifierOrchestratorService {
 			.applyWeaponModifier( weapon )
 			.applyWeaponProficiencyModifiers( weapon )
 			.applyGearModifiers( owner )
-			.filterTypes( ModificationTypesType.ATTACK_ROLL )
+			.filterTypes( ModificationTypes.ATTACK_ROLL )
 			.build();
 
 		return base.withExternalModifier( ...externalModifiers );
@@ -54,7 +54,7 @@ export class ModifierOrchestratorService {
 	public async applySkillScoreModifiers( base: Modifier, skillScore: SkillScore ): Promise<Modifier> {
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
 			.applySkillProficiencyModifiers( skillScore )
-			.filterTypes( ModificationTypesType.SKILL )
+			.filterTypes( ModificationTypes.SKILL )
 			.build();
 
 		return base.withExternalModifier( ...externalModifiers );
@@ -71,7 +71,7 @@ export class ModifierOrchestratorService {
 	public async applySavingThrowModifiers( base: Modifier, savingThrow: SavingThrow ): Promise<Modifier> {
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
 			.applySavingThrowProficiencyModifiers( savingThrow )
-			.filterTypes( ModificationTypesType.SAVING_THROW )
+			.filterTypes( ModificationTypes.SAVING_THROW )
 			.build();
 
 		return base.withExternalModifier( ...externalModifiers );

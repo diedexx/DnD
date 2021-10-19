@@ -7,6 +7,7 @@ const modifierQuery = `
 					displaySituationalValue
 					externalModifiers {
 						source
+						type
 						modifier {
 							value
 							base
@@ -20,7 +21,8 @@ const modifierQuery = `
 					}
 				`;
 
-const damageQuery = `displayValue
+const damageQuery = `
+					displayValue
 					dice {
 						displayValue
 					}
@@ -28,6 +30,16 @@ const damageQuery = `displayValue
 						${ modifierQuery }
 					}
 					type`;
+
+const externalModifierQuery = `
+					source
+					type
+					modifier {
+						${ modifierQuery }
+					}
+					situational
+					description
+`;
 
 const getCharacterDetails =
 	`query CharacterDetails($id: Int!) {
@@ -105,6 +117,7 @@ const getCharacterDetails =
 					${ modifierQuery }
 				}
 				damageRoll { ${ damageQuery } }
+				bonuses { ${ externalModifierQuery } }
 			}
 			equipment {
 				name
@@ -112,6 +125,7 @@ const getCharacterDetails =
 				equippable
 				equipped
 				number
+				bonuses { ${ externalModifierQuery } }
 			}
 			spells {
 				name

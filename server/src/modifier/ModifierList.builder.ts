@@ -5,11 +5,11 @@ import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./values/ExternalModifier.value";
 import { ModifierCollectorService } from "./ModifierCollector.service";
-import ModificationTypesType from "./types/ModificationTypes.type";
+import ModificationTypes from "./types/ModificationTypes.type";
 
 export class ModifierListBuilder {
 	private readonly pendingQueries: Promise<ExternalModifier[]>[];
-	private readonly filters: ModificationTypesType[];
+	private readonly filters: ModificationTypes[];
 
 	/**
 	 * The constructor.
@@ -88,11 +88,11 @@ export class ModifierListBuilder {
 	/**
 	 * Filters out all modifiers that don't match the type.
 	 *
-	 * @param {ModificationTypesType[]} types The types to keep.
+	 * @param {ModificationTypes[]} types The types to keep.
 	 *
 	 * @return {this} The builder.
 	 */
-	public filterTypes( ...types: ModificationTypesType[] ): this {
+	public filterTypes( ...types: ModificationTypes[] ): this {
 		this.filters.push( ...types );
 		return this;
 	}

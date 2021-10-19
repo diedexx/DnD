@@ -1,5 +1,6 @@
-import { Fragment, FunctionComponent, ReactNode, useCallback, useState } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
+import Tooltip from "../../Tooltip/Tooltip";
 import ModifierBreakdown from "./ModifierBreakdown";
 
 export type ModifierBreakdownTooltipProps = {
@@ -14,43 +15,11 @@ export type ModifierBreakdownTooltipProps = {
  *
  * @return {JSX.Element} The breakdown tooltip.
  */
-const ModifierBreakdownTooltip: FunctionComponent<ModifierBreakdownTooltipProps> = (
-	{
-		modifier,
-		children,
-	}: ModifierBreakdownTooltipProps,
-): JSX.Element => {
-	const [ showBreakdown, setShowBreakdown ] = useState( false );
-	const [ lockBreakdown, setLockBreakdown ] = useState( false );
-
-	const openBreakdown = useCallback( () => {
-		setShowBreakdown( true );
-	}, [] );
-
-	const closeBreakdown = useCallback( () => {
-		setShowBreakdown( false );
-	}, [] );
-
-	const toggleBreakdownLock = useCallback( ( e ) => {
-		if ( e.keyCode && e.keyCode !== 32 ) {
-			return;
-		}
-		setLockBreakdown( ! lockBreakdown );
-	}, [ lockBreakdown ] );
-
-	return <Fragment>
-		<div
-			tabIndex={ 0 } role={ "button" }
-			 className="show-breakdown"
-			 onMouseEnter={ openBreakdown }
-			 onMouseLeave={ closeBreakdown }
-			 onClick={ toggleBreakdownLock }
-			 onKeyDown={ toggleBreakdownLock }
-		>
-			{ children }
-		</div>
-		{ ( showBreakdown || lockBreakdown ) && <ModifierBreakdown modifier={ modifier } locked={ lockBreakdown } /> }
-	</Fragment>;
-};
+const ModifierBreakdownTooltip: FunctionComponent<ModifierBreakdownTooltipProps> =
+	( { modifier, children }: ModifierBreakdownTooltipProps ): JSX.Element => {
+		return <Tooltip handle={ children }>
+			<ModifierBreakdown modifier={ modifier } />
+		</Tooltip>;
+	};
 
 export default ModifierBreakdownTooltip;

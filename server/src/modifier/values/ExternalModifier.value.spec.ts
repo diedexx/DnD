@@ -1,4 +1,4 @@
-import ModificationTypesType from "../types/ModificationTypes.type";
+import ModificationTypes from "../types/ModificationTypes.type";
 import ExternalModifier from "./ExternalModifier.value";
 import Modifier from "./Modifier.value";
 
@@ -8,14 +8,14 @@ describe( "The ExternalModifier class", () => {
 			expect( () => {
 				new ExternalModifier(
 					"non-situational modifier without description",
-					ModificationTypesType.ATTACK_ROLL,
+					ModificationTypes.ATTACK_ROLL,
 					new Modifier( 0 ),
 					false,
 				);
 
 				new ExternalModifier(
 					"non-situational modifier with description",
-					ModificationTypesType.ATTACK_ROLL,
+					ModificationTypes.ATTACK_ROLL,
 					new Modifier( 0 ),
 					false,
 					"description is optional",
@@ -25,7 +25,7 @@ describe( "The ExternalModifier class", () => {
 			expect( () => {
 				new ExternalModifier(
 					"situational modifier without description",
-					ModificationTypesType.ATTACK_ROLL,
+					ModificationTypes.ATTACK_ROLL,
 					new Modifier( 0 ),
 					true );
 			} )

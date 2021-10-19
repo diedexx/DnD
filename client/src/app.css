@@ -81,4 +81,7 @@ h3 {
     font-family: "monospace";
 }
 
-
+sup {
+    display: inline-block;
+    text-decoration: none;
+}

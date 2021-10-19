@@ -6,9 +6,10 @@ import { ProficiencyService } from "../proficiency/Proficiency.service";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
+import Modification from "./entities/Modification.entity";
+import ModificationTypes from "./types/ModificationTypes.type";
 import ExternalModifier from "./values/ExternalModifier.value";
 import Modifier from "./values/Modifier.value";
-import ModificationTypesType from "./types/ModificationTypes.type";
 
 @Injectable()
 export class ModifierCollectorService {
@@ -37,7 +38,7 @@ export class ModifierCollectorService {
 		return [
 			new ExternalModifier(
 				"Chest plate of destruction",
-				ModificationTypesType.ARMOR_CLASS,
+				ModificationTypes.ARMOR_CLASS,
 				new Modifier( 1 ),
 				false,
 			),
@@ -53,16 +54,10 @@ export class ModifierCollectorService {
 	 */
 	public async gatherWeaponModifiers( weapon: Weapon ): Promise<ExternalModifier[]> {
 		// This.equipmentModifierService.gatherModifiers(), This does query to database
-		return [
-			new ExternalModifier(
-				"Fancy halberd",
-				ModificationTypesType.ATTACK_ROLL,
-				new Modifier( 2 ),
-				true,
-				"Deal extra dmg to undead targets",
-			),
-		];
+		const bonuses = ( await this.relationLoaderService.loadRelations( weapon, [ "bonuses.sourceWeapon" ] ) ).bonuses;
+		return bonuses.map( ( bonus: Modification ): ExternalModifier => bonus.externalModifier );
 	}
+
 	/* eslint-enable */
 
 	/**
@@ -78,7 +73,7 @@ export class ModifierCollectorService {
 			return [
 				new ExternalModifier(
 					weapon.name,
-					ModificationTypesType.ATTACK_ROLL,
+					ModificationTypes.ATTACK_ROLL,
 					proficiency.bonus,
 					false,
 					proficiency.description,
@@ -104,7 +99,7 @@ export class ModifierCollectorService {
 		return [
 			new ExternalModifier(
 				"Proficiency",
-				ModificationTypesType.SKILL,
+				ModificationTypes.SKILL,
 				new Modifier( 2 ),
 				false,
 				"You are proficient at this skill",
@@ -127,7 +122,7 @@ export class ModifierCollectorService {
 		return [
 			new ExternalModifier(
 				"Proficiency",
-				ModificationTypesType.SAVING_THROW,
+				ModificationTypes.SAVING_THROW,
 				new Modifier( 2 ),
 				false,
 				"You are proficient at this saving throw",

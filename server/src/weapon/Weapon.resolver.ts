@@ -4,6 +4,8 @@ import { Repository } from "typeorm";
 import BaseResolver from "../Base.resolver";
 import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../database/RelationLoader.service";
+import Modification from "../modifier/entities/Modification.entity";
+import ExternalModifier from "../modifier/values/ExternalModifier.value";
 import Modifier from "../modifier/values/Modifier.value";
 import Property from "./entities/Property.entity";
 import { Weapon } from "./entities/Weapon.entity";
@@ -49,6 +51,20 @@ export default class WeaponResolver extends BaseResolver( Weapon, "weapon", "wea
 	@ResolveField( "properties", () => [ Property ] )
 	public async getProperties( @Parent() weapon: Weapon ): Promise<Property[]> {
 		return ( await this.relationLoaderService.loadRelations( weapon, [ "properties" ] ) ).properties;
+	}
+
+	/**
+	 * Gets the bonuses of a weapon.
+	 *
+	 * @param {Weapon} weapon The weapon to get the bonuses for.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The bonuses of the weapon.
+	 */
+	@ResolveField( "bonuses", () => [ ExternalModifier ] )
+	public async getBonuses( @Parent() weapon: Weapon ): Promise<ExternalModifier[]> {
+		return ( await this.relationLoaderService.loadRelations( weapon, [ "bonuses.sourceWeapon" ] ) )
+			.bonuses
+			.map( ( bonus: Modification ) => bonus.externalModifier );
 	}
 
 	/**

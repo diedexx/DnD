@@ -1,4 +1,5 @@
 import DamageInterface from "./Damage.interface";
+import ExternalModifierInterface from "./ExternalModifier.interface";
 import ModifierInterface from "./Modifier.interface";
 
 interface WeaponInterface {
@@ -7,6 +8,7 @@ interface WeaponInterface {
 	readonly attackRollModifier: ModifierInterface;
 	readonly equipped: boolean;
 	readonly damageRoll: DamageInterface;
+	readonly bonuses: ExternalModifierInterface[];
 }
 
 export default WeaponInterface;

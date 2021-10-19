@@ -5,4 +5,4 @@ yarn --cwd=client lint
 yarn --cwd=client test --watchAll=false
 yarn --cwd=server lint
 yarn --cwd=server test
-yarn --cwd=server test:e2e
+#yarn --cwd=server test:e2e

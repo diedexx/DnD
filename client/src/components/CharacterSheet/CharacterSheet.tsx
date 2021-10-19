@@ -134,7 +134,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 				</div>
 
-				<div className="column">
+				<div className="column--shrink">
 
 					<HeadingCard heading="Personality traits">
 						<TextValueDisplay text={ characterDetails.personalityTraits } />

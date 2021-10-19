@@ -1,7 +1,10 @@
 import { FunctionComponent } from "react";
 import EquipmentInterface from "../../../interfaces/Equipment.interface";
+import ExternalModifierInterface from "../../../interfaces/ExternalModifier.interface";
 import Checkbox from "../../Checkbox/Checkbox";
 import Table, { Heading } from "../../Table/Table";
+import Tooltip from "../../Tooltip/Tooltip";
+import ExternalModifierTable from "../ModifierBreakdown/ExternalModifierTable";
 
 export type EquipmentProps = {
 	equipment: EquipmentInterface[];
@@ -25,6 +28,18 @@ const headings: Heading[] = [
 	{ name: "Name", field: "name" },
 	{ name: "Description", field: "description" },
 	{ name: "Owned", field: "number" },
+	{
+		name: "Bonuses",
+		field: "bonuses",
+		renderer: ( externalModifiers: ExternalModifierInterface[] ) => {
+			if ( externalModifiers.length === 0 ) {
+				return "-";
+			}
+			return <Tooltip handle="View">
+				<ExternalModifierTable externalModifiers={ externalModifiers } />
+			</Tooltip>;
+		},
+	},
 ];
 
 /**

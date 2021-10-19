@@ -5,6 +5,7 @@
     --primary-color: #fff;
     --secondary-color: #43789c;
     --background-color: #e5e5e5;
+    --border-color: rgba(0,0,0,0.2);
     --text-color: #2d2d2d;
 }
 
@@ -13,6 +14,7 @@
         --primary-color: #455363;
         --secondary-color: #43789c;
         --background-color: #1f2935;
+        --border-color: rgba(255,255,255,0.2);
         --text-color: #fff;
     }
 }

@@ -22,7 +22,7 @@ const AbilityScores: FunctionComponent<AbilityScoresProps> = ( { abilityScores }
 /**
  * Gets an AbilityScore component for an abilityScore object.
  *
- *  @param {AbilityScore} abilityScore The AbilityScore object.
+ * @param {AbilityScore} abilityScore The AbilityScore object.
  *
  * @return {JSX.Element} The AbilityScore component.
  */

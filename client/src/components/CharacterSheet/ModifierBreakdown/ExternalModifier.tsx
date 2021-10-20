@@ -8,7 +8,7 @@ export type ExternalModifierProps = {
 }
 
 /**
- * Gets a external modifier display with a matching color.
+ * Gets an external modifier display with a matching color.
  *
  * @param {ExternalModifierInterface} externalModifier The external modifier to display.
  *

@@ -32,7 +32,7 @@ const Tooltip: FunctionComponent<TooltipProps> = ( { handle, children, className
 	const tooltipClassName = lock ? "tooltip--locked" : "tooltip";
 
 	return <div className="tooltip__container">
-		<div
+		<span
 			tabIndex={ 0 } role={ "button" }
 			className="tooltip__handle"
 			onMouseEnter={ open }
@@ -41,7 +41,7 @@ const Tooltip: FunctionComponent<TooltipProps> = ( { handle, children, className
 			onKeyDown={ toggleLock }
 		>
 			{ handle }
-		</div>
+		</span>
 		<div className="tooltip__target">
 			{ ( show || lock ) && <div className={ [ className, tooltipClassName ].join( " " ) }>{ children }</div> }
 		</div>

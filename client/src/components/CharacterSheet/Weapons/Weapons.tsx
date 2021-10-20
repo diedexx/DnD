@@ -44,7 +44,7 @@ const heading: Heading[] = [
 				return "-";
 			}
 			return <Tooltip handle="View">
-				<ExternalModifierTable externalModifiers={ externalModifiers } />
+				<ExternalModifierTable externalModifiers={ externalModifiers } isSource={ true } />
 			</Tooltip>;
 		},
 	},

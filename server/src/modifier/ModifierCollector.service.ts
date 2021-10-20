@@ -72,7 +72,7 @@ export class ModifierCollectorService {
 			const proficiency: Proficiency = await this.proficiencyService.getWeaponProficiency( weapon );
 			return [
 				new ExternalModifier(
-					weapon.name,
+					"Proficiency",
 					ModificationTypes.ATTACK_ROLL,
 					proficiency.bonus,
 					false,

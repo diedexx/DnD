@@ -1,3 +1,7 @@
+.skill-scores{
+    min-width: max-content;
+}
+
 .skill-score {
     display: flex;
     gap: 10px;

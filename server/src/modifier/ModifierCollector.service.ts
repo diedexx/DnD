@@ -4,6 +4,7 @@ import Ability from "../ability/entities/Ability.entity";
 import AbilityScoreModifier from "../ability/values/AbilityScoreModifier.value";
 import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../database/RelationLoader.service";
+import Equipment from "../equipment/entities/Equipment.entity";
 import Proficiency from "../proficiency/entities/Proficiency.entity";
 import { ProficiencyService } from "../proficiency/Proficiency.service";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
@@ -42,15 +43,14 @@ export class ModifierCollectorService {
 	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
 	 */
 	public async gatherGearModifiers( character: Character ): Promise<ExternalModifier[]> {
-		// This.equipmentModifierService.gatherModifiers(),
-		return [
-			new ExternalModifier(
-				"Chest plate of destruction",
-				ModificationTypes.ARMOR_CLASS,
-				new Modifier( 1 ),
-				false,
-			),
-		];
+		const equipment: Equipment[] = (
+			await this.relationLoaderService.loadRelations( character, [ "equipment.bonuses.sourceEquipment" ] )
+		).equipment;
+
+		return equipment.flatMap(
+			( equipmentPiece: Equipment ): ExternalModifier[] => equipmentPiece.bonuses.map(
+				( bonus: Modification ): ExternalModifier => bonus.externalModifier ),
+		);
 	}
 
 	/**
@@ -88,7 +88,7 @@ export class ModifierCollectorService {
 
 			return [
 				new ExternalModifier(
-					abilities.map( ability=>ability.name ).join( "/" ),
+					abilities.map( ability => ability.name ).join( "/" ),
 					ModificationTypes.ATTACK_ROLL,
 					highestAbilityScoreModifier,
 					false,

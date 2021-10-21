@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
-
 import { Link } from "react-router-dom";
 import { Route, routes } from "../../routes";
 import "./Header.css";
+import ThemeSelector from "../Theme/ThemeSelector";
 
 /**
  * The app header, containing the navigation menu.
@@ -10,11 +10,14 @@ import "./Header.css";
  * @return {JSX.Element} The app header.
  */
 const Header: FunctionComponent = (): JSX.Element => {
-	return <nav className="headerMenu" data-testid="headerMenu">
-		<ul className="headerMenuList">
-			{ getMenuListItems() }
-		</ul>
-	</nav>;
+	return <div className="header">
+		<nav className="headerMenu" data-testid="headerMenu">
+			<ul className="headerMenuList">
+				{ getMenuListItems() }
+			</ul>
+		</nav>
+		<ThemeSelector />
+	</div>;
 };
 
 /**

@@ -2,7 +2,6 @@ import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface"
 import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import { GraphQLData } from "./store";
 
-// eslint-disable-next-line no-shadow
 export enum ACTION_TYPE {
 	SET_CHARACTER_SUMMARIES = "SET_CHARACTER_SUMMARIES",
 	SET_CHARACTER_DETAILS = "SET_CHARACTER_DETAILS",

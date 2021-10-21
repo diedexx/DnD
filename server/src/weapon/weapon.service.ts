@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import Modifier from "../modifier/values/Modifier.value";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
+import Modifier from "../modifier/values/Modifier.value";
 import { Weapon } from "./entities/Weapon.entity";
 
 @Injectable()
@@ -23,6 +23,6 @@ export default class WeaponService {
 	 * @return {Promise<Modifier>} The modifier.
 	 */
 	public async getAttackRollModifier( weapon: Weapon ): Promise<Modifier> {
-		return this.modifierOrchestratorService.applyAttackRollModifiers( weapon.attackRollModifierBase, weapon );
+		return this.modifierOrchestratorService.applyAttackRollModifiers( new Modifier(), weapon );
 	}
 }

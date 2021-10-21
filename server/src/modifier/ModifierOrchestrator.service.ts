@@ -34,8 +34,9 @@ export class ModifierOrchestratorService {
 		const owner = ( await this.relationLoaderService.loadRelations( weapon, [ "owner" ] ) ).owner;
 
 		const externalModifiers: ExternalModifier[] = await new ModifierListBuilder( this.modifierCollectorService )
-			.applyWeaponModifier( weapon )
+			.applyAttackRollAbilityModifier( weapon )
 			.applyWeaponProficiencyModifiers( weapon )
+			.applyWeaponModifiers( weapon )
 			.applyGearModifiers( owner )
 			.filterTypes( ModificationTypes.ATTACK_ROLL )
 			.build();

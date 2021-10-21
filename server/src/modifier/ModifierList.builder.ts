@@ -40,8 +40,20 @@ export class ModifierListBuilder {
 	 *
 	 * @return {this} The builder.
 	 */
-	public applyWeaponModifier( weapon: Weapon ): this {
+	public applyWeaponModifiers( weapon: Weapon ): this {
 		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponModifiers( weapon ) );
+		return this;
+	}
+
+	/**
+	 * Applies all modifiers that ability modifiers give for a specific weapon attack.
+	 *
+	 * @param {Weapon} weapon The weapon to get the ability modifiers for.
+	 *
+	 * @return {this} The builder.
+	 */
+	public applyAttackRollAbilityModifier( weapon: Weapon ): this {
+		this.pendingQueries.push( this.modifierCollectorService.gatherAttackRollAbilityModifier( weapon ) );
 		return this;
 	}
 
@@ -50,7 +62,7 @@ export class ModifierListBuilder {
 	 *
 	 * @param {Weapon} weapon The weapon to get the proficiency bonus for.
 	 *
-	 * @return {this} The builder
+	 * @return {this} The builder.
 	 */
 	public applyWeaponProficiencyModifiers( weapon: Weapon ): this {
 		this.pendingQueries.push( this.modifierCollectorService.gatherWeaponProficiencyModifiers( weapon ) );

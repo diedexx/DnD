@@ -1,4 +1,7 @@
 import { Injectable } from "@nestjs/common";
+import AbilityScoreService from "../ability/AbilityScore.service";
+import Ability from "../ability/entities/Ability.entity";
+import AbilityScoreModifier from "../ability/values/AbilityScoreModifier.value";
 import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Proficiency from "../proficiency/entities/Proficiency.entity";
@@ -10,6 +13,7 @@ import Modification from "./entities/Modification.entity";
 import ModificationTypes from "./types/ModificationTypes.type";
 import ExternalModifier from "./values/ExternalModifier.value";
 import Modifier from "./values/Modifier.value";
+import WeaponModifierService from "./WeaponModifier.service";
 
 @Injectable()
 export class ModifierCollectorService {
@@ -17,10 +21,14 @@ export class ModifierCollectorService {
 	 * The constructor.
 	 *
 	 * @param {ProficiencyService} proficiencyService A service that knows about proficiencies.
+	 * @param {WeaponModifierService} weaponModifierService A service that knows about weapon modifiers.
+	 * @param {AbilityScoreService} abilityScoreService A service that knows about AbilityScores.
 	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
 	 */
 	public constructor(
 		private readonly proficiencyService: ProficiencyService,
+		private readonly weaponModifierService: WeaponModifierService,
+		private readonly abilityScoreService: AbilityScoreService,
 		private readonly relationLoaderService: RelationLoaderService,
 	) {
 	}
@@ -53,12 +61,44 @@ export class ModifierCollectorService {
 	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
 	 */
 	public async gatherWeaponModifiers( weapon: Weapon ): Promise<ExternalModifier[]> {
-		// This.equipmentModifierService.gatherModifiers(), This does query to database
 		const bonuses = ( await this.relationLoaderService.loadRelations( weapon, [ "bonuses.sourceWeapon" ] ) ).bonuses;
 		return bonuses.map( ( bonus: Modification ): ExternalModifier => bonus.externalModifier );
 	}
 
 	/* eslint-enable */
+
+	/**
+	 * Gathers the modifiers that ability modifiers give for a specific weapon attack.
+	 *
+	 * @param {Weapon} weapon The weapon to get the ability modifiers for.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
+	 */
+	public async gatherAttackRollAbilityModifier( weapon: Weapon ): Promise<ExternalModifier[]> {
+		try {
+			const abilities: Ability[] = await this.weaponModifierService.getAttackRollAbilities( weapon );
+
+			const abilityScoreModifiers: AbilityScoreModifier[] = await Promise.all( abilities.map(
+				async ( ability: Ability ) => await this.abilityScoreService.getAbilityScoreModifier( ability.id, weapon.ownerId ),
+			) );
+
+			const highestAbilityScoreModifier = abilityScoreModifiers
+				.sort( ( a, b ) => a.value - b.value )
+				.pop();
+
+			return [
+				new ExternalModifier(
+					abilities.map( ability=>ability.name ).join( "/" ),
+					ModificationTypes.ATTACK_ROLL,
+					highestAbilityScoreModifier,
+					false,
+					"Attack ability modifier",
+				),
+			];
+		} catch ( e ) {
+			return [];
+		}
+	}
 
 	/**
 	 * Gathers a list of external modifiers that weapon proficiency gives.

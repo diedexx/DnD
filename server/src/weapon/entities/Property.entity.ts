@@ -7,9 +7,9 @@ import BaseEntity from "../../Base.entity";
 export default class Property extends BaseEntity {
 	@Column( "text" )
 	@Field()
-	private readonly name: string;
+	public readonly name: string;
 
 	@Column( "text" )
 	@Field()
-	private readonly description: string;
+	public readonly description: string;
 }

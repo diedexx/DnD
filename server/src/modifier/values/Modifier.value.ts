@@ -16,7 +16,7 @@ export default class Modifier {
 	 * @param {number} base The modifier value.
 	 * @param {ExternalModifier[]} externalModifiers The external modifiers.
 	 */
-	public constructor( base: number, externalModifiers: ExternalModifier[] = [] ) {
+	public constructor( base = 0, externalModifiers: ExternalModifier[] = [] ) {
 		this.base = base;
 		this.externalModifiers = externalModifiers.sort( ( a: ExternalModifier, b: ExternalModifier ): number => {
 			if ( a.situational !== b.situational ) {

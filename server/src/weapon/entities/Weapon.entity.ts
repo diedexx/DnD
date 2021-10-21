@@ -6,8 +6,6 @@ import Character from "../../character/entities/Character.entity";
 import DamageRollTransformer from "../../damage/transformers/DamageRollTransformer";
 import { DamageRoll } from "../../damage/values/DamageRoll.value";
 import Modification from "../../modifier/entities/Modification.entity";
-import ModifierTransformer from "../../modifier/transformers/Modifier.transformer";
-import Modifier from "../../modifier/values/Modifier.value";
 import Property from "./Property.entity";
 
 @Entity()
@@ -24,10 +22,6 @@ export class Weapon extends BaseEntity {
 	@Column()
 	@Field()
 	public equipped: boolean;
-
-	@Column( "int", { transformer: new ModifierTransformer() } )
-	@Field()
-	public attackRollModifierBase: Modifier;
 
 	@Column( "varchar", { transformer: new DamageRollTransformer(), comment: "Example: 2d8 +3 Piercing" } )
 	@Field()

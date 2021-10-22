@@ -24,7 +24,7 @@ const ModifierBreakdown: FunctionComponent<ModifierBreakdownProps> = ( { modifie
 
 	return <div className="modifier-breakdown">
 		<div className={ "modifier-breakdown__summary" }>
-			{ modifier.displayBaseValue }
+			{ modifier.base > 0 && modifier.displayBaseValue }
 			{ modifier.externalModifiers.map( externalModifier =>
 				<ExternalModifier
 					key={ externalModifier.source + externalModifier.modifier.value }

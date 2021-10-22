@@ -1,4 +1,4 @@
-enum ModificationTypes {
+enum ModificationType {
 	"ATTACK_ROLL" = "Attack roll",
 	"DAMAGE_ROLL" = "Damage",
 	"SKILL" = "Skill",
@@ -10,4 +10,4 @@ enum ModificationTypes {
 	"NOTHING" = "Nothing",
 }
 
-export default ModificationTypes;
+export default ModificationType;

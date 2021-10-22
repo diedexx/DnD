@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import InvalidExternalModifier from "../exceptions/InvalidExternalModifier.exception";
-import ModificationTypes from "../types/ModificationTypes.type";
+import ModificationType from "../types/ModificationType.type";
 import Modifier from "./Modifier.value";
 
 @ObjectType()
@@ -9,7 +9,7 @@ export default class ExternalModifier {
 	public readonly source: string;
 
 	@Field()
-	public readonly type: ModificationTypes;
+	public readonly type: ModificationType;
 
 	@Field( () => Modifier )
 	public readonly modifier: Modifier;
@@ -24,14 +24,14 @@ export default class ExternalModifier {
 	 * The constructor.
 	 *
 	 * @param {string} source The source of the modifier.
-	 * @param {ModificationTypes} type The type of the modifiable.
+	 * @param {ModificationType} type The type of the modifiable.
 	 * @param {Modifier} modifier The modifier.
 	 * @param {boolean} situational If the modifier should be applied situational.
 	 * @param {string} description The description of the modifier, required for situational modifiers.
 	 */
 	public constructor(
 		source: string,
-		type: ModificationTypes,
+		type: ModificationType,
 		modifier: Modifier,
 		situational: boolean,
 		description?: string,

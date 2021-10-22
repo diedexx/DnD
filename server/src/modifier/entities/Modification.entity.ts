@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
 import Equipment from "../../equipment/entities/Equipment.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
-import ModificationTypes from "../types/ModificationTypes.type";
+import ModificationType from "../types/ModificationType.type";
 import ExternalModifier from "../values/ExternalModifier.value";
 import Modifier from "../values/Modifier.value";
 
@@ -25,10 +25,10 @@ export default class Modification extends BaseEntity {
 
 	@Column( {
 		type: "enum",
-		"enum": ModificationTypes,
-		"default": ModificationTypes.NOTHING,
+		"enum": ModificationType,
+		"default": ModificationType.NOTHING,
 	} )
-	public type: ModificationTypes;
+	public type: ModificationType;
 
 	@Column()
 	public modifier: number;

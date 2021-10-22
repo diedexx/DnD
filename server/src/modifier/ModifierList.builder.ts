@@ -5,11 +5,11 @@ import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import ExternalModifier from "./values/ExternalModifier.value";
 import { ModifierCollectorService } from "./ModifierCollector.service";
-import ModificationTypes from "./types/ModificationTypes.type";
+import ModificationType from "./types/ModificationType.type";
 
 export class ModifierListBuilder {
 	private readonly pendingQueries: Promise<ExternalModifier[]>[];
-	private readonly filters: ModificationTypes[];
+	private readonly filters: ModificationType[];
 
 	/**
 	 * The constructor.
@@ -22,14 +22,14 @@ export class ModifierListBuilder {
 	}
 
 	/**
-	 * Applies all modifiers that the owned gear gives.
+	 * Applies all modifiers that the owned equipment gives.
 	 *
-	 * @param {Character} character The character to apply gear modifiers for.
+	 * @param {Character} character The character to apply equipment modifiers for.
 	 *
 	 * @return {this} The builder.
 	 */
-	public applyGearModifiers( character: Character ): this {
-		this.pendingQueries.push( this.modifierCollectorService.gatherGearModifiers( character ) );
+	public applyEquipmentModifiers( character: Character ): this {
+		this.pendingQueries.push( this.modifierCollectorService.gatherEquipmentModifiers( character ) );
 		return this;
 	}
 
@@ -69,6 +69,20 @@ export class ModifierListBuilder {
 		return this;
 	}
 
+
+	/**
+	 * Applies all modifiers that an ability adds to a specific skillScore.
+	 *
+	 * @param {SkillScore} skillScore The skillScore to apply the ability bonus to.
+	 *
+	 * @return {this} The builder.
+	 */
+	public applySkillScoreAbilityModifiers( skillScore: SkillScore ): this {
+		this.pendingQueries.push( this.modifierCollectorService.gatherSkillScoreAbilityModifiers( skillScore ) );
+
+		return this;
+	}
+
 	/**
 	 * Applies all modifiers that a proficiency adds to a specific skillScore.
 	 *
@@ -100,11 +114,11 @@ export class ModifierListBuilder {
 	/**
 	 * Filters out all modifiers that don't match the type.
 	 *
-	 * @param {ModificationTypes[]} types The types to keep.
+	 * @param {ModificationType[]} types The types to keep.
 	 *
 	 * @return {this} The builder.
 	 */
-	public filterTypes( ...types: ModificationTypes[] ): this {
+	public filterTypes( ...types: ModificationType[] ): this {
 		this.filters.push( ...types );
 		return this;
 	}
@@ -120,7 +134,7 @@ export class ModifierListBuilder {
 	}
 
 	/**
-	 * Gets and comines the results of all pending queries.
+	 * Gets and combines the results of all pending queries.
 	 *
 	 * @return {Promise<ExternalModifier[]>} The combined list of external modifiers.
 	 *

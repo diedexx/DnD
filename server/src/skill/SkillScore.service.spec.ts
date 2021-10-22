@@ -28,20 +28,13 @@ describe( "The SkillScoreService", () => {
 	} );
 
 	describe( "getSkillScoreModifier function", () => {
-		it( "Uses the skill's ability modifier as a base", async () => {
+		it( "Uses 0 as the skill's modifier base", async () => {
 			const skillScore: SkillScore = new SkillScore();
 
-			relationLoaderServiceMock.loadRelations.mockImplementationOnce( async ( targetSkillScore: SkillScore ) => {
-				targetSkillScore.skill = Object.assign( new Skill(), { abilityId: 3 } );
-
-				return targetSkillScore;
-			} );
-
-			abilityScoreServiceMock.getAbilityScoreModifier.mockResolvedValueOnce( new Modifier( 2 ) );
 			modifierOrchestratorServiceMock.applySkillScoreModifiers.mockImplementationOnce( async ( x ) => x );
 
 			const actualModifier: Modifier = await instance.getSkillScoreModifier( skillScore );
-			expect( actualModifier.value ).toBe( 2 );
+			expect( actualModifier.value ).toBe( 0 );
 		} );
 	} );
 } );

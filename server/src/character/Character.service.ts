@@ -3,11 +3,13 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
+import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
+import ModificationType from "../modifier/types/ModificationType.type";
 import Modifier from "../modifier/values/Modifier.value";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
-import Health from "./values/Health.value";
 import CreateCharacterType, { AbilityScoreType } from "./types/CreateCharacter.type";
+import Health from "./values/Health.value";
 
 @Injectable()
 export default class CharacterService {
@@ -17,6 +19,7 @@ export default class CharacterService {
 	 * @param {Repository<Character>} characterRepository The character repo.
 	 * @param {Repository<CharacterClass>} characterClassRepository The characterClass repo.
 	 * @param {AbilityScoreService} abilityScoreService A service for managing abilityScores.
+	 * @param {ModifierOrchestratorService} modifierOrchestratorService A service that knows about modifiers.
 	 */
 	public constructor(
 		@InjectRepository( Character )
@@ -24,6 +27,7 @@ export default class CharacterService {
 		@InjectRepository( CharacterClass )
 		private readonly characterClassRepository: Repository<CharacterClass>,
 		private readonly abilityScoreService: AbilityScoreService,
+		private readonly modifierOrchestratorService: ModifierOrchestratorService,
 	) {
 	}
 
@@ -63,7 +67,7 @@ export default class CharacterService {
 	 */
 	public async getArmorClassModifier( character: Character ): Promise<Modifier> {
 		const base = new Modifier( character.baseArmorClass );
-		return base;
+		return await this.modifierOrchestratorService.applyEquipmentModifiers( base, character, ModificationType.ARMOR_CLASS );
 	}
 
 	/**
@@ -75,7 +79,7 @@ export default class CharacterService {
 	 */
 	public async getInitiativeModifier( character: Character ): Promise<Modifier> {
 		const base = new Modifier( character.baseInitiative );
-		return base;
+		return await this.modifierOrchestratorService.applyEquipmentModifiers( base, character, ModificationType.INITIATIVE );
 	}
 
 	/**
@@ -87,6 +91,6 @@ export default class CharacterService {
 	 */
 	public async getSpeedModifier( character: Character ): Promise<Modifier> {
 		const base = new Modifier( character.baseSpeed );
-		return base;
+		return await this.modifierOrchestratorService.applyEquipmentModifiers( base, character, ModificationType.SPEED );
 	}
 }

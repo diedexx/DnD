@@ -11,7 +11,7 @@ import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import Modification from "./entities/Modification.entity";
-import ModificationTypes from "./types/ModificationTypes.type";
+import ModificationType from "./types/ModificationType.type";
 import ExternalModifier from "./values/ExternalModifier.value";
 import Modifier from "./values/Modifier.value";
 import WeaponModifierService from "./WeaponModifier.service";
@@ -36,13 +36,13 @@ export class ModifierCollectorService {
 
 	/* eslint-disable @typescript-eslint/no-unused-vars */
 	/**
-	 * Gathers a list of external modifiers that all owned gear gives.
+	 * Gathers a list of external modifiers that all owned equipment gives.
 	 *
-	 * @param {Character} character The character that owns the gear.
+	 * @param {Character} character The character that owns the equipment.
 	 *
 	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
 	 */
-	public async gatherGearModifiers( character: Character ): Promise<ExternalModifier[]> {
+	public async gatherEquipmentModifiers( character: Character ): Promise<ExternalModifier[]> {
 		const equipment: Equipment[] = (
 			await this.relationLoaderService.loadRelations( character, [ "equipment.bonuses.sourceEquipment" ] )
 		).equipment;
@@ -89,7 +89,7 @@ export class ModifierCollectorService {
 			return [
 				new ExternalModifier(
 					abilities.map( ability => ability.name ).join( "/" ),
-					ModificationTypes.ATTACK_ROLL,
+					ModificationType.ATTACK_ROLL,
 					highestAbilityScoreModifier,
 					false,
 					"Attack ability modifier",
@@ -113,7 +113,7 @@ export class ModifierCollectorService {
 			return [
 				new ExternalModifier(
 					"Proficiency",
-					ModificationTypes.ATTACK_ROLL,
+					ModificationType.ATTACK_ROLL,
 					proficiency.bonus,
 					false,
 					proficiency.description,
@@ -124,6 +124,26 @@ export class ModifierCollectorService {
 		}
 	}
 
+	/**
+	 * Gathers a list of external modifiers that an ability gives a skillScore.
+	 *
+	 * @param {SkillScore} skillScore The skillScore to apply the ability modifiers to.
+	 *
+	 * @return {Promise<ExternalModifier[]>} The list of external modifiers.
+	 */
+	public async gatherSkillScoreAbilityModifiers( skillScore: SkillScore ): Promise<ExternalModifier[]> {
+		const { skill } = await this.relationLoaderService.loadRelations( skillScore, [ "skill.ability" ] );
+		const modifier = await this.abilityScoreService.getAbilityScoreModifier( skill.abilityId, skillScore.characterId );
+		return [
+			new ExternalModifier(
+				skill.ability.name,
+				ModificationType.SKILL,
+				modifier,
+				false,
+				"Ability score",
+			),
+		];
+	}
 	/**
 	 * Gathers a list of external modifiers that skill proficiency gives.
 	 *
@@ -139,7 +159,7 @@ export class ModifierCollectorService {
 		return [
 			new ExternalModifier(
 				"Proficiency",
-				ModificationTypes.SKILL,
+				ModificationType.SKILL,
 				new Modifier( 2 ),
 				false,
 				"You are proficient at this skill",
@@ -162,7 +182,7 @@ export class ModifierCollectorService {
 		return [
 			new ExternalModifier(
 				"Proficiency",
-				ModificationTypes.SAVING_THROW,
+				ModificationType.SAVING_THROW,
 				new Modifier( 2 ),
 				false,
 				"You are proficient at this saving throw",

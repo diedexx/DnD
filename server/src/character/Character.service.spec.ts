@@ -3,6 +3,7 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
+import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
 import Character from "./entities/Character.entity";
 import CharacterService from "./Character.service";
 import CharacterClass from "./entities/CharacterClass.entity";
@@ -25,6 +26,7 @@ describe( "The CharacterService", () => {
 			providers: [
 				CharacterService,
 				{ provide: AbilityScoreService, useValue: abilityScoreServiceMock },
+				{ provide: ModifierOrchestratorService, useValue: {} },
 				{ provide: getRepositoryToken( Character ), useValue: characterRepositoryMock },
 				{ provide: getRepositoryToken( CharacterClass ), useValue: characterClassRepositoryMock },
 			],

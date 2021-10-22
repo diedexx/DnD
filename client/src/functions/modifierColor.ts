@@ -9,5 +9,5 @@ import ExternalModifierInterface from "../interfaces/ExternalModifier.interface"
  * @return {string} The color hex code.
  */
 export default function getModifierColor( modifier: ExternalModifierInterface ): string {
-	return new ColorHash().hex( modifier.source );
+	return new ColorHash( { lightness: .8, saturation: 1 } ).hex( modifier.source );
 }

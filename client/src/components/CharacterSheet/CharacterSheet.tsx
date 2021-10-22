@@ -107,13 +107,13 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						</HeadingCard>
 					</div>
 
-					<HeadingCard heading="Current HP">
-						<Health health={ characterDetails.health } />
-					</HeadingCard>
 
 					<div className="columns--fill">
 						<HeadingCard heading="Hit dice" className="card--full-width">
 							<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
+						</HeadingCard>
+						<HeadingCard heading="Current HP" className="card--full-width">
+							<Health health={ characterDetails.health } />
 						</HeadingCard>
 						<HeadingCard heading="Death saves" className="card--full-width">
 							<DeathSave deathSave={ characterDetails.deathSave } />

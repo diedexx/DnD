@@ -11,7 +11,7 @@
 }
 
 .checkbox__check {
-    background-color: var(--text-color);
+    background-color: var(--secondary-color);
     border-radius: 10px;
     height: 0.5em;
     width: 0.5em;

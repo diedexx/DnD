@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import SpellSlotInterface from "src/interfaces/SpellSlot.interface";
-import Checkbox from "../../Checkbox/Checkbox";
+import Bar from "../../Bar/Bar";
 import "./SpellSlot.css";
 
 export type SpellSlotProps = {
@@ -15,15 +15,10 @@ export type SpellSlotProps = {
  * @return {JSX.Element} The component.
  */
 const SpellSlot: FunctionComponent<SpellSlotProps> = ( { spellSlot }: SpellSlotProps ): JSX.Element => {
-	const availableSlots = [];
-	for ( let i = 0; i < spellSlot.limit; i++ ) {
-		const spent = spellSlot.remaining > i;
-		availableSlots.push( <Checkbox checked={ spent } key={ spellSlot.level.value + i } /> );
-	}
 	return <div className="spell-slot-level">
 		Level { spellSlot.level.value }
 		<div className="spell-slot-level--remaining">
-			{ availableSlots }
+			<Bar progress={ spellSlot.remaining } limit={ spellSlot.limit } />
 		</div>
 	</div>;
 };

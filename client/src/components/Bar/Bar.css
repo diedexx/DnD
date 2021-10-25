@@ -1,0 +1,43 @@
+.bar {
+    display: flex;
+}
+
+.bar .checkbox {
+    border-radius: 0;
+    border-right: none;
+    border-color: var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.bar .checkbox:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.bar .checkbox:last-child {
+    border-right: 1px solid var(--border-color);
+    border-radius: 0 10px 10px 0;
+}
+
+.bar .checkbox:only-child {
+    border-radius: 10px;
+    width: 1.5em;
+}
+
+.bar .checkbox__check {
+    border-radius: 0;
+    height: 1em;
+    width: 1em;
+}
+
+.bar .checkbox:first-child .checkbox__check {
+    border-radius: 10px 0 0 10px;
+}
+
+.bar .checkbox:last-child .checkbox__check {
+    border-radius: 0 10px 10px 0;
+}
+
+.bar .checkbox:only-child .checkbox__check {
+    border-radius: 10px;
+    width: 1.5em;
+}

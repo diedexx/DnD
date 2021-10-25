@@ -135,6 +135,13 @@ const getCharacterDetails =
 				damage { ${ damageQuery } }
 				prepared
 			}
+			spellSlotPool {
+				spellSlots {
+					level { value }
+					limit
+					remaining
+				}
+			}
 			wallet {
 				copper
 				silver

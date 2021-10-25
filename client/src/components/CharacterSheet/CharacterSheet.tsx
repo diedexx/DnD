@@ -15,6 +15,7 @@ import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownToolt
 import SavingThrows from "./SavingThrows/SavingThrows";
 import SkillScores from "./SkillScores/SkillScores";
 import Spells from "./Spell/Spell";
+import SpellSlots from "./SpellSlots/SpellSlots";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
 
@@ -122,6 +123,10 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 					<HeadingCard heading="Weapons">
 						<Weapons weapons={ characterDetails.weapons } />
+					</HeadingCard>
+
+					<HeadingCard heading={ "Spell slots" } className="card">
+						<SpellSlots spellSlotPool={ characterDetails.spellSlotPool } />
 					</HeadingCard>
 
 					<HeadingCard heading="Spells">

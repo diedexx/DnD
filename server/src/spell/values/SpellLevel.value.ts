@@ -1,7 +1,10 @@
+import { Field, ObjectType } from "@nestjs/graphql";
 import InvalidSpellLevel from "../exceptions/InvalidSpellLevel.exception";
 
+@ObjectType()
 export default class SpellLevel {
-	public readonly level: number;
+	@Field()
+	public readonly value: number;
 
 	/**
 	 * The constructor.
@@ -11,8 +14,19 @@ export default class SpellLevel {
 	 * @throws InvalidSpellLevel If the given level is invalid.
 	 */
 	public constructor( level: number ) {
-		this.level = level;
+		this.value = level;
 		this.assertValidLevel();
+	}
+
+	/**
+	 * Checks if two levels are the same.
+	 *
+	 * @param {SpellLevel} level The other level to compare to.
+	 *
+	 * @return {boolean} True if the levels are equal.
+	 */
+	public equals( level: SpellLevel ): boolean {
+		return this.value === level.value;
 	}
 
 	/**
@@ -23,11 +37,11 @@ export default class SpellLevel {
 	 * @private
 	 */
 	private assertValidLevel(): void {
-		if ( this.level > 9 ) {
-			throw InvalidSpellLevel.becauseLevelTooHigh( this.level );
+		if ( this.value > 9 ) {
+			throw InvalidSpellLevel.becauseLevelTooHigh( this.value );
 		}
-		if ( this.level < 0 ) {
-			throw InvalidSpellLevel.becauseLevelTooLow( this.level );
+		if ( this.value < 0 ) {
+			throw InvalidSpellLevel.becauseLevelTooLow( this.value );
 		}
 	}
 }

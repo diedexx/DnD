@@ -1,0 +1,8 @@
+.spell-slot-level {
+    display: flex;
+    gap:1em;
+}
+
+.spell-slot-level--remaining {
+    display: flex;
+}

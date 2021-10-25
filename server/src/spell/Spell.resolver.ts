@@ -27,6 +27,6 @@ export default class SpellResolver extends BaseResolver( Spell, "spell", "spells
 	 */
 	@ResolveField( "level", () => Int )
 	public getLevel( @Parent() spell: Spell ): number {
-		return spell.spellLevel.level;
+		return spell.spellLevel.value;
 	}
 }

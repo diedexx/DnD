@@ -21,6 +21,6 @@ export default class SpellLevelTransformer implements ValueTransformer {
 	 * @return {number} The database value.
 	 */
 	public to( spellLevel: SpellLevel ): number {
-		return spellLevel.level;
+		return spellLevel.value;
 	}
 }

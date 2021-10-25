@@ -11,6 +11,7 @@ import Proficiency from "../proficiency/entities/Proficiency.entity";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import Spell from "../spell/entities/Spell.entity";
+import SpellSlotPool from "../spell/values/SpellSlotPool.value";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import CharacterService from "./Character.service";
 import Character from "./entities/Character.entity";
@@ -119,6 +120,19 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	@ResolveField( "spells", () => [ Spell ] )
 	public async getSpells( @Parent() character: Character ): Promise<Spell[]> {
 		return ( await this.relationLoaderService.loadRelations( character, [ "spells" ] ) ).spells;
+	}
+
+
+	/**
+	 * Resolves the spellSlotPool relationship.
+	 *
+	 * @param {Character} character The character to get spells for.
+	 *
+	 * @return {Promise<Spell[]>} The spells of the character.
+	 */
+	@ResolveField( "spellSlotPool", () => SpellSlotPool )
+	public async getSpellSlotPool( @Parent() character: Character ): Promise<SpellSlotPool> {
+		return ( await this.relationLoaderService.loadRelations( character, [ "spellSlotPool" ] ) ).spellSlotPool.value;
 	}
 
 	/**

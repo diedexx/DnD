@@ -26,6 +26,7 @@ const defaultCharacterDetails: CharacterDetailsInterface = {
 	weapons: [],
 	equipment: [],
 	spells: [],
+	spellSlotPool: { spellSlots: [] },
 	wallet: {
 		copper: 0,
 		silver: 0,

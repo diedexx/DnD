@@ -2,10 +2,10 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import BaseEntity from "../../Base.entity";
-import DeathSave from "../../damage/values/DeathSave.value";
 import DeathSaveTransformer from "../../damage/transformers/DeathSave.transformer";
-import Dice from "../../die/values/Dice.value";
+import DeathSave from "../../damage/values/DeathSave.value";
 import DiceTransformer from "../../die/transformers/Dice.transformer";
+import Dice from "../../die/values/Dice.value";
 import Equipment from "../../equipment/entities/Equipment.entity";
 import Wallet from "../../money/entities/Wallet.entity";
 import Proficiency from "../../proficiency/entities/Proficiency.entity";
@@ -13,9 +13,10 @@ import ProficiencyBonus from "../../proficiency/values/ProficiencyBonus.value";
 import SavingThrow from "../../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../../skill/entities/SkillScore.entity";
 import Spell from "../../spell/entities/Spell.entity";
+import SpellSlotPool from "../../spell/entities/SpellSlotPool.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
-import Health from "../values/Health.value";
 import HealthTransformer from "../transformers/Health.transformer";
+import Health from "../values/Health.value";
 import CharacterClass from "./CharacterClass.entity";
 
 // https://www.dndbeyond.com/races
@@ -107,7 +108,7 @@ export default class Character extends BaseEntity {
 
 	@OneToOne( () => Wallet, ( wallet: Wallet ) => wallet.owner, {
 		nullable: false,
-		cascade: [ "insert", "update" ],
+		cascade: true,
 	} )
 	@Field()
 	public wallet: Wallet;
@@ -116,6 +117,12 @@ export default class Character extends BaseEntity {
 	@RelationId( ( character: Character ) => character.wallet )
 	@Field( () => Int )
 	public readonly walletId: number;
+
+	@OneToOne( () => SpellSlotPool, ( spellSlotPool: SpellSlotPool ) => spellSlotPool.owner, {
+		cascade: true,
+		nullable: false,
+	} )
+	public spellSlotPool: SpellSlotPool;
 
 	@ManyToOne( () => CharacterClass, { nullable: false } )
 	@Field()

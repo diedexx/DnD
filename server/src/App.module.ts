@@ -1,22 +1,22 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
-import { AbilityModule } from "./ability/Ability.module";
+import { AbilityModule } from "./domain/ability/Ability.module";
 import { AppController } from "./App.controller";
 import { AppService } from "./App.service";
-import { CharacterModule } from "./character/Character.module";
+import { CharacterModule } from "./domain/character/Character.module";
 import DatabaseConfig from "./config/database";
 import GraphQLConfig, { GraphQLConfigInterface } from "./config/graphQL";
-import { SavingThrowModule } from "./savingthrow/SavingThrow.module";
-import { SkillModule } from "./skill/Skill.module";
-import { ModifierModule } from "./modifier/Modifier.module";
-import { WeaponModule } from "./weapon/Weapon.module";
-import { DamageModule } from "./damage/Damage.module";
-import { MoneyModule } from "./money/Money.module";
-import { ProficiencyModule } from "./proficiency/Proficiency.module";
-import { CategoryModule } from "./category/Category.module";
-import { EquipmentModule } from "./equipment/Equipment.module";
-import { SpellModule } from "./spell/Spell.module";
+import { SavingThrowModule } from "./domain/savingthrow/SavingThrow.module";
+import { SkillModule } from "./domain/skill/Skill.module";
+import { ModifierModule } from "./domain/modifier/Modifier.module";
+import { WeaponModule } from "./domain/weapon/Weapon.module";
+import { DamageModule } from "./domain/damage/Damage.module";
+import { MoneyModule } from "./domain/money/Money.module";
+import { ProficiencyModule } from "./domain/proficiency/Proficiency.module";
+import { CategoryModule } from "./domain/category/Category.module";
+import { EquipmentModule } from "./domain/equipment/Equipment.module";
+import { SpellModule } from "./domain/spell/Spell.module";
 import DatabaseModule from "./database/Database.module";
 
 @Module( {

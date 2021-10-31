@@ -17,6 +17,7 @@ import { ProficiencyModule } from "./domain/proficiency/Proficiency.module";
 import { CategoryModule } from "./domain/category/Category.module";
 import { EquipmentModule } from "./domain/equipment/Equipment.module";
 import { SpellModule } from "./domain/spell/Spell.module";
+import { CommandModule } from "./command/Command.module";
 import DatabaseModule from "./database/Database.module";
 
 @Module( {
@@ -40,6 +41,7 @@ import DatabaseModule from "./database/Database.module";
 		CategoryModule,
 		EquipmentModule,
 		SpellModule,
+		CommandModule,
 	],
 	controllers: [
 		AppController,

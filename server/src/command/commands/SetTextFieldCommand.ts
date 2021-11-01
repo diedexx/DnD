@@ -9,7 +9,7 @@ import { AbstractCommand } from "./AbstractCommand";
 export const TYPE = "SET_TEXT_FIELD";
 
 export interface SetTextFieldData {
-	field: keyof Character;
+	field: keyof Character | string;
 	newText: string;
 }
 
@@ -43,7 +43,7 @@ export class SetTextFieldCommand extends AbstractCommand<SetTextFieldData> imple
 
 		return {
 			type: this.getType(),
-			data: { field: data.field, newText: oldText as string || "" },
+			data: { field: data.field, newText: oldText || "" },
 		};
 	}
 

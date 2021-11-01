@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { CommandModule } from "../../command/Command.module";
 import { AbilityModule } from "../ability/Ability.module";
 import DatabaseModule from "../../database/Database.module";
 import { ModifierModule } from "../modifier/Modifier.module";
@@ -15,6 +16,7 @@ import CharacterClass from "./entities/CharacterClass.entity";
 		TypeOrmModule.forFeature( [ Character, CharacterClass ] ),
 		AbilityModule,
 		ModifierModule,
+		CommandModule,
 	],
 	providers: [
 		CharacterService,

@@ -35,7 +35,7 @@ describe( "The CommandService", () => {
 
 	const commandRepositoryMock: Partial<Mocked<Repository<Command>>> = {
 		save: jest.fn().mockImplementation( async ( x ) => x ),
-		find: jest.fn(),
+		find: jest.fn().mockResolvedValue( [] ),
 		"delete": jest.fn(),
 	};
 
@@ -58,10 +58,10 @@ describe( "The CommandService", () => {
 		commandService = app.get<CommandService>( CommandService );
 	} );
 
-	describe( "createEntity function", () => {
-		it( "transforms a reference into an entity", () => {
+	describe( "createCommand function", () => {
+		it( "transforms a reference into an entity", async () => {
 			expect(
-				commandService.createEntity(
+				await commandService.createCommand(
 					{ data: { ding: "dong" }, type: "testCommand" },
 					cloneDeep( character1 ) ) ).toMatchInlineSnapshot( `
 Command {
@@ -206,6 +206,41 @@ LinkedList {
       "prev": [Circular],
     },
     "prev": null,
+  },
+  "lastNode": LinkedListNode {
+    "data": Object {
+      "character": Character {
+        "id": 12,
+      },
+      "data": Object {},
+      "type": "last test",
+    },
+    "next": null,
+    "prev": LinkedListNode {
+      "data": Object {
+        "character": Character {
+          "id": 12,
+        },
+        "data": Object {
+          "more": "data",
+        },
+        "type": "second",
+      },
+      "next": [Circular],
+      "prev": LinkedListNode {
+        "data": Object {
+          "character": Character {
+            "id": 12,
+          },
+          "data": Object {
+            "an": "object",
+          },
+          "type": "test command",
+        },
+        "next": [Circular],
+        "prev": null,
+      },
+    },
   },
 }
 ` );

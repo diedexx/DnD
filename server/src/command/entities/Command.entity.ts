@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToOne, RelationId } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
 import Character from "../../domain/character/entities/Character.entity";
 
@@ -10,7 +10,7 @@ export default class Command extends BaseEntity {
 	@Column( "json" )
 	public data: Record<string, any>;
 
-	@Column()
+	@Column( { nullable: true } )
 	public executedAt: Date;
 
 	@Column( { "default": false } )
@@ -24,6 +24,7 @@ export default class Command extends BaseEntity {
 	public readonly characterId: number;
 
 	@OneToOne( () => Command, { cascade: true, nullable: true } )
+	@JoinColumn()
 	public undoCommand?: Command;
 
 	@Column( { nullable: true } )

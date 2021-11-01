@@ -1,9 +1,12 @@
-import { Args, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql";
+import { Args, Int, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import AbilityScore from "../ability/entities/AbilityScore.entity";
 import BaseResolver from "../../Base.resolver";
+import CommandService from "../../command/Command.service";
+import { SetTextFieldData, TYPE as SetTextFieldCommandType } from "../../command/commands/SetTextFieldCommand";
+import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
+import AbilityScore from "../ability/entities/AbilityScore.entity";
 import Equipment from "../equipment/entities/Equipment.entity";
 import Modifier from "../modifier/values/Modifier.value";
 import Wallet from "../money/entities/Wallet.entity";
@@ -28,12 +31,14 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	 * @param {Repository<CharacterClass>} characterRepository The Character repo.
 	 * @param {CharacterService} characterService A service that manages characters.
 	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
+	 * @param {CommandService} commandService A service that executes commands.
 	 */
 	constructor(
 		@InjectRepository( Character )
 		private readonly characterRepository: Repository<Character>,
 		private readonly characterService: CharacterService,
 		private readonly relationLoaderService: RelationLoaderService,
+		private readonly commandService: CommandService,
 	) {
 		super( characterRepository );
 	}
@@ -122,7 +127,6 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 		return ( await this.relationLoaderService.loadRelations( character, [ "spells" ] ) ).spells;
 	}
 
-
 	/**
 	 * Resolves the spellSlotPool relationship.
 	 *
@@ -203,7 +207,7 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	 * @return {Promise<Character>} The new character.
 	 */
 	@Mutation( () => Character )
-	async createCharacter(
+	public async createCharacter(
 		@Args( "character", { type: () => CreateCharacterInputType } ) characterInput: CreateCharacterInputType,
 		@Args( "abilityScores", { type: () => [ CreateAbilityScoreInputType ] } ) abilityScoreInput: CreateAbilityScoreInputType[],
 	): Promise<Character> {
@@ -211,5 +215,32 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 
 		const character = await this.characterService.createCharacter( args );
 		return this.characterRepository.save( character );
+	}
+
+	/**
+	 * Updates a text field on the character.
+	 *
+	 * @param {number} characterId The id of the character to update.
+	 * @param {string} fieldName The name of the field to update.
+	 * @param {string} value The new value of the text field.
+	 *
+	 * @return {Promise<Character>} The updated character.
+	 */
+	@Mutation( () => Character )
+	public async updateTextField(
+		@Args( "characterId", { type: () => Int } ) characterId: number,
+		@Args( "fieldName", { type: () => String } ) fieldName: string,
+		@Args( "value", { type: () => String } ) value: string,
+	): Promise<Character> {
+		const commandReference: CommandReference<SetTextFieldData> = {
+			data: { field: fieldName, newText: value },
+			type: SetTextFieldCommandType,
+		};
+		const character = await this.characterRepository.findOneOrFail( characterId );
+		const command = await this.commandService.createCommand( commandReference, character );
+		await this.commandService.executeCommand( command );
+
+		// Refresh character.
+		return await this.characterRepository.findOneOrFail( characterId );
 	}
 }

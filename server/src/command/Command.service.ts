@@ -29,15 +29,15 @@ export default class CommandService {
 	 * @param {CommandReference} commandReference The reference to create the entity for.
 	 * @param {Character} character The character that is affected by the command.
 	 *
-	 * @return {Command} The command
+	 * @return {Promise<Command>} The command.
 	 */
-	public createEntity( commandReference: CommandReference, character: Character ): Command {
+	public async createCommand( commandReference: CommandReference, character: Character ): Promise<Command> {
 		const command = new Command();
 		command.type = commandReference.type;
 		command.data = commandReference.data;
 		command.undone = false;
 		command.character = character;
-		return command;
+		return await this.commandRepository.save( command );
 	}
 
 	/**
@@ -47,7 +47,7 @@ export default class CommandService {
 	 *
 	 * @return {Promise<void>} Nothing.
 	 */
-	public async executeCommand( command: Command ) {
+	public async executeCommand( command: Command ): Promise<void> {
 		if ( command.executedAt ) {
 			throw CannotExecuteCommand.becauseAlreadyExecuted();
 		}
@@ -56,10 +56,26 @@ export default class CommandService {
 		const commandExecutor: CommandInterface = this.commandProviderService.getCommand( command.type );
 		const undoCommandReference = await commandExecutor.execute( command.data, command.character );
 
-		command.undoCommand = this.createEntity( undoCommandReference, command.character );
+		command.undoCommand = await this.createCommand( undoCommandReference, command.character );
 		command.executedAt = new Date();
 
 		await this.addToHistory( command );
+	}
+
+	/**
+	 * Undoes the last command execution.
+	 *
+	 * @param {number} characterId The id of the character to undo the last command for.
+	 *
+	 * @return {Promise<void>} Nothing.
+	 */
+	public async undoLastCommand( characterId: number ) {
+		const history = await this.getCommandHistory( characterId, false );
+		const lastCommand = history.getLast();
+		if ( ! lastCommand ) {
+			return;
+		}
+		await this.undoCommand( lastCommand.data );
 	}
 
 	/**
@@ -69,7 +85,7 @@ export default class CommandService {
 	 *
 	 * @return {Promise<void>} Nothing.
 	 */
-	public async undoCommand( command: Command ) {
+	private async undoCommand( command: Command ) {
 		command = await this.relationLoaderService.loadRelations( command, [ "undoCommand.character" ] );
 
 		const undoCommand = command.undoCommand;
@@ -102,7 +118,12 @@ export default class CommandService {
 	 * @return {Promise<void>} Nothing.
 	 */
 	public async clearRedoList( characterId: number ): Promise<void> {
-		await this.commandRepository.delete( { characterId, undone: true } );
+		const undoneCommands = await this.commandRepository.find( { characterId, undone: true } );
+		if ( ! undoneCommands.length ) {
+			return;
+		}
+		const ids = undoneCommands.flatMap( ( undoneCommand: Command ) => [ undoneCommand.id, undoneCommand.undoCommandId ] );
+		await this.commandRepository.delete( ids );
 	}
 
 	/**
@@ -128,10 +149,11 @@ export default class CommandService {
 		let commands: Command[] = await this.commandRepository.find( {
 			where: {
 				characterId,
-				undoCommand: Not( IsNull() ),
+				undoCommandId: Not( IsNull() ),
+				executedAt: Not( IsNull() ),
 				undone: includeUndone ? In( [ true, false ] ) : false,
 			},
-			order: { createdAt: "DESC" },
+			order: { executedAt: "ASC" },
 		} );
 
 		commands = await this.relationLoaderService.loadRelations( commands, [ "character", "undoCommand" ] );

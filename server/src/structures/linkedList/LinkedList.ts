@@ -1,8 +1,30 @@
 import LinkedListInterface from "./LinkedList.interfance";
 import LinkedListNode from "./LinkedListNode";
 
+/**
+ * @template T
+ */
 export default class LinkedList<T> implements LinkedListInterface<T> {
 	private firstNode: LinkedListNode<T> | null = null;
+	private lastNode: LinkedListNode<T> | null = null;
+
+	/**
+	 * Gets the first element.
+	 *
+	 * @return {LinkedListNode<T>} The first element.
+	 */
+	public getFirst(): LinkedListNode<T> {
+		return this.firstNode;
+	}
+
+	/**
+	 * Gets the last element.
+	 *
+	 * @return {LinkedListNode<T>} The last element.
+	 */
+	public getLast(): LinkedListNode<T> {
+		return this.lastNode;
+	}
 
 	/**
 	 * Inserts a new node to the back of the list.
@@ -12,19 +34,15 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	 * @return {LinkedListNode<T>} The added node.
 	 */
 	public append( data: T ): LinkedListNode<T> {
-		const newWode = new LinkedListNode( data );
+		const newNode = new LinkedListNode( data );
 		if ( this.firstNode ) {
-			const getLast = ( node: LinkedListNode<T> ): LinkedListNode<T> => {
-				return node.next ? getLast( node.next ) : node;
-			};
-
-			const lastLinkedListNode = getLast( this.firstNode );
-			newWode.prev = lastLinkedListNode;
-			lastLinkedListNode.next = newWode;
+			newNode.prev = this.lastNode;
+			this.lastNode.next = newNode;
 		} else {
-			this.firstNode = newWode;
+			this.firstNode = newNode;
 		}
-		return newWode;
+		this.lastNode = newNode;
+		return newNode;
 	}
 
 	/**
@@ -35,15 +53,15 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	 * @return {LinkedListNode<T>} The added node.
 	 */
 	public prepend( data: T ): LinkedListNode<T> {
-		const node = new LinkedListNode( data );
+		const newNode = new LinkedListNode( data );
 		if ( this.firstNode ) {
-			this.firstNode.prev = node;
-			node.next = this.firstNode;
-			this.firstNode = node;
+			this.firstNode.prev = newNode;
+			newNode.next = this.firstNode;
 		} else {
-			this.firstNode = node;
+			this.lastNode = newNode;
 		}
-		return node;
+		this.firstNode = newNode;
+		return newNode;
 	}
 
 	/**
@@ -54,11 +72,18 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	 * @return {void}
 	 */
 	public deleteNode( node: LinkedListNode<T> ): void {
+		if ( ! node.next ) {
+			this.lastNode = node.prev || null;
+		}
+		if ( ! node.prev ) {
+			this.firstNode = node.next || null;
+		}
+
+		if ( node.next ) {
+			node.next.prev = node.prev || null;
+		}
 		if ( node.prev ) {
-			const prevLinkedListNode = node.prev;
-			prevLinkedListNode.next = node.next;
-		} else {
-			this.firstNode = node.next;
+			node.prev.next = node.next || null;
 		}
 	}
 

@@ -134,7 +134,7 @@ export default class CommandService {
 	 * @return {Promise<void>} Nothing.
 	 */
 	public async persist( commands: LinkedList<Command> ) {
-		await this.commandRepository.save( commands.traverse() );
+		await this.commandRepository.save( commands.getArray() );
 	}
 
 	/**
@@ -162,5 +162,21 @@ export default class CommandService {
 			acc.append( command );
 			return acc;
 		}, new LinkedList<Command>() );
+	}
+
+	/**
+	 * Gets information about a command.
+	 *
+	 * @param {Command} command The command.
+	 *
+	 * @return {Promise<{name: string, description: string}>} An object with the command name and descirption.
+	 */
+	public async getCommandInfo( command: Command ): Promise<{ name: string, description: string }> {
+		command = await this.relationLoaderService.loadRelations( command, [ "character" ] );
+		const commandExecutor = this.commandProviderService.getCommand( command.type );
+		return {
+			name: await commandExecutor.getName( command.data, command.character ),
+			description: await commandExecutor.getDescription( command.data, command.character ),
+		};
 	}
 }

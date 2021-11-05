@@ -1,3 +1,5 @@
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons/faSyncAlt";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
@@ -12,13 +14,17 @@ import "./CharactersOverviewPage.css";
  * @return {JSX.Element} The character overview.
  */
 const CharactersOverviewPage: FunctionComponent = (): JSX.Element => {
-	const { data, isLoading, startedLoading } = useResolvingSelect<CharacterSummaryInterface[]>( "getCharacterSummaries" );
+	const {
+		data,
+		isLoading,
+		startedLoading,
+	} = useResolvingSelect<CharacterSummaryInterface[]>( "getCharacterSummaries" );
 	const refresh = useRefreshResolver( "getCharacterSummaries" );
 
 	return <Fragment>
 		<div className="controls">
-			<button className="btn-refresh" disabled={ isLoading } onClick={ refresh }>
-				<i className="fa fa-refresh" />
+			<button disabled={ isLoading } onClick={ refresh }>
+				<FontAwesomeIcon icon={ faSyncAlt } spin={ isLoading } size={ "lg" } />
 			</button>
 		</div>
 		{ ( isLoading || ! startedLoading ) && <Spinner type={ "inline" } /> }

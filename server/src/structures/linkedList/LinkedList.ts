@@ -110,7 +110,7 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	 *
 	 * @return {T[]} An array representation of the list.
 	 */
-	public traverse(): T[] {
+	public getArray(): T[] {
 		const array: T[] = [];
 		if ( ! this.firstNode ) {
 			return array;
@@ -129,6 +129,6 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	 * @return {number} The number of elements in the list.
 	 */
 	public size(): number {
-		return this.traverse().length;
+		return this.getArray().length;
 	}
 }

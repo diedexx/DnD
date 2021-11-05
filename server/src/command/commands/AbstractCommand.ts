@@ -3,11 +3,19 @@ import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import CommandInterface from "../interfaces/Command.interface";
 import CommandReference from "../interfaces/CommandReference.interface";
 
+/**
+ * @template T
+ */
 export abstract class AbstractCommand<T extends Record<string, any> = Record<string, any>> implements CommandInterface<T> {
 	/**
 	 * @inheritDoc
 	 */
 	public abstract getType(): string;
+
+	/**
+	 * @inheritDoc
+	 */
+	public abstract getName( data: T, character: Character ): Promise<string>;
 
 	/**
 	 * @inheritDoc

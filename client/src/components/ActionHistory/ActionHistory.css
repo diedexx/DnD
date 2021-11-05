@@ -1,0 +1,41 @@
+.action-history {
+    max-width: 400px;
+    width: max-content;
+    height: 1000px;
+    overflow: scroll;
+}
+
+
+.action-history__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.action-history__list-item--undone{
+    opacity: 0.4;
+    margin: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5em;
+}
+
+.action-history__list-item {
+    margin: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.action-history__description {
+    font-style: italic;
+    opacity: .75;
+    font-size: small;
+}
+
+.action-history__date {
+    opacity: .3;
+    text-align: right;
+    font-size: smaller;
+}
+

@@ -27,6 +27,13 @@ export class SetTextFieldCommand extends AbstractCommand<SetTextFieldData> imple
 	/**
 	 * @inheritDoc
 	 */
+	public async getName( data: SetTextFieldData ): Promise<string> {
+		return "Update " + data.field;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public async getDescription( data: SetTextFieldData ): Promise<string> {
 		return "Change \"" + data.field + "\" to \"" + data.newText + "\"";
 	}

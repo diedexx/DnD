@@ -10,12 +10,22 @@ interface CommandInterface<T extends Record<string, any> = Record<string, any>> 
 	getType(): string;
 
 	/**
+	 * Gets a display-friendly name.
+	 *
+	 * @param {T} data The data that the command is executed with.
+	 * @param {Character} character The character the command is executed for.
+	 *
+	 * @return {Promise<string>} The name of the command.
+	 */
+	getName( data: T, character: Character ): Promise<string>;
+
+	/**
 	 * Gets a description of the command.
 	 *
 	 * @param {T} data The data that the command is executed with.
 	 * @param {Character} character The character the command is executed for.
 	 *
-	 * @return {Promise<string>} The descirption.
+	 * @return {Promise<string>} The description.
 	 */
 	getDescription( data: T, character: Character ): Promise<string>;
 

@@ -4,6 +4,7 @@ import { StateInterface } from "./store";
 const DEFAULT_STATE: StateInterface = {
 	characterSummaries: [],
 	characterDetails: {},
+	actionHistory: {},
 };
 
 /**
@@ -28,6 +29,15 @@ const reducer = ( state = DEFAULT_STATE, action ): StateInterface => {
 				characterDetails: {
 					...state.characterDetails,
 					[ action.characterDetails.id ]: action.characterDetails,
+				},
+			};
+
+		case ACTION_TYPE.SET_ACTION_HISTORY:
+			return {
+				...state,
+				actionHistory: {
+					...state.actionHistory,
+					[ action.characterId ]: action.actionHistory,
 				},
 			};
 

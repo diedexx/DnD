@@ -1,10 +1,12 @@
 import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
 import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
+import ExecutedActionInterface from "../interfaces/ExecutedAction.interface";
 import { GraphQLData } from "./store";
 
 export enum ACTION_TYPE {
 	SET_CHARACTER_SUMMARIES = "SET_CHARACTER_SUMMARIES",
 	SET_CHARACTER_DETAILS = "SET_CHARACTER_DETAILS",
+	SET_ACTION_HISTORY = "SET_ACTION_HISTORY",
 	CREATE_CHARACTER = "CREATE_CHARACTER",
 	POST_TO_API = "POST_TO_API",
 	GRAPHQL = "GRAPHQL",
@@ -21,6 +23,12 @@ const actions = {
 	setCharacterDetails: ( characterDetails: CharacterDetailsInterface ) => ( {
 		type: ACTION_TYPE.SET_CHARACTER_DETAILS,
 		characterDetails,
+	} ),
+
+	setActionHistory: ( characterId: number, actionHistory: ExecutedActionInterface[] ) => ( {
+		type: ACTION_TYPE.SET_ACTION_HISTORY,
+		characterId,
+		actionHistory,
 	} ),
 
 	createCharacter: ( character ) => ( {

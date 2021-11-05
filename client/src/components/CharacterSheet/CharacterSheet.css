@@ -3,12 +3,6 @@
     margin: 0 auto;
 }
 
-.controls {
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-
 .columns {
     display: flex;
     justify-content: center;

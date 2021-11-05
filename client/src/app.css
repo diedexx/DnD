@@ -23,7 +23,7 @@ body {
     font-family: "Open Sans", sans-serif;
     margin: 0;
     transition: color 0.2s ease,
-                background-color 0.2s ease;
+    background-color 0.2s ease;
 }
 
 a {
@@ -51,6 +51,10 @@ a {
     box-shadow: 3px 3px rgba(3, 3, 3, 0.2);
     margin: 0.5em;
     border: 1px solid black;
+}
+
+.no-padding {
+    padding: 0;
 }
 
 .card--full-width {

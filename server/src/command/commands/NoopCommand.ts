@@ -13,8 +13,15 @@ export class NoopCommand extends AbstractCommand implements CommandInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public async getDescription(): Promise<string> {
+	public async getName(): Promise<string> {
 		return "Nothing";
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public async getDescription(): Promise<string> {
+		return "...";
 	}
 
 	/**

@@ -1,3 +1,4 @@
+import { invalidateResolution } from "@wordpress/data/build/redux-store/metadata/actions";
 import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
 import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import ExecutedActionInterface from "../interfaces/ExecutedAction.interface";
@@ -29,28 +30,28 @@ const actions = {
 		characterDetails,
 	} ),
 
-	setActionHistory: ( characterId: number, actionHistory: ExecutedActionInterface[] ) => ( {
-		type: ACTION_TYPE.SET_ACTION_HISTORY,
-		characterId,
-		actionHistory,
-	} ),
+	setActionHistory: ( characterId: number, actionHistory: ExecutedActionInterface[] ) => (
+		{
+			type: ACTION_TYPE.SET_ACTION_HISTORY,
+			characterId,
+			actionHistory: actionHistory.map( ( action ) =>
+				Object.assign( action, { executedAt: new Date( action.executedAt ) } ),
+			),
+		}
+	),
 	// eslint-disable-next-line require-jsdoc
 	undoAction: function* ( characterId: number ) {
 		const response = yield actions.graphQL( { query: undoLastCommand, variables: { characterId } } );
-		let history: ExecutedActionInterface[] = response.data.data.undoLastCommand;
-		history = history.map( ( action ) =>
-			Object.assign( action, { executedAt: new Date( action.executedAt ) } ),
-		);
-		return actions.setActionHistory( characterId, history );
+		yield invalidateResolution( "getCharacterDetails", [ characterId ] );
+		yield invalidateResolution( "getCharacterSummaries" );
+		return actions.setActionHistory( characterId, response.data.data.undoLastCommand );
 	},
 	// eslint-disable-next-line require-jsdoc
 	redoAction: function* ( characterId: number ) {
 		const response = yield actions.graphQL( { query: redoLastUndoneCommand, variables: { characterId } } );
-		let history: ExecutedActionInterface[] = response.data.data.redoLastUndoneCommand;
-		history = history.map( ( action ) =>
-			Object.assign( action, { executedAt: new Date( action.executedAt ) } ),
-		);
-		return actions.setActionHistory( characterId, history );
+		yield invalidateResolution( "getCharacterDetails", [ characterId ] );
+		yield invalidateResolution( "getCharacterSummaries" );
+		return actions.setActionHistory( characterId, response.data.data.redoLastUndoneCommand );
 	},
 	createCharacter: ( character ) => ( {
 		type: ACTION_TYPE.CREATE_CHARACTER,

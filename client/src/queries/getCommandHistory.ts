@@ -1,10 +1,13 @@
-const getCommandHistory =
-	`query commandHistory($characterId: Int!) {
-		commandHistory(characterId: $characterId) {
+export const commandHistoryBodyQuery = `
 			name
 			description
 			isUndone
-			executedAt
+			executedAt`;
+
+const getCommandHistory =
+	`query commandHistory($characterId: Int!) {
+		commandHistory(characterId: $characterId) { 
+			${commandHistoryBodyQuery} 
 		}
 	}`;
 export default getCommandHistory;

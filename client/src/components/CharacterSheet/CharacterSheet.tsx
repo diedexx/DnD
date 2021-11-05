@@ -4,6 +4,7 @@ import { faRedoAlt } from "@fortawesome/free-solid-svg-icons/faRedoAlt";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons/faUndoAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "@wordpress/data";
 import { FunctionComponent, useCallback, useState } from "react";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
@@ -24,7 +25,6 @@ import ModifierBreakdownTooltip from "./ModifierBreakdown/ModifierBreakdownToolt
 import SavingThrows from "./SavingThrows/SavingThrows";
 import SkillScores from "./SkillScores/SkillScores";
 import Spells from "./Spell/Spell";
-
 import SpellSlots from "./SpellSlots/SpellSlots";
 import Wallet from "./Wallet/Wallet";
 import Weapons from "./Weapons/Weapons";
@@ -41,15 +41,23 @@ export type CharacterDetailPageProps = {
  * @return {JSX.Element} The character detail page component.
  */
 const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characterId }: CharacterDetailPageProps ): JSX.Element => {
+	const [ showHistory, setShowHistory ] = useState( false );
+
 	const {
 		data: characterDetails,
 		isLoading,
 		startedLoading,
 	} = useResolvingSelect<CharacterDetailsInterface>( "getCharacterDetails", characterId );
-
 	const refresh = useRefreshResolver( "getCharacterDetails", characterId );
 
-	const [ showHistory, setShowHistory ] = useState( false );
+	const { undoAction: dispatchUndoAction, redoAction: dispatchRedoAction } = useDispatch( "app" );
+
+	const undoAction = useCallback(
+		() => dispatchUndoAction( characterId ),
+		[ dispatchUndoAction, characterId ] );
+	const redoAction = useCallback(
+		() => dispatchRedoAction( characterId ),
+		[ dispatchRedoAction, characterId ] );
 
 	const toggleHistory = useCallback(
 		() => setShowHistory( ! showHistory ),
@@ -59,10 +67,10 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 	return <div>
 		<Controls>
 			<ControlGroup>
-				<button disabled={ isLoading } onClick={ refresh }>
+				<button disabled={ isLoading } onClick={ undoAction }>
 					<FontAwesomeIcon icon={ faUndoAlt } size={ "lg" } />
 				</button>
-				<button disabled={ isLoading } onClick={ refresh }>
+				<button disabled={ isLoading } onClick={ redoAction }>
 					<FontAwesomeIcon icon={ faRedoAlt } size={ "lg" } />
 				</button>
 				<button onClick={ toggleHistory }>

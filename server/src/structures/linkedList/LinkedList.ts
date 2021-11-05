@@ -9,6 +9,20 @@ export default class LinkedList<T> implements LinkedListInterface<T> {
 	private lastNode: LinkedListNode<T> | null = null;
 
 	/**
+	 * Transforms an array into a linked list.
+	 *
+	 * @param {T[]} array The array to transform.
+	 *
+	 * @return {LinkedList<T>} The linked list.
+	 */
+	public static fromArray<T>( array: T[] ): LinkedList<T> {
+		return array.reduce( ( acc: LinkedList<T>, command: T ): LinkedList<T> => {
+			acc.append( command );
+			return acc;
+		}, new LinkedList<T>() );
+	}
+
+	/**
 	 * Gets the first element.
 	 *
 	 * @return {LinkedListNode<T>} The first element.

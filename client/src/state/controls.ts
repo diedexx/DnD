@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { serverOrigin } from "../config";
-import { ACTION_TYPE } from "./actions";
+import  { ACTION_TYPE } from "./actions";
 
 const controls = {
 	[ ACTION_TYPE.FETCH_FROM_API ]: ( action ) => {

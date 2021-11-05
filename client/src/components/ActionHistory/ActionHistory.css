@@ -16,7 +16,9 @@
     opacity: 0.4;
     margin: 10px 0;
     border-bottom: 1px solid var(--border-color);
-    padding: 0.5em;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
 }
 
 .action-history__list-item {

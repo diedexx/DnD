@@ -43,11 +43,26 @@ export default class CommandResolver {
 	 *
 	 * @return {Promise<Character>} The character after undoing the action.
 	 */
-	@Mutation( () => Character )
+	@Mutation( () => [ ExecutedCommand ] )
 	public async undoLastCommand(
 		@Args( "characterId", { type: () => Int } ) characterId: number,
-	): Promise<Character> {
+	): Promise<ExecutedCommand[]> {
 		await this.commandService.undoLastCommand( characterId );
-		return await this.characterRepository.findOneOrFail( characterId );
+		return await this.commandHistory( characterId );
+	}
+
+	/**
+	 * Redoes the command execution that was last undone.
+	 *
+	 * @param {number} characterId The id of the character to redo the last undone command for.
+	 *
+	 * @return {Promise<Character>} The character after redoing the action.
+	 */
+	@Mutation( () => [ ExecutedCommand ] )
+	public async redoLastUndoneCommand(
+		@Args( "characterId", { type: () => Int } ) characterId: number,
+	): Promise<ExecutedCommand []> {
+		await this.commandService.redoLastUndoneCommand( characterId );
+		return await this.commandHistory( characterId );
 	}
 }

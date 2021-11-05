@@ -79,6 +79,26 @@ export default class CommandService {
 	}
 
 	/**
+	 * Redoes the command that was last undone.
+	 *
+	 * @param {number} characterId The id of the character to redo the last undone command for.
+	 *
+	 * @return {Promise<void>} Nothing.
+	 */
+	public async redoLastUndoneCommand( characterId: number ) {
+		const history = await this.getCommandHistory( characterId, true );
+		let targetCommand = history.getLast();
+		if ( ! targetCommand || ! targetCommand.data.undone ) {
+			return;
+		}
+		while ( targetCommand.prev && targetCommand.prev.data.undone ) {
+			targetCommand = targetCommand.prev;
+		}
+
+		await this.redoCommand( targetCommand.data );
+	}
+
+	/**
 	 * Undoes a command execution.
 	 *
 	 * @param {Command} command The command to undo.
@@ -94,6 +114,22 @@ export default class CommandService {
 
 		undoCommand.executedAt = undoCommand.executedAt || new Date();
 		command.undone = true;
+
+		await this.commandRepository.save( command );
+	}
+
+	/**
+	 * Undoes a command execution.
+	 *
+	 * @param {Command} command The command to undo.
+	 *
+	 * @return {Promise<void>} Nothing.
+	 */
+	private async redoCommand( command: Command ) {
+		command = await this.relationLoaderService.loadRelations( command, [ "character" ] );
+		const commandExecutor: CommandInterface = this.commandProviderService.getCommand( command.type );
+		await commandExecutor.execute( command.data, command.character );
+		command.undone = false;
 
 		await this.commandRepository.save( command );
 	}
@@ -158,10 +194,7 @@ export default class CommandService {
 
 		commands = await this.relationLoaderService.loadRelations( commands, [ "character", "undoCommand" ] );
 
-		return commands.reduce( ( acc: LinkedList<Command>, command: Command ): LinkedList<Command> => {
-			acc.append( command );
-			return acc;
-		}, new LinkedList<Command>() );
+		return LinkedList.fromArray( commands );
 	}
 
 	/**

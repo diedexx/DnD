@@ -1,6 +1,8 @@
 import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
 import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import ExecutedActionInterface from "../interfaces/ExecutedAction.interface";
+import redoLastUndoneCommand from "../queries/redoLastUndoneCommand";
+import undoLastCommand from "../queries/undoLastCommand";
 import { GraphQLData } from "./store";
 
 export enum ACTION_TYPE {
@@ -12,6 +14,8 @@ export enum ACTION_TYPE {
 	GRAPHQL = "GRAPHQL",
 	FETCH_FROM_API = "FETCH_FROM_API",
 	SHOW_ERROR = "SHOW_ERROR",
+	UNDO_ACTION = "UNDO_ACTION",
+	REDO_ACTION = "REDO_ACTION",
 }
 
 const actions = {
@@ -30,7 +34,24 @@ const actions = {
 		characterId,
 		actionHistory,
 	} ),
-
+	// eslint-disable-next-line require-jsdoc
+	undoAction: function* ( characterId: number ) {
+		const response = yield actions.graphQL( { query: undoLastCommand, variables: { characterId } } );
+		let history: ExecutedActionInterface[] = response.data.data.undoLastCommand;
+		history = history.map( ( action ) =>
+			Object.assign( action, { executedAt: new Date( action.executedAt ) } ),
+		);
+		return actions.setActionHistory( characterId, history );
+	},
+	// eslint-disable-next-line require-jsdoc
+	redoAction: function* ( characterId: number ) {
+		const response = yield actions.graphQL( { query: redoLastUndoneCommand, variables: { characterId } } );
+		let history: ExecutedActionInterface[] = response.data.data.redoLastUndoneCommand;
+		history = history.map( ( action ) =>
+			Object.assign( action, { executedAt: new Date( action.executedAt ) } ),
+		);
+		return actions.setActionHistory( characterId, history );
+	},
 	createCharacter: ( character ) => ( {
 		type: ACTION_TYPE.CREATE_CHARACTER,
 		character,

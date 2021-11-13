@@ -74,7 +74,8 @@ const getCharacterDetails =
 			initiativeModifier { ${ modifierQuery } }
 			speedModifier { ${ modifierQuery } }
 			abilityScores {
-				score
+				id
+				score { value }
 				modifier {
 					${ modifierQuery }
 				}

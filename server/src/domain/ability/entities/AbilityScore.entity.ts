@@ -1,19 +1,18 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Max, Min } from "class-validator";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
 import BaseEntity from "../../../Base.entity";
 import Character from "../../character/entities/Character.entity";
+import AbilityScoreValueTransformer from "../transformers/AbilityScoreValue.transformer";
+import AbilityScoreValue from "../values/AbilityScore.value";
 import AbilityScoreModifier from "../values/AbilityScoreModifier.value";
 import Ability from "./Ability.entity";
 
 @Entity()
 @ObjectType()
 export default class AbilityScore extends BaseEntity {
-	@Column()
-	@Field( () => Int )
-	@Min( 1 )
-	@Max( 30 )
-	public score: number;
+	@Field()
+	@Column( "int", { transformer: new AbilityScoreValueTransformer() } )
+	public score: AbilityScoreValue;
 
 	/**
 	 * Gets the abilityScore modifier based on the ability score.

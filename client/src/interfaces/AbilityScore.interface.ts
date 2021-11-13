@@ -1,7 +1,8 @@
 import ModifierInterface from "./Modifier.interface";
 
 interface AbilityScoreInterface {
-	readonly score: number;
+	readonly id: number;
+	readonly score: { value: number };
 	readonly modifier: ModifierInterface;
 	readonly ability: {
 		readonly name: string;

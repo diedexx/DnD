@@ -1,9 +1,10 @@
-import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
+import { Args, Int, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
-import Character from "../character/entities/Character.entity";
 import RelationLoaderService from "../../database/RelationLoader.service";
+import Character from "../character/entities/Character.entity";
+import AbilityScoreService from "./AbilityScore.service";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
 
@@ -14,11 +15,13 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 	 *
 	 * @param {Repository<AbilityScore>} abilityScoreRepository The AbilityScore repo.
 	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
+	 * @param {AbilityScoreService} abilityScoreService A service that manages AbilityScores.
 	 */
 	constructor(
 		@InjectRepository( AbilityScore )
 		private readonly abilityScoreRepository: Repository<AbilityScore>,
 		private readonly relationLoaderService: RelationLoaderService,
+		private readonly abilityScoreService: AbilityScoreService,
 	) {
 		super( abilityScoreRepository );
 	}
@@ -36,7 +39,7 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 	}
 
 	/**
-	 * Gets the ability the ability score is for.
+	 * Gets the ability that the ability score is for.
 	 *
 	 * @param {AbilityScore} abilityScore The abilityScore to get the ability for.
 	 *
@@ -45,5 +48,13 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 	@ResolveField( "ability", () => Ability )
 	public async getAbility( @Parent() abilityScore: AbilityScore ): Promise<Ability> {
 		return ( await this.relationLoaderService.loadRelations( abilityScore, [ "ability" ] ) ).ability;
+	}
+
+	@Mutation( () => AbilityScore )
+	public async updateAbilityScore(
+		@Args( "abilityScoreId", { type: () => Int } ) abilityScoreId: number,
+		@Args( "newValue", { type: () => Int } ) newValue: number,
+	): Promise<AbilityScore> {
+		return await this.abilityScoreService.updateAbilityScore( abilityScoreId, newValue );
 	}
 }

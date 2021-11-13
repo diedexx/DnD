@@ -1,7 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import AbilityScore from "../../ability/entities/AbilityScore.entity";
-import Character from "../../character/entities/Character.entity";
 import RelationLoaderService from "../../../database/RelationLoader.service";
+import AbilityScore from "../../ability/entities/AbilityScore.entity";
+import AbilityScoreValue from "../../ability/values/AbilityScore.value";
+import Character from "../../character/entities/Character.entity";
 import AbilityPlusLevelLimiterRules, { Rule } from "./AbilityPlusLevelLimiterRules.service";
 import PreparationLimiterInterface from "./PreparationLimiter.interface";
 
@@ -32,7 +33,7 @@ export default class AbilityPlusLevelLimiter implements PreparationLimiterInterf
 		);
 		if ( ! foundAbilityScore ) {
 			foundAbilityScore = new AbilityScore();
-			foundAbilityScore.score = 1;
+			foundAbilityScore.score = new AbilityScoreValue( 1 );
 		}
 
 		return Math.max( Math.floor( foundAbilityScore.modifier.value + ( character.level * characterRule.levelMultiplier ) ), 1 );

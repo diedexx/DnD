@@ -2,8 +2,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
-import AbilityScoreModifier from "./values/AbilityScoreModifier.value";
 import CreateAbilityScoreType from "./types/CreateAbilityScore.type";
+import AbilityScoreValue from "./values/AbilityScore.value";
+import AbilityScoreModifier from "./values/AbilityScoreModifier.value";
 
 export default class AbilityScoreService {
 	/**
@@ -28,7 +29,7 @@ export default class AbilityScoreService {
 		const abilityScore: AbilityScore = new AbilityScore();
 		abilityScore.ability = await this.abilityRepository.findOne( args.abilityId );
 		abilityScore.character = args.character;
-		abilityScore.score = args.score;
+		abilityScore.score = new AbilityScoreValue( args.score );
 
 		return abilityScore;
 	}
@@ -42,7 +43,26 @@ export default class AbilityScoreService {
 	 * @return {Promise<AbilityScoreModifier>} The abilityScore modifier.
 	 */
 	public async getAbilityScoreModifier( abilityId: number, characterId: number ): Promise<AbilityScoreModifier> {
-		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOne( { where: { abilityId, characterId } } );
+		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOne( {
+			where: {
+				abilityId,
+				characterId,
+			},
+		} );
 		return abilityScore.modifier;
+	}
+
+	/**
+	 * Update the value of an ability score.
+	 *
+	 * @param {number} abilityScoreId The id of the ability score to update.
+	 * @param {number} newValue The new value.
+	 *
+	 * @return {Promise<AbilityScore>} The updated ability score.
+	 */
+	public async updateAbilityScore( abilityScoreId: number, newValue: number ): Promise<AbilityScore> {
+		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOneOrFail( abilityScoreId );
+		abilityScore.score = new AbilityScoreValue( newValue );
+		return this.abilityScoreRepository.save( abilityScore );
 	}
 }

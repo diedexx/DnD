@@ -10,8 +10,8 @@ const sourceRoot = path.resolve( __dirname, ".." );
 export default registerAs( "database", (): DatabaseConfigInterface => {
 	return {
 		type: "mysql",
-		host: "database",
-		port: 3306,
+		host: process.env.DB_HOST || "127.0.0.1",
+		port: parseInt( process.env.DB_PORT, 10 ) || 3306,
 		username: "dnd",
 		password: "dnd",
 		database: "dnd",

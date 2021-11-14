@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import DarkModeToggle from "react-dark-mode-toggle";
+import "./ThemeSelector.css";
 
 type Theme = "dark" | "light";
 
@@ -30,7 +31,7 @@ const ThemeSelector: FunctionComponent = (): JSX.Element => {
 		[ setTheme ],
 	);
 
-	return <DarkModeToggle checked={ theme === "dark" } onChange={ toggleTheme } />;
+	return <DarkModeToggle checked={ theme === "dark" } onChange={ toggleTheme } className="theme-selector" />;
 };
 
 export default ThemeSelector;

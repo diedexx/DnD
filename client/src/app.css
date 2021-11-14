@@ -2,7 +2,7 @@
 
 .theme-light {
     --primary-color: #fff;
-    --secondary-color: #43789c;
+    --secondary-color: #3498db;
     --background-color: #e5e5e5;
     --border-color: rgba(0, 0, 0, 0.2);
     --text-color: #2d2d2d;
@@ -12,6 +12,7 @@
     --primary-color: #455363;
     --secondary-color: #43789c;
     --background-color: #1f2935;
+    --disabled-color: #91a1ab;
     --border-color: rgba(255, 255, 255, 0.2);
     --text-color: #fff;
 }
@@ -76,6 +77,23 @@ a {
     display: block;
     text-align: center;
     padding: 1em;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 0.5em;
+    border-radius: 2px;
+    box-shadow: 3px 3px rgba(3, 3, 3, 0.2);
+    border: 1px solid black;
+}
+
+button:not(:disabled):hover {
+    background-color: var(--secondary-color);
+}
+
+button:disabled {
+    color: var(--disabled-color);
 }
 
 h3 {

@@ -1,4 +1,4 @@
-import { faListAlt } from "@fortawesome/free-solid-svg-icons/faListAlt";
+import { faHistory } from "@fortawesome/free-solid-svg-icons";
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons/faRedoAlt";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons/faUndoAlt";
@@ -32,7 +32,7 @@ const CharacterSheetControls: FunctionComponent<CharacterSheetControlsProps> = (
 				<FontAwesomeIcon icon={ faRedoAlt } size={ "lg" } />
 			</button>
 			<button onClick={ props.toggleHistory }>
-				<FontAwesomeIcon icon={ faListAlt } size={ "lg" } />
+				<FontAwesomeIcon icon={ faHistory } size={ "lg" } />
 			</button>
 		</ControlGroup>
 		<button disabled={ props.isLoading } onClick={ props.refresh }>

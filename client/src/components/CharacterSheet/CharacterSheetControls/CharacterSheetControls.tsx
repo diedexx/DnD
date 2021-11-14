@@ -3,16 +3,16 @@ import { faRedoAlt } from "@fortawesome/free-solid-svg-icons/faRedoAlt";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons/faSyncAlt";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons/faUndoAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FunctionComponent } from "react";
+import { useDispatch } from "@wordpress/data";
+import { FunctionComponent, useCallback } from "react";
+import useResolvingSelect, { useRefreshResolver } from "../../../functions/useResolvingSelect";
+import ExecutedActionInterface from "../../../interfaces/ExecutedAction.interface";
 import ControlGroup from "../../Common/Controls/ControlGroup";
 import Controls from "../../Common/Controls/Controls";
 
 export type CharacterSheetControlsProps = {
-	readonly isLoading: boolean;
-	readonly undoAction: () => void;
-	readonly redoAction: () => void;
-	readonly refresh: () => void;
 	readonly toggleHistory: () => void;
+	readonly characterId: number;
 }
 
 /**
@@ -22,21 +22,41 @@ export type CharacterSheetControlsProps = {
  *
  * @return {JSX.Element} The controls for a character sheet.
  */
-const CharacterSheetControls: FunctionComponent<CharacterSheetControlsProps> = ( props: CharacterSheetControlsProps ): JSX.Element => {
+const CharacterSheetControls: FunctionComponent<CharacterSheetControlsProps> = (
+	{ characterId, toggleHistory }: CharacterSheetControlsProps,
+): JSX.Element => {
+	const { undoAction: dispatchUndoAction, redoAction: dispatchRedoAction } = useDispatch( "app" );
+	const { isLoading: isLoadingCharacter } = useResolvingSelect( "getCharacterDetails", characterId );
+
+	const {
+		isLoading: isLoadingActionHistory,
+		data: actionHistory,
+	} = useResolvingSelect<ExecutedActionInterface[]>( "getActionHistory", characterId );
+
+	const refresh = useRefreshResolver( "getCharacterDetails", characterId );
+	const undoAction = useCallback( () => dispatchUndoAction( characterId ), [ dispatchUndoAction, characterId ] );
+	const redoAction = useCallback( () => dispatchRedoAction( characterId ), [ dispatchRedoAction, characterId ] );
+
+	const hasUndoableActions = actionHistory.some( ( action ) => ! action.isUndone );
+	const hasReDoableActions = actionHistory.some( ( action ) => action.isUndone );
+
 	return <Controls>
 		<ControlGroup>
-			<button disabled={ props.isLoading } onClick={ props.undoAction }>
+			<button disabled={ isLoadingActionHistory || ! hasUndoableActions } onClick={ undoAction }>
 				<FontAwesomeIcon icon={ faUndoAlt } size={ "lg" } />
 			</button>
-			<button disabled={ props.isLoading } onClick={ props.redoAction }>
+
+			<button disabled={ isLoadingActionHistory || ! hasReDoableActions } onClick={ redoAction }>
 				<FontAwesomeIcon icon={ faRedoAlt } size={ "lg" } />
 			</button>
-			<button onClick={ props.toggleHistory }>
+
+			<button onClick={ toggleHistory }>
 				<FontAwesomeIcon icon={ faHistory } size={ "lg" } />
 			</button>
 		</ControlGroup>
-		<button disabled={ props.isLoading } onClick={ props.refresh }>
-			<FontAwesomeIcon icon={ faSyncAlt } spin={ props.isLoading } size={ "lg" } />
+
+		<button disabled={ isLoadingCharacter } onClick={ refresh }>
+			<FontAwesomeIcon icon={ faSyncAlt } spin={ isLoadingCharacter } size={ "lg" } />
 		</button>
 	</Controls>;
 };

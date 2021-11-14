@@ -4,6 +4,7 @@
     --primary-color: #fff;
     --secondary-color: #3498db;
     --background-color: #e5e5e5;
+    --disabled-color: #a1a1a1;
     --border-color: rgba(0, 0, 0, 0.2);
     --text-color: #2d2d2d;
 }
@@ -90,6 +91,10 @@ button {
 
 button:not(:disabled):hover {
     background-color: var(--secondary-color);
+}
+
+button:not(:disabled):active {
+    color: var(--primary-color)
 }
 
 button:disabled {

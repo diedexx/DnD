@@ -1,14 +1,13 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { useDispatch } from "@wordpress/data";
 import { createContext, FunctionComponent, useCallback, useState } from "react";
-import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
+import useResolvingSelect from "../../functions/useResolvingSelect";
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
-import ActionHistory from "./ActionHistory/ActionHistory";
 import BigValueDisplay from "../Common/BigValueDisplay/BigValueDisplay";
 import HeadingCard from "../Common/Card/HeadingCard";
 import Spinner from "../Common/Spinner/Spinner";
 import TextValueDisplay from "../Common/TextValueDisplay/TextValueDisplay";
 import AbilityScores from "./AbilityScores/AbilityScores";
+import ActionHistory from "./ActionHistory/ActionHistory";
 import "./CharacterSheet.css";
 import CharacterSheetControls from "./CharacterSheetControls/CharacterSheetControls";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
@@ -39,37 +38,18 @@ export const CharacterSheetContext = createContext( null );
 const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characterId }: CharacterDetailPageProps ): JSX.Element => {
 	const [ showHistory, setShowHistory ] = useState( false );
 
+	const toggleHistory = useCallback( () => setShowHistory( ! showHistory ), [ showHistory, setShowHistory ] );
+
 	const {
 		data: characterDetails,
 		isLoading,
 		startedLoading,
 	} = useResolvingSelect<CharacterDetailsInterface>( "getCharacterDetails", characterId );
-	const refresh = useRefreshResolver( "getCharacterDetails", characterId );
-
-	const { undoAction: dispatchUndoAction, redoAction: dispatchRedoAction } = useDispatch( "app" );
-
-	const undoAction = useCallback(
-		() => dispatchUndoAction( characterId ),
-		[ dispatchUndoAction, characterId ] );
-	const redoAction = useCallback(
-		() => dispatchRedoAction( characterId ),
-		[ dispatchRedoAction, characterId ] );
-
-	const toggleHistory = useCallback(
-		() => setShowHistory( ! showHistory ),
-		[ showHistory, setShowHistory ],
-	);
 
 	const context = { characterId };
 
 	return <CharacterSheetContext.Provider value={ context }>
-		<CharacterSheetControls
-			isLoading={ isLoading }
-			refresh={ refresh }
-			redoAction={ redoAction }
-			undoAction={ undoAction }
-			toggleHistory={ toggleHistory }
-		/>
+		<CharacterSheetControls characterId={ characterId } toggleHistory={ toggleHistory } />
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
 		<div className="columns">
 			{ showHistory && <ActionHistory characterId={ characterId } /> }

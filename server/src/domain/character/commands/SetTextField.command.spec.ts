@@ -4,7 +4,7 @@ import { Repository } from "typeorm";
 import CommandProviderService from "../../../command/CommandProvider.service";
 import CommandReference from "../../../command/interfaces/CommandReference.interface";
 import Character from "../entities/Character.entity";
-import { SetTextFieldCommand, SetTextFieldData } from "./SetTextFieldCommand";
+import { SetTextFieldCommand, SetTextFieldData } from "./SetTextField.command";
 import Mocked = jest.Mocked;
 
 describe( "The SetTextFieldCommand", () => {

@@ -7,6 +7,7 @@ import { ModifierModule } from "../modifier/Modifier.module";
 import CharacterResolver from "./Character.resolver";
 import CharacterService from "./Character.service";
 import CharacterClassResolver from "./CharacterClass.resolver";
+import { SetTextFieldCommand } from "./commands/SetTextField.command";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
 
@@ -19,6 +20,7 @@ import CharacterClass from "./entities/CharacterClass.entity";
 		CommandModule,
 	],
 	providers: [
+		SetTextFieldCommand,
 		CharacterService,
 		CharacterResolver,
 		CharacterClassResolver,

@@ -21,7 +21,7 @@ export class SetTextFieldCommand extends AbstractCommand<SetTextFieldData> imple
 	 * The constructor.
 	 *
 	 * @param {Repository<Character>} characterRepository The character repo.
-	 * @param {CommandProviderService} commandProviderService A service that provices commands.
+	 * @param {CommandProviderService} commandProviderService A service that provides commands.
 	 */
 	public constructor(
 		@InjectRepository( Character )

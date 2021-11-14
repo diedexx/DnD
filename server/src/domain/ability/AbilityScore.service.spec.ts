@@ -48,7 +48,9 @@ AbilityScore {
     "name": "Strength",
   },
   "character": Character {},
-  "score": 10,
+  "score": AbilityScoreValue {
+    "value": 10,
+  },
 }
 ` );
 		} );

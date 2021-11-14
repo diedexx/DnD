@@ -59,7 +59,7 @@ const actions = {
 	},
 
 	updateAbilityScore: function* ( characterId: number, abilityScoreId: number, newValue: number ) {
-		const response = yield actions.graphQL( {
+		yield actions.graphQL( {
 			query: updateAbilityScore,
 			variables: { abilityScoreId, newValue },
 		} );

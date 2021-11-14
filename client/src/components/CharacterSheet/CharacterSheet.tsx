@@ -1,9 +1,4 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faListAlt } from "@fortawesome/free-solid-svg-icons/faListAlt";
-import { faRedoAlt } from "@fortawesome/free-solid-svg-icons/faRedoAlt";
-import { faSyncAlt } from "@fortawesome/free-solid-svg-icons/faSyncAlt";
-import { faUndoAlt } from "@fortawesome/free-solid-svg-icons/faUndoAlt";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "@wordpress/data";
 import { createContext, FunctionComponent, useCallback, useState } from "react";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
@@ -11,12 +6,11 @@ import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interfa
 import ActionHistory from "../ActionHistory/ActionHistory";
 import BigValueDisplay from "../BigValueDisplay/BigValueDisplay";
 import HeadingCard from "../Card/HeadingCard";
-import ControlGroup from "../Controls/ControlGroup";
-import Controls from "../Controls/Controls";
 import Spinner from "../Spinner/Spinner";
 import TextValueDisplay from "../TextValueDisplay/TextValueDisplay";
 import AbilityScores from "./AbilityScores/AbilityScores";
 import "./CharacterSheet.css";
+import CharacterSheetControls from "./CharacterSheetControls/CharacterSheetControls";
 import CharacterSummary from "./CharacterSummary/CharacterSummary";
 import DeathSave from "./DeathSave/DeathSave";
 import Equipment from "./Equipment/Equipment";
@@ -69,136 +63,122 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 	const context = { characterId };
 
 	return <CharacterSheetContext.Provider value={ context }>
-		<div>
-			<Controls>
-				<ControlGroup>
-					<button disabled={ isLoading } onClick={ undoAction }>
-						<FontAwesomeIcon icon={ faUndoAlt } size={ "lg" } />
-					</button>
-					<button disabled={ isLoading } onClick={ redoAction }>
-						<FontAwesomeIcon icon={ faRedoAlt } size={ "lg" } />
-					</button>
-					<button onClick={ toggleHistory }>
-						<FontAwesomeIcon icon={ faListAlt } size={ "lg" } />
-					</button>
-				</ControlGroup>
-				<button disabled={ isLoading } onClick={ refresh }>
-					<FontAwesomeIcon icon={ faSyncAlt } spin={ isLoading } size={ "lg" } />
-				</button>
-			</Controls>
-
-			{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
-			<div className="columns">
-				{ showHistory && <ActionHistory characterId={ characterId } /> }
-				<div className="character-sheet">
-					<CharacterSummary characterDetails={ characterDetails } />
-					<div className="columns">
-
-						<div className="column">
-
-							<div className="columns">
-								<HeadingCard heading="Ability scores">
-									<AbilityScores abilityScores={ characterDetails.abilityScores } />
-								</HeadingCard>
-								<div>
-									<HeadingCard heading="Saving throws">
-										<SavingThrows savingThrows={ characterDetails.savingThrows } />
-									</HeadingCard>
-									<HeadingCard heading="Skill scores">
-										<SkillScores skillScores={ characterDetails.skillScores } />
-									</HeadingCard>
-								</div>
-							</div>
-
-							<HeadingCard heading="Wallet">
-								<Wallet wallet={ characterDetails.wallet } />
+		<CharacterSheetControls
+			isLoading={ isLoading }
+			refresh={ refresh }
+			redoAction={ redoAction }
+			undoAction={ undoAction }
+			toggleHistory={ toggleHistory }
+		/>
+		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
+		<div className="columns">
+			{ showHistory && <ActionHistory characterId={ characterId } /> }
+			<div className="character-sheet">
+				<CharacterSummary characterDetails={ characterDetails } />
+				<div className="columns">
+					<div className="column">
+						<div className="columns">
+							<HeadingCard heading="Ability scores">
+								<AbilityScores abilityScores={ characterDetails.abilityScores } />
 							</HeadingCard>
-
-							<HeadingCard heading="Proficiencies">
-								<TextValueDisplay
-									text={ characterDetails.proficiencies.map( x => x.affectedCategoryName ).join( ", " ) }
-								/>
-							</HeadingCard>
-
-						</div>
-
-						<div className="column">
-
-							<div className="columns--fill">
-								<HeadingCard heading="Proficiency bonus" className="card--full-width">
-									<BigValueDisplay>{ characterDetails.proficiencyBonus.displayValue }</BigValueDisplay>
+							<div>
+								<HeadingCard heading="Saving throws">
+									<SavingThrows savingThrows={ characterDetails.savingThrows } />
 								</HeadingCard>
-								<HeadingCard heading="Armor class" className="card--full-width">
-									<BigValueDisplay>
-										<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
-											{ characterDetails.armorClassModifier.value }
-										</ModifierBreakdownTooltip>
-									</BigValueDisplay>
-								</HeadingCard>
-								<HeadingCard heading="Initiative" className="card--full-width">
-									<BigValueDisplay>
-										<ModifierBreakdownTooltip modifier={ characterDetails.initiativeModifier }>
-											{ characterDetails.initiativeModifier.displayValue }
-										</ModifierBreakdownTooltip>
-									</BigValueDisplay>
-								</HeadingCard>
-
-								<HeadingCard heading="Speed" className="card--full-width">
-									<BigValueDisplay>
-										<ModifierBreakdownTooltip modifier={ characterDetails.speedModifier }>
-											{ characterDetails.speedModifier.value } ft.
-										</ModifierBreakdownTooltip>
-									</BigValueDisplay>
+								<HeadingCard heading="Skill scores">
+									<SkillScores skillScores={ characterDetails.skillScores } />
 								</HeadingCard>
 							</div>
-
-
-							<div className="columns--fill">
-								<HeadingCard heading="Hit dice" className="card--full-width">
-									<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
-								</HeadingCard>
-								<HeadingCard heading="Current HP" className="card--full-width">
-									<Health health={ characterDetails.health } />
-								</HeadingCard>
-								<HeadingCard heading="Death saves" className="card--full-width">
-									<DeathSave deathSave={ characterDetails.deathSave } />
-								</HeadingCard>
-							</div>
-
-							<HeadingCard heading="Weapons">
-								<Weapons weapons={ characterDetails.weapons } />
-							</HeadingCard>
-
-							<HeadingCard heading={ "Spell slots" } className="card">
-								<SpellSlots spellSlotPool={ characterDetails.spellSlotPool } />
-							</HeadingCard>
-
-							<HeadingCard heading="Spells">
-								<Spells spells={ characterDetails.spells } />
-							</HeadingCard>
-
-							<HeadingCard heading="Equipment">
-								<Equipment equipment={ characterDetails.equipment } />
-							</HeadingCard>
-
 						</div>
 
-						<div className="column--shrink">
+						<HeadingCard heading="Wallet">
+							<Wallet wallet={ characterDetails.wallet } />
+						</HeadingCard>
 
-							<HeadingCard heading="Personality traits">
-								<TextValueDisplay text={ characterDetails.personalityTraits } />
+						<HeadingCard heading="Proficiencies">
+							<TextValueDisplay
+								text={ characterDetails.proficiencies.map( x => x.affectedCategoryName ).join( ", " ) }
+							/>
+						</HeadingCard>
+
+					</div>
+
+					<div className="column">
+
+						<div className="columns--fill">
+							<HeadingCard heading="Proficiency bonus" className="card--full-width">
+								<BigValueDisplay>{ characterDetails.proficiencyBonus.displayValue }</BigValueDisplay>
 							</HeadingCard>
-							<HeadingCard heading="Ideals">
-								<TextValueDisplay text={ characterDetails.ideals } />
+							<HeadingCard heading="Armor class" className="card--full-width">
+								<BigValueDisplay>
+									<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
+										{ characterDetails.armorClassModifier.value }
+									</ModifierBreakdownTooltip>
+								</BigValueDisplay>
 							</HeadingCard>
-							<HeadingCard heading="Bonds">
-								<TextValueDisplay text={ characterDetails.bonds } />
-							</HeadingCard>
-							<HeadingCard heading="Flaws">
-								<TextValueDisplay text={ characterDetails.flaws } />
+							<HeadingCard heading="Initiative" className="card--full-width">
+								<BigValueDisplay>
+									<ModifierBreakdownTooltip modifier={ characterDetails.initiativeModifier }>
+										{ characterDetails.initiativeModifier.displayValue }
+									</ModifierBreakdownTooltip>
+								</BigValueDisplay>
 							</HeadingCard>
 
+							<HeadingCard heading="Speed" className="card--full-width">
+								<BigValueDisplay>
+									<ModifierBreakdownTooltip modifier={ characterDetails.speedModifier }>
+										{ characterDetails.speedModifier.value } ft.
+									</ModifierBreakdownTooltip>
+								</BigValueDisplay>
+							</HeadingCard>
 						</div>
+
+
+						<div className="columns--fill">
+							<HeadingCard heading="Hit dice" className="card--full-width">
+								<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
+							</HeadingCard>
+							<HeadingCard heading="Current HP" className="card--full-width">
+								<Health health={ characterDetails.health } />
+							</HeadingCard>
+							<HeadingCard heading="Death saves" className="card--full-width">
+								<DeathSave deathSave={ characterDetails.deathSave } />
+							</HeadingCard>
+						</div>
+
+						<HeadingCard heading="Weapons">
+							<Weapons weapons={ characterDetails.weapons } />
+						</HeadingCard>
+
+						<HeadingCard heading={ "Spell slots" } className="card">
+							<SpellSlots spellSlotPool={ characterDetails.spellSlotPool } />
+						</HeadingCard>
+
+						<HeadingCard heading="Spells">
+							<Spells spells={ characterDetails.spells } />
+						</HeadingCard>
+
+						<HeadingCard heading="Equipment">
+							<Equipment equipment={ characterDetails.equipment } />
+						</HeadingCard>
+
+					</div>
+
+					<div className="column--shrink">
+
+						<HeadingCard heading="Personality traits">
+							<TextValueDisplay text={ characterDetails.personalityTraits } />
+						</HeadingCard>
+						<HeadingCard heading="Ideals">
+							<TextValueDisplay text={ characterDetails.ideals } />
+						</HeadingCard>
+						<HeadingCard heading="Bonds">
+							<TextValueDisplay text={ characterDetails.bonds } />
+						</HeadingCard>
+						<HeadingCard heading="Flaws">
+							<TextValueDisplay text={ characterDetails.flaws } />
+						</HeadingCard>
+
 					</div>
 				</div>
 			</div>

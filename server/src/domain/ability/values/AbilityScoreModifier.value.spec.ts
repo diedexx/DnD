@@ -1,3 +1,4 @@
+import AbilityScoreValue from "./AbilityScore.value";
 import AbilityScoreModifier from "./AbilityScoreModifier.value";
 
 describe( "The AbilityScoreModifier", () => {
@@ -14,7 +15,7 @@ describe( "The AbilityScoreModifier", () => {
 				{ score: 30, expected: 10 },
 			],
 		)( "maps an ability score to a modifier", ( { score, expected } ) => {
-			expect( AbilityScoreModifier.fromAbilityScore( score ).value ).toBe( expected );
+			expect( AbilityScoreModifier.fromAbilityScore( new AbilityScoreValue( score ) ).value ).toBe( expected );
 		} );
 	} );
 } );

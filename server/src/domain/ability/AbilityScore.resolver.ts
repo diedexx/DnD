@@ -50,6 +50,14 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 		return ( await this.relationLoaderService.loadRelations( abilityScore, [ "ability" ] ) ).ability;
 	}
 
+	/**
+	 * Updates the score value of an ability score.
+	 *
+	 * @param {number} abilityScoreId The id of the ability score.
+	 * @param {number} newValue The new value to set.
+	 *
+	 * @return {Promise<AbilityScore>} The updated ability score.
+	 */
 	@Mutation( () => AbilityScore )
 	public async updateAbilityScore(
 		@Args( "abilityScoreId", { type: () => Int } ) abilityScoreId: number,

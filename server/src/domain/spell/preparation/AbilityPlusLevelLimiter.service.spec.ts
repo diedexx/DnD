@@ -1,9 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
+import RelationLoaderService from "../../../database/RelationLoader.service";
 import Ability from "../../ability/entities/Ability.entity";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
+import AbilityScoreValue from "../../ability/values/AbilityScore.value";
 import Character from "../../character/entities/Character.entity";
 import CharacterClass from "../../character/entities/CharacterClass.entity";
-import RelationLoaderService from "../../../database/RelationLoader.service";
 import AbilityPlusLevelLimiter from "./AbilityPlusLevelLimiter.service";
 import AbilityPlusLevelLimiterRules from "./AbilityPlusLevelLimiterRules.service";
 import Mocked = jest.Mocked;
@@ -88,7 +89,7 @@ describe( "The AbilityPlusLevelLimiter service", () => {
 				const abilityScore = new AbilityScore();
 				abilityScore.ability = new Ability();
 				abilityScore.ability.name = rule.abilityName;
-				abilityScore.score = score;
+				abilityScore.score = new AbilityScoreValue( score );
 				character1.abilityScores = [ abilityScore ];
 				return character1;
 			} );
@@ -96,8 +97,7 @@ describe( "The AbilityPlusLevelLimiter service", () => {
 			abilityPlusLevelLimiterRulesMock.getRule.mockReturnValueOnce( rule );
 
 			expect( await abilityPlusLevelLimiter.getPreparationLimit( character ) ).toBe( expected );
-		},
-		);
+		} );
 
 		it( "defaults to the lowest abilityScore if the character doesn't have any ability scores", async () => {
 			const character: Character = new Character();
@@ -118,7 +118,6 @@ describe( "The AbilityPlusLevelLimiter service", () => {
 				className: "doesn't matter",
 			} );
 			expect( await abilityPlusLevelLimiter.getPreparationLimit( character ) ).toBe( 5 );
-		},
-		);
+		} );
 	} );
 } );

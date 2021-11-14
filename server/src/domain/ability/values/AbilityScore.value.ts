@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import InvalidAbilityScoreValue from "src/domain/spell/exceptions/InvalidAbilityScoreValue.exception";
+import InvalidAbilityScoreValue from "../../spell/exceptions/InvalidAbilityScoreValue.exception";
 
 @ObjectType()
 export default class AbilityScoreValue {

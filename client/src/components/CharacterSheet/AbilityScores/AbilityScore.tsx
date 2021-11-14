@@ -24,7 +24,7 @@ const AbilityScore: FunctionComponent<AbilitiesProps> = ( { abilityScore }: Abil
 		() => debounce( ( value: number ) => {
 			dispatchUpdateAbilityScore( characterId, abilityScore.id, value );
 		}, 400 ),
-		[ abilityScore, characterId ],
+		[ dispatchUpdateAbilityScore, abilityScore, characterId ],
 	);
 
 	useEffect( () => {

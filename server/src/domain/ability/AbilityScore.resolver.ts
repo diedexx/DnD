@@ -2,9 +2,12 @@ import { Args, Int, Mutation, Parent, ResolveField, Resolver } from "@nestjs/gra
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
+import CommandService from "../../command/Command.service";
+import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
 import Character from "../character/entities/Character.entity";
 import AbilityScoreService from "./AbilityScore.service";
+import { TYPE as updateAbilityScoreCommandType, UpdateAbilityScoreData } from "./commands/UpdateAbilityScore.command";
 import Ability from "./entities/Ability.entity";
 import AbilityScore from "./entities/AbilityScore.entity";
 
@@ -14,12 +17,17 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 	 * The constructor.
 	 *
 	 * @param {Repository<AbilityScore>} abilityScoreRepository The AbilityScore repo.
+	 * @param {Repository<Character>} characterRepository The Character repo.
+	 * @param {CommandService} commandService A service that executes commands.
 	 * @param {RelationLoaderService} relationLoaderService A service that resolves entity relations.
 	 * @param {AbilityScoreService} abilityScoreService A service that manages AbilityScores.
 	 */
 	constructor(
 		@InjectRepository( AbilityScore )
 		private readonly abilityScoreRepository: Repository<AbilityScore>,
+		@InjectRepository( Character )
+		private readonly characterRepository: Repository<Character>,
+		private readonly commandService: CommandService,
 		private readonly relationLoaderService: RelationLoaderService,
 		private readonly abilityScoreService: AbilityScoreService,
 	) {
@@ -63,6 +71,16 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 		@Args( "abilityScoreId", { type: () => Int } ) abilityScoreId: number,
 		@Args( "newValue", { type: () => Int } ) newValue: number,
 	): Promise<AbilityScore> {
-		return await this.abilityScoreService.updateAbilityScore( abilityScoreId, newValue );
+		const commandReference: CommandReference<UpdateAbilityScoreData> = {
+			data: { abilityScoreId, newValue },
+			type: updateAbilityScoreCommandType,
+		};
+		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOneOrFail( abilityScoreId );
+		const character = await this.characterRepository.findOneOrFail( abilityScore.characterId );
+
+		const command = await this.commandService.createCommand( commandReference, character );
+		await this.commandService.executeCommand( command );
+
+		return await this.abilityScoreRepository.findOneOrFail( abilityScoreId );
 	}
 }

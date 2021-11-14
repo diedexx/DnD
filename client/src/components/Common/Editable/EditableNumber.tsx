@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import "./EditableNumber.css";
 
-export type EditableProps = {
+export type EditableNumberProps = {
 	onChange: ( value: number ) => void;
 	defaultDisplayValue: number;
 	defaultEditValue: number;
@@ -12,12 +12,12 @@ export type EditableProps = {
 /**
  * A number that can be modified.
  *
- * @param {EditableProps} props The props.
+ * @param {EditableNumberProps} props The props.
  *
  * @return {JSX.Element} The editable number.
  */
-const EditableNumber: FunctionComponent<EditableProps> = (
-	{ onChange, defaultEditValue, defaultDisplayValue, minValue, maxValue }: EditableProps,
+const EditableNumber: FunctionComponent<EditableNumberProps> = (
+	{ onChange, defaultEditValue, defaultDisplayValue, minValue, maxValue }: EditableNumberProps,
 ): JSX.Element => {
 	const [ editing, setEditing ] = useState( false );
 	const inputRef = useRef<HTMLInputElement>();

@@ -63,7 +63,7 @@ const actions = {
 			query: updateAbilityScore,
 			variables: { abilityScoreId, newValue },
 		} );
-
+		yield invalidateResolution( "getActionHistory", [ characterId ] );
 		return invalidateResolution( "getCharacterDetails", [ characterId ] );
 	},
 

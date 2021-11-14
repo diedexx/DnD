@@ -4,7 +4,8 @@ import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface"
 import ExecutedActionInterface from "../interfaces/ExecutedAction.interface";
 import redoLastUndoneCommand from "../queries/redoLastUndoneCommand";
 import undoLastCommand from "../queries/undoLastCommand";
-import updateAbilityScore from "../queries/UpdateAbilityScore";
+import updateAbilityScore from "../queries/updateAbilityScore";
+import updateTextField from "../queries/updateTextField";
 import { GraphQLData } from "./store";
 
 export enum ACTION_TYPE {
@@ -56,6 +57,15 @@ const actions = {
 		yield invalidateResolution( "getCharacterDetails", [ characterId ] );
 		yield invalidateResolution( "getCharacterSummaries" );
 		return actions.setActionHistory( characterId, response.data.data.redoLastUndoneCommand );
+	},
+
+	updateTextField: function* ( characterId: number, property: string, newValue: string ) {
+		const response = yield actions.graphQL( {
+			query: updateTextField,
+			variables: { characterId, property, newValue },
+		} );
+		yield invalidateResolution( "getActionHistory", [ characterId ] );
+		return actions.setCharacterDetails( response.data.data.updateTextField );
 	},
 
 	updateAbilityScore: function* ( characterId: number, abilityScoreId: number, newValue: number ) {

@@ -1,9 +1,11 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { useDispatch } from "@wordpress/data";
 import { createContext, FunctionComponent, useCallback, useState } from "react";
 import useResolvingSelect from "../../functions/useResolvingSelect";
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
 import BigValueDisplay from "../Common/BigValueDisplay/BigValueDisplay";
 import HeadingCard from "../Common/Card/HeadingCard";
+import EditableText from "../Common/Editable/EditableText";
 import Spinner from "../Common/Spinner/Spinner";
 import TextValueDisplay from "../Common/TextValueDisplay/TextValueDisplay";
 import AbilityScores from "./AbilityScores/AbilityScores";
@@ -45,6 +47,21 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 		isLoading,
 		startedLoading,
 	} = useResolvingSelect<CharacterDetailsInterface>( "getCharacterDetails", characterId );
+
+	const { updateTextField } = useDispatch( "app" );
+
+	const updateTraits = useCallback( ( value: string ) => {
+		updateTextField( characterId, "personalityTraits", value );
+	}, [ characterId, updateTextField ] );
+	const updateIdeals = useCallback( ( value: string ) => {
+		updateTextField( characterId, "ideals", value );
+	}, [ characterId, updateTextField ] );
+	const updateBonds = useCallback( ( value: string ) => {
+		updateTextField( characterId, "bonds", value );
+	}, [ characterId, updateTextField ] );
+	const updateFlaws = useCallback( ( value: string ) => {
+		updateTextField( characterId, "flaws", value );
+	}, [ characterId, updateTextField ] );
 
 	const context = { characterId };
 
@@ -147,16 +164,16 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 					<div className="column--shrink">
 
 						<HeadingCard heading="Personality traits">
-							<TextValueDisplay text={ characterDetails.personalityTraits } />
+							<EditableText defaultEditValue={ characterDetails.personalityTraits } onSave={ updateTraits } />
 						</HeadingCard>
 						<HeadingCard heading="Ideals">
-							<TextValueDisplay text={ characterDetails.ideals } />
+							<EditableText defaultEditValue={ characterDetails.ideals } onSave={ updateIdeals } />
 						</HeadingCard>
 						<HeadingCard heading="Bonds">
-							<TextValueDisplay text={ characterDetails.bonds } />
+							<EditableText defaultEditValue={ characterDetails.bonds } onSave={ updateBonds } />
 						</HeadingCard>
 						<HeadingCard heading="Flaws">
-							<TextValueDisplay text={ characterDetails.flaws } />
+							<EditableText defaultEditValue={ characterDetails.flaws } onSave={ updateFlaws } />
 						</HeadingCard>
 
 					</div>

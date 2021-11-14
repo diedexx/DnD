@@ -3,8 +3,9 @@ import TextareaAutosize from "react-textarea-autosize";
 
 export type EditableTextProps = {
 	onSave: ( value: string ) => void;
-	defaultDisplayValue: string;
-	defaultEditValue?: string;
+	defaultEditValue: string;
+	defaultDisplayValue?: string;
+	saveUnchanged?: boolean;
 }
 
 /**
@@ -15,18 +16,25 @@ export type EditableTextProps = {
  * @return {JSX.Element} The editable text.
  */
 const EditableText: FunctionComponent<EditableTextProps> = (
-	{ onSave, defaultEditValue, defaultDisplayValue }: EditableTextProps,
+	{ onSave, defaultEditValue, defaultDisplayValue, saveUnchanged }: EditableTextProps,
 ): JSX.Element => {
 	const [ editing, setEditing ] = useState( false );
-	const [ value, setValue ] = useState( defaultEditValue || defaultDisplayValue );
+	const [ value, setValue ] = useState( "" );
+
 	const textareaRef = useRef<HTMLTextAreaElement>();
 
 	const toggleEditing = useCallback( () => {
+		if ( ! editing ) {
+			setValue( defaultEditValue );
+		}
 		if ( editing ) {
-			onSave( value );
+			const valueChanged = value !== defaultEditValue;
+			if ( valueChanged || saveUnchanged ) {
+				onSave( value );
+			}
 		}
 		setEditing( ! editing );
-	}, [ editing, onSave, value ] );
+	}, [ defaultEditValue, editing, onSave, saveUnchanged, value ] );
 
 	const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
 		( event ) => setValue( event.target.value ),
@@ -44,7 +52,7 @@ const EditableText: FunctionComponent<EditableTextProps> = (
 			<TextareaAutosize
 				className="editable-text__textarea"
 				onChange={ handleChange }
-				defaultValue={ defaultEditValue || defaultDisplayValue }
+				defaultValue={ value }
 				ref={ textareaRef }
 			/>
 		</div>;
@@ -56,8 +64,12 @@ const EditableText: FunctionComponent<EditableTextProps> = (
 		tabIndex={ 0 }
 		role={ "form" }
 	>
-		{ defaultDisplayValue }
+		{ defaultDisplayValue || defaultEditValue }
 	</div>;
+};
+
+EditableText.defaultProps = {
+	saveUnchanged: false,
 };
 
 export default EditableText;

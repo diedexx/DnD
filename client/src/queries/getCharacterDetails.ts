@@ -41,9 +41,7 @@ const externalModifierQuery = `
 					description
 `;
 
-const getCharacterDetails =
-	`query CharacterDetails($id: Int!) {
-		character(id: $id) {
+export const characterDetailsQuery = `
 			id
 			name
 			level
@@ -154,6 +152,12 @@ const getCharacterDetails =
 				successes
 				failures
 			}
+`;
+
+const getCharacterDetails =
+	`query CharacterDetails($id: Int!) {
+		character(id: $id) {
+			${ characterDetailsQuery }
 		}
 	}`;
 export default getCharacterDetails;

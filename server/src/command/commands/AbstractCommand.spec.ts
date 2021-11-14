@@ -7,6 +7,13 @@ class CommandTestDouble extends AbstractCommand {
 	/**
 	 * @inheritDoc
 	 */
+	public async getName(): Promise<string> {
+		return "Name";
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public async getDescription(): Promise<string> {
 		return "description";
 	}
@@ -37,7 +44,7 @@ describe( "The AbstractCommand", () => {
 	let instance: CommandTestDouble;
 
 	beforeEach( () => {
-		instance = new CommandTestDouble();
+		instance = new CommandTestDouble( null );
 	} );
 
 	describe( "supports function", () => {

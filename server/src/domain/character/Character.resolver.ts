@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
 import CommandService from "../../command/Command.service";
-import { SetTextFieldData, TYPE as SetTextFieldCommandType } from "../../command/commands/SetTextFieldCommand";
+import { SetTextFieldData, TYPE as SetTextFieldCommandType } from "./commands/SetTextFieldCommand";
 import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";

@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import DatabaseModule from "../database/Database.module";
+import { SetTextFieldCommand } from "../domain/character/commands/SetTextFieldCommand";
 import Character from "../domain/character/entities/Character.entity";
 import CommandResolver from "./Command.resolver";
 import CommandService from "./Command.service";
 import CommandProviderService from "./CommandProvider.service";
 import { NoopCommand } from "./commands/NoopCommand";
-import { SetTextFieldCommand } from "./commands/SetTextFieldCommand";
 import Command from "./entities/Command.entity";
 
 @Module( {
@@ -20,18 +20,11 @@ import Command from "./entities/Command.entity";
 		NoopCommand,
 		SetTextFieldCommand,
 		CommandResolver,
-		{
-			provide: "COMMANDS",
-			inject: [ SetTextFieldCommand ],
-			useFactory: (
-				setTextFieldCommand: SetTextFieldCommand,
-			) => {
-				return [ setTextFieldCommand ];
-			},
-		},
+		{ provide: "FallbackCommand", useClass: NoopCommand },
 	],
 	exports: [
 		CommandService,
+		CommandProviderService,
 	],
 } )
 export class CommandModule {

@@ -1,10 +1,12 @@
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { has, isString } from "lodash";
 import { Repository } from "typeorm";
-import Character from "../../domain/character/entities/Character.entity";
-import CommandInterface from "../interfaces/Command.interface";
-import CommandReference from "../interfaces/CommandReference.interface";
-import { AbstractCommand } from "./AbstractCommand";
+import CommandProviderService from "../../../command/CommandProvider.service";
+import { AbstractCommand } from "../../../command/commands/AbstractCommand";
+import CommandInterface from "../../../command/interfaces/Command.interface";
+import CommandReference from "../../../command/interfaces/CommandReference.interface";
+import Character from "../entities/Character.entity";
 
 export const TYPE = "SET_TEXT_FIELD";
 
@@ -13,15 +15,20 @@ export interface SetTextFieldData {
 	newText: string;
 }
 
+@Injectable()
 export class SetTextFieldCommand extends AbstractCommand<SetTextFieldData> implements CommandInterface<SetTextFieldData> {
 	/**
 	 * The constructor.
+	 *
+	 * @param {Repository<Character>} characterRepository The character repo.
+	 * @param {CommandProviderService} commandProviderService A service that provices commands.
 	 */
 	public constructor(
 		@InjectRepository( Character )
 		private readonly characterRepository: Repository<Character>,
+		commandProviderService: CommandProviderService,
 	) {
-		super();
+		super( commandProviderService );
 	}
 
 	/**

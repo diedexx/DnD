@@ -1,8 +1,9 @@
-import CommandInterface from "../interfaces/Command.interface";
+import { Injectable } from "@nestjs/common";
 import CommandReference from "../interfaces/CommandReference.interface";
 import { AbstractCommand } from "./AbstractCommand";
 
-export class NoopCommand extends AbstractCommand implements CommandInterface {
+@Injectable()
+export class NoopCommand extends AbstractCommand {
 	/**
 	 * @inheritDoc
 	 */

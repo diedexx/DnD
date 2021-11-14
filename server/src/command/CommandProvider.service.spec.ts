@@ -1,7 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import CommandInterface from "./interfaces/Command.interface";
 import CommandProviderService from "./CommandProvider.service";
-import { NoopCommand } from "./commands/NoopCommand";
+import CommandInterface from "./interfaces/Command.interface";
 import Mocked = jest.Mocked;
 
 describe( "The CommandProviderService", () => {
@@ -23,12 +22,13 @@ describe( "The CommandProviderService", () => {
 		const app: TestingModule = await Test.createTestingModule( {
 			providers: [
 				CommandProviderService,
-				{ provide: NoopCommand, useValue: fallbackCommand },
-				{ provide: "COMMANDS", useValue: [ command1, command2 ] },
+				{ provide: "FallbackCommand", useValue: fallbackCommand },
 			],
 		} ).compile();
 
 		commandProviderService = app.get<CommandProviderService>( CommandProviderService );
+		commandProviderService.registerCommand( command1 as CommandInterface );
+		commandProviderService.registerCommand( command2 as CommandInterface );
 	} );
 
 	describe( "getCommand function", () => {

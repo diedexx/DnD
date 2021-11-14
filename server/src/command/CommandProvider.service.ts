@@ -1,17 +1,29 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { NoopCommand } from "./commands/NoopCommand";
 import CommandInterface from "./interfaces/Command.interface";
 
 @Injectable()
 export default class CommandProviderService {
+	private readonly commands: CommandInterface[];
+
 	/**
 	 * The constructor.
 	 */
 	public constructor(
-		@Inject( "COMMANDS" )
-		private readonly commands: CommandInterface[],
-		private readonly noopCommand: NoopCommand,
+		@Inject( "FallbackCommand" )
+		private readonly fallbackCommand: CommandInterface,
 	) {
+		this.commands = [];
+	}
+
+	/**
+	 * Registers a command.
+	 *
+	 * @param {CommandInterface} command The command to register.
+	 *
+	 * @return {void}
+	 */
+	public registerCommand( command: CommandInterface ): void {
+		this.commands.push( command );
 	}
 
 	/**
@@ -28,6 +40,6 @@ export default class CommandProviderService {
 			}
 		}
 
-		return this.noopCommand;
+		return this.fallbackCommand;
 	}
 }

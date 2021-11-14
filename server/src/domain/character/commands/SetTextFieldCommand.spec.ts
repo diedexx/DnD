@@ -1,8 +1,9 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import Character from "../../domain/character/entities/Character.entity";
-import CommandReference from "../interfaces/CommandReference.interface";
+import CommandProviderService from "../../../command/CommandProvider.service";
+import CommandReference from "../../../command/interfaces/CommandReference.interface";
+import Character from "../entities/Character.entity";
 import { SetTextFieldCommand, SetTextFieldData } from "./SetTextFieldCommand";
 import Mocked = jest.Mocked;
 
@@ -14,11 +15,16 @@ describe( "The SetTextFieldCommand", () => {
 		save: jest.fn().mockImplementation( ( x ) => x ),
 	};
 
+	const commandProviderServiceMock: Mocked<Partial<CommandProviderService>> = {
+		registerCommand: jest.fn(),
+	};
+
 	beforeEach( async () => {
 		const app: TestingModule = await Test.createTestingModule( {
 			providers: [
 				SetTextFieldCommand,
 				{ provide: getRepositoryToken( Character ), useValue: characterRepositoryMock },
+				{ provide: CommandProviderService, useValue: commandProviderServiceMock },
 			],
 		} ).compile();
 

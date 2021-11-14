@@ -1,4 +1,6 @@
+import { Injectable, OnModuleInit } from "@nestjs/common";
 import Character from "../../domain/character/entities/Character.entity";
+import CommandProviderService from "../CommandProvider.service";
 import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import CommandInterface from "../interfaces/Command.interface";
 import CommandReference from "../interfaces/CommandReference.interface";
@@ -6,7 +8,14 @@ import CommandReference from "../interfaces/CommandReference.interface";
 /**
  * @template T
  */
-export abstract class AbstractCommand<T extends Record<string, any> = Record<string, any>> implements CommandInterface<T> {
+@Injectable()
+export abstract class AbstractCommand<T extends Record<string, any> = Record<string, any>> implements CommandInterface<T>, OnModuleInit {
+	/**
+	 * The constructor.
+	 */
+	public constructor( private readonly commandProviderService: CommandProviderService ) {
+	}
+
 	/**
 	 * @inheritDoc
 	 */
@@ -62,4 +71,13 @@ export abstract class AbstractCommand<T extends Record<string, any> = Record<str
 	 * @protected
 	 */
 	protected abstract validateData( data: T, character: Character ): boolean;
+
+	/**
+	 * Registers the command on module init.
+	 *
+	 * @return {void}
+	 */
+	public onModuleInit(): void {
+		this.commandProviderService.registerCommand( this );
+	}
 }

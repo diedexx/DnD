@@ -35,24 +35,21 @@ const EditableNumber: FunctionComponent<EditableProps> = (
 	}, [ editing ] );
 
 	if ( editing ) {
-		return <span
-			className="editable-number"
-			onBlur={ toggleEditing }
-		>
+		return <span className="editable-number" onBlur={ toggleEditing }>
 			<input
 				className="editable-number__input"
+				type={ "number" }
+				onChange={ handleChange }
 				defaultValue={ defaultEditValue }
 				min={ minValue }
 				max={ maxValue }
-				onChange={ handleChange }
-				type={ "number" }
 				ref={ inputRef }
 			/>
 		</span>;
 	}
 
 	return <span
-		className="editable-number"
+		className="editable-number value"
 		onFocus={ toggleEditing }
 		tabIndex={ 0 }
 		role={ "form" }

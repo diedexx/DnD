@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import CharacterDetailsInterface from "../../../interfaces/CharacterDetails.interface";
-import KeyValuePair from "../../KeyValuePair/KeyValuePair";
+import KeyValuePair from "../../Common/KeyValuePair/KeyValuePair";
 import "./CharacterSummary.css";
 
 export type CharacterSummaryProps = {

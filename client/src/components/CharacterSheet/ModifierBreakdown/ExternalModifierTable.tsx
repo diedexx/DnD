@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ExternalModifierInterface from "../../../interfaces/ExternalModifier.interface";
-import Table from "../../Table/Table";
+import Table from "../../Common/Table/Table";
 import ExternalModifier from "./ExternalModifier";
 
 export type ExternalModifierTableProps = {

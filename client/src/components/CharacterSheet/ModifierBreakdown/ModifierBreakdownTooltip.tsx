@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from "react";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
-import Tooltip from "../../Tooltip/Tooltip";
+import Tooltip from "../../Common/Tooltip/Tooltip";
 import ModifierBreakdown from "./ModifierBreakdown";
 
 export type ModifierBreakdownTooltipProps = {

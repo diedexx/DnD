@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from "react";
 import SavingThrowInterface from "../../../interfaces/SavingThrow.interface";
-import Checkbox from "../../Checkbox/Checkbox";
+import Checkbox from "../../Common/Checkbox/Checkbox";
 import ModifierBreakdownTooltip from "../ModifierBreakdown/ModifierBreakdownTooltip";
 import "./SavingThrow.css";
 

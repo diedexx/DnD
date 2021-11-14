@@ -2,9 +2,9 @@ import { FunctionComponent } from "react";
 import ExternalModifierInterface from "../../../interfaces/ExternalModifier.interface";
 import ModifierInterface from "../../../interfaces/Modifier.interface";
 import WeaponInterface from "../../../interfaces/Weapon.interface";
-import Checkbox from "../../Checkbox/Checkbox";
-import Table, { Heading } from "../../Table/Table";
-import Tooltip from "../../Tooltip/Tooltip";
+import Checkbox from "../../Common/Checkbox/Checkbox";
+import Table, { Heading } from "../../Common/Table/Table";
+import Tooltip from "../../Common/Tooltip/Tooltip";
 import ExternalModifierTable from "../ModifierBreakdown/ExternalModifierTable";
 import ModifierDisplay from "../ModifierBreakdown/ModifierDisplay";
 

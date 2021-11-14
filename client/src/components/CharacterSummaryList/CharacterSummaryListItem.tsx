@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CharacterSummaryInterface from "../../interfaces/CharacterSummary.interface";
 import { routes } from "../../routes";
 import "./CharacterSummaryListItem.css";
-import KeyValuePair from "../KeyValuePair/KeyValuePair";
+import KeyValuePair from "../Common/KeyValuePair/KeyValuePair";
 
 export type CharacterListItemProps = {
 	characterSummary: CharacterSummaryInterface;

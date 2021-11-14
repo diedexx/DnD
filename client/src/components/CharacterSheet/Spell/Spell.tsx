@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import SpellInterface from "../../../interfaces/Spell.interface";
-import Checkbox from "../../Checkbox/Checkbox";
-import Table, { Heading } from "../../Table/Table";
+import Checkbox from "../../Common/Checkbox/Checkbox";
+import Table, { Heading } from "../../Common/Table/Table";
 
 export type SpellsProps = {
 	spells: SpellInterface[];

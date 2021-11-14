@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import DeathSaveInterface from "../../../interfaces/DeathSave.interface";
-import Checkbox from "../../Checkbox/Checkbox";
+import Checkbox from "../../Common/Checkbox/Checkbox";
 import "./DeathSave.css";
 
 export type DeathSaveProps = {

@@ -1,8 +1,8 @@
 import moment from "moment";
 import { FunctionComponent } from "react";
-import useResolvingSelect from "../../functions/useResolvingSelect";
-import ExecutedActionInterface from "../../interfaces/ExecutedAction.interface";
-import Spinner from "../Spinner/Spinner";
+import useResolvingSelect from "../../../functions/useResolvingSelect";
+import ExecutedActionInterface from "../../../interfaces/ExecutedAction.interface";
+import Spinner from "../../Common/Spinner/Spinner";
 import "./ActionHistory.css";
 
 export type ActionHistoryProps = {

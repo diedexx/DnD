@@ -2,7 +2,7 @@ import { useDispatch } from "@wordpress/data";
 import { debounce } from "lodash";
 import { FunctionComponent, useContext, useEffect, useMemo } from "react";
 import AbilityScoreInterface from "../../../interfaces/AbilityScore.interface";
-import EditableNumber from "../../Editable/EditableNumber";
+import EditableNumber from "../../Common/Editable/EditableNumber";
 import { CharacterSheetContext } from "../CharacterSheet";
 import "./AbilityScore.css";
 

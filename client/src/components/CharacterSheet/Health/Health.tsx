@@ -1,6 +1,6 @@
 import { FunctionComponent, useCallback } from "react";
 import HealthInterface from "../../../interfaces/Health.interface";
-import BigValueDisplay from "../../BigValueDisplay/BigValueDisplay";
+import BigValueDisplay from "../../Common/BigValueDisplay/BigValueDisplay";
 import "./Health.css";
 
 export type HealthProps = {

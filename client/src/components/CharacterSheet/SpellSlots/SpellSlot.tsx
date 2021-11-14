@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import SpellSlotInterface from "src/interfaces/SpellSlot.interface";
-import Bar from "../../Bar/Bar";
+import Bar from "../../Common/Bar/Bar";
 import "./SpellSlot.css";
 
 export type SpellSlotProps = {

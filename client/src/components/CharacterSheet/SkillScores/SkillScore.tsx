@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from "react";
 import SkillScoreInterface from "../../../interfaces/SkillScore.interface";
-import Checkbox from "../../Checkbox/Checkbox";
+import Checkbox from "../../Common/Checkbox/Checkbox";
 import ModifierBreakdownTooltip from "../ModifierBreakdown/ModifierBreakdownTooltip";
 import "./SkillScore.css";
 

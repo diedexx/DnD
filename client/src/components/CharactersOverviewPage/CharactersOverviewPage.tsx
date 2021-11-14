@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import useResolvingSelect, { useRefreshResolver } from "../../functions/useResolvingSelect";
 import CharacterSummaryInterface from "../../interfaces/CharacterSummary.interface";
 import CharacterSummaryList from "../CharacterSummaryList/CharacterSummaryList";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../Common/Spinner/Spinner";
 import "./CharactersOverviewPage.css";
 
 /**
- * An summarized overview of all characters.
+ * A summarized overview of all characters.
  *
  * @return {JSX.Element} The character overview.
  */

@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
 import EquipmentInterface from "../../../interfaces/Equipment.interface";
 import ExternalModifierInterface from "../../../interfaces/ExternalModifier.interface";
-import Checkbox from "../../Checkbox/Checkbox";
-import Table, { Heading } from "../../Table/Table";
-import Tooltip from "../../Tooltip/Tooltip";
+import Checkbox from "../../Common/Checkbox/Checkbox";
+import Table, { Heading } from "../../Common/Table/Table";
+import Tooltip from "../../Common/Tooltip/Tooltip";
 import ExternalModifierTable from "../ModifierBreakdown/ExternalModifierTable";
 
 export type EquipmentProps = {

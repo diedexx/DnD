@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from "@nestjs/common";
+import { forwardRef, Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import Character from "../../domain/character/entities/Character.entity";
 import CommandProviderService from "../CommandProvider.service";
 import InvalidCommand from "../exceptions/InvalidCommand.exception";
@@ -13,7 +13,10 @@ export abstract class AbstractCommand<T extends Record<string, any> = Record<str
 	/**
 	 * The constructor.
 	 */
-	public constructor( private readonly commandProviderService: CommandProviderService ) {
+	public constructor(
+		@Inject( forwardRef( () => CommandProviderService ) )
+		private readonly commandProviderService: CommandProviderService,
+	) {
 	}
 
 	/**

@@ -2,7 +2,9 @@ import { invalidateResolution } from "@wordpress/data/build/redux-store/metadata
 import CharacterDetailsInterface from "../interfaces/CharacterDetails.interface";
 import CharacterSummaryInterface from "../interfaces/CharacterSummary.interface";
 import ExecutedActionInterface from "../interfaces/ExecutedAction.interface";
+import receiveHealing from "../queries/recieveHealing";
 import redoLastUndoneCommand from "../queries/redoLastUndoneCommand";
+import takeDamage from "../queries/takeDamage";
 import undoLastCommand from "../queries/undoLastCommand";
 import updateAbilityScore from "../queries/updateAbilityScore";
 import updateTextField from "../queries/updateTextField";
@@ -72,6 +74,23 @@ const actions = {
 		yield actions.graphQL( {
 			query: updateAbilityScore,
 			variables: { abilityScoreId, newValue },
+		} );
+		yield invalidateResolution( "getActionHistory", [ characterId ] );
+		return invalidateResolution( "getCharacterDetails", [ characterId ] );
+	},
+
+	takeDamage: function* ( characterId: number, damage: number ) {
+		yield actions.graphQL( {
+			query: takeDamage,
+			variables: { characterId, damage },
+		} );
+		yield invalidateResolution( "getActionHistory", [ characterId ] );
+		return invalidateResolution( "getCharacterDetails", [ characterId ] );
+	},
+	receiveHealing: function* ( characterId: number, healing: number ) {
+		yield actions.graphQL( {
+			query: receiveHealing,
+			variables: { characterId, healing },
 		} );
 		yield invalidateResolution( "getActionHistory", [ characterId ] );
 		return invalidateResolution( "getCharacterDetails", [ characterId ] );

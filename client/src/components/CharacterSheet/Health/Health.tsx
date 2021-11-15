@@ -1,6 +1,8 @@
-import { FunctionComponent, useCallback } from "react";
+import { useDispatch } from "@wordpress/data";
+import { FunctionComponent, useCallback, useContext, useMemo, useRef } from "react";
 import HealthInterface from "../../../interfaces/Health.interface";
 import BigValueDisplay from "../../Common/BigValueDisplay/BigValueDisplay";
+import { CharacterContext } from "../CharacterSheet";
 import "./Health.css";
 
 export type HealthProps = {
@@ -18,28 +20,43 @@ const highHealthThreshold = 1;
  * @return {JSX.Element} The component.
  */
 const Health: FunctionComponent<HealthProps> = ( { health }: HealthProps ): JSX.Element => {
-	const healthIsLow = useCallback( () => {
+	const { takeDamage: dispatchTakeDamage, receiveHealing: dispatchReceiveHealing } = useDispatch( "app" );
+	const { characterId } = useContext( CharacterContext );
+	const inputRef = useRef<HTMLInputElement>();
+
+	const takeDamage = useCallback( () => {
+		dispatchTakeDamage( characterId, parseInt( inputRef.current.value, 10 ) );
+	}, [ dispatchTakeDamage, characterId, inputRef ] );
+
+	const receiveHealing = useCallback( () => {
+		dispatchReceiveHealing( characterId, parseInt( inputRef.current.value, 10 ) );
+	}, [ dispatchReceiveHealing, characterId, inputRef ] );
+
+	const healthIsLow = useMemo( () => {
 		return health.currentHealth / health.maxHealth <= lowHealthThreshold;
 	}, [ health ] );
 
-	const healthIsHigh = useCallback( () => {
+	const healthIsHigh = useMemo( () => {
 		return health.currentHealth / health.maxHealth >= highHealthThreshold;
 	}, [ health ] );
 
-	const getClassSuffix = useCallback( () => {
-		if ( healthIsLow() ) {
+	const classSuffix = useMemo( () => {
+		if ( healthIsLow ) {
 			return "--low";
 		}
-		if ( healthIsHigh() ) {
+		if ( healthIsHigh ) {
 			return "--high";
 		}
 		return "";
 	}, [ healthIsLow, healthIsHigh ] );
 
 	return <div className="health">
+		<input type="number" min={ 0 } max={ health.maxHealth * 2 } ref={ inputRef } />
+		<button onClick={ receiveHealing }>Heal</button>
+		<button onClick={ takeDamage }>Damage</button>
 		<BigValueDisplay>
 			<span className="health-display">
-				<span className={ "health-display__current-value" + getClassSuffix() }>
+				<span className={ "health-display__current-value" + classSuffix }>
 					{ health.currentHealth }
 				</span>
 				/

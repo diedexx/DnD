@@ -7,7 +7,9 @@ import { ModifierModule } from "../modifier/Modifier.module";
 import CharacterResolver from "./Character.resolver";
 import CharacterService from "./Character.service";
 import CharacterClassResolver from "./CharacterClass.resolver";
+import ReceiveHealingCommand from "./commands/ReceiveHealing.command";
 import { SetTextFieldCommand } from "./commands/SetTextField.command";
+import TakeDamageCommand from "./commands/TakeDamage.command";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
 
@@ -24,6 +26,8 @@ import CharacterClass from "./entities/CharacterClass.entity";
 		CharacterService,
 		CharacterResolver,
 		CharacterClassResolver,
+		TakeDamageCommand,
+		ReceiveHealingCommand,
 	],
 } )
 export class CharacterModule {

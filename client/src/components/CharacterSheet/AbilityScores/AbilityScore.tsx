@@ -3,7 +3,7 @@ import { debounce } from "lodash";
 import { FunctionComponent, useContext, useEffect, useMemo } from "react";
 import AbilityScoreInterface from "../../../interfaces/AbilityScore.interface";
 import EditableNumber from "../../Common/Editable/EditableNumber";
-import { CharacterSheetContext } from "../CharacterSheet";
+import { CharacterContext } from "../CharacterSheet";
 import "./AbilityScore.css";
 
 export type AbilitiesProps = {
@@ -16,7 +16,7 @@ export type AbilitiesProps = {
  * @return {JSX.Element} An ability score.
  */
 const AbilityScore: FunctionComponent<AbilitiesProps> = ( { abilityScore }: AbilitiesProps ): JSX.Element => {
-	const { characterId } = useContext( CharacterSheetContext );
+	const { characterId } = useContext( CharacterContext );
 
 	const { updateAbilityScore: dispatchUpdateAbilityScore } = useDispatch( "app" );
 

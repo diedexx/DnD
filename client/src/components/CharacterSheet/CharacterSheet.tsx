@@ -28,7 +28,7 @@ export type CharacterDetailPageProps = {
 	characterId: number;
 }
 
-export const CharacterSheetContext = createContext( null );
+export const CharacterContext = createContext( null );
 
 /**
  * The character detail page component.
@@ -65,7 +65,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 
 	const context = { characterId };
 
-	return <CharacterSheetContext.Provider value={ context }>
+	return <CharacterContext.Provider value={ context }>
 		<CharacterSheetControls characterId={ characterId } toggleHistory={ toggleHistory } />
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
 		<div className="columns">
@@ -180,7 +180,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 				</div>
 			</div>
 		</div>
-	</CharacterSheetContext.Provider>;
+	</CharacterContext.Provider>;
 };
 
 export default CharacterSheet;

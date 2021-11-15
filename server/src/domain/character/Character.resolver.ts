@@ -255,7 +255,7 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	 * @return {Promise<Character>} The updated character.
 	 */
 	@Mutation( () => Character )
-	public async recieveHealing(
+	public async receiveHealing(
 		@Args( "characterId", { type: () => Int } ) characterId: number,
 		@Args( "healing", { type: () => Int } ) healing: number,
 	): Promise<Character> {

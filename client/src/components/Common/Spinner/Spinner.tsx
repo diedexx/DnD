@@ -15,7 +15,7 @@ interface SpinnerProps {
  *
  * @return {JSX.Element} The loading indicator component.
  */
-const Spinner: FunctionComponent<SpinnerProps> = ( { type } ): JSX.Element => {
+export const Spinner: FunctionComponent<SpinnerProps> = ( { type } ): JSX.Element => {
 	return <div className={ "spinner--" + type }>
 		<Loader type="MutatingDots" color="#43789c" secondaryColor="#f33" height={ 100 } width={ 100 } />
 	</div>;
@@ -28,9 +28,9 @@ const Spinner: FunctionComponent<SpinnerProps> = ( { type } ): JSX.Element => {
  *
  * @return {JSX.Element} The delayed loading indicator.
  */
-const DelayedSpinner: FunctionComponent<SpinnerProps> = ( { type } ): JSX.Element => {
+export const DelayedSpinner: FunctionComponent<SpinnerProps> = ( { type } ): JSX.Element => {
 	return <Delayed waitBeforeShow={ 200 }><Spinner type={ type } /></Delayed>;
 };
 
-export default DelayedSpinner;
+export default Spinner;
 

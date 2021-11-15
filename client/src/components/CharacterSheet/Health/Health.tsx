@@ -51,9 +51,11 @@ const Health: FunctionComponent<HealthProps> = ( { health }: HealthProps ): JSX.
 	}, [ healthIsLow, healthIsHigh ] );
 
 	return <div className="health">
-		<input type="number" min={ 0 } max={ health.maxHealth * 2 } ref={ inputRef } />
-		<button onClick={ receiveHealing }>Heal</button>
-		<button onClick={ takeDamage }>Damage</button>
+		<div className="health-action">
+			<input type="number" min={ 0 } max={ health.maxHealth * 2 } ref={ inputRef } />
+			<button className="health-action__button--heal" onClick={ receiveHealing }>Heal</button>
+			<button className="health-action__button--damage" onClick={ takeDamage }>Damage</button>
+		</div>
 		<BigValueDisplay>
 			<span className="health-display">
 				<span className={ "health-display__current-value" + classSuffix }>

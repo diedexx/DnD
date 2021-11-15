@@ -1,3 +1,22 @@
+.health {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.health-action {
+    display: flex;
+}
+
+.health-action__button--heal {
+    background-color: #66ff66;
+}
+
+.health-action__button--damage {
+    background-color: #ff6666;
+}
+
 .health-display {
     display: flex;
     gap: 0.3em;

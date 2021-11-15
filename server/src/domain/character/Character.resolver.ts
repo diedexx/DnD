@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
 import CommandService from "../../command/Command.service";
-import { SetTextFieldData, TYPE as SetTextFieldCommandType } from "./commands/SetTextField.command";
 import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
@@ -17,6 +16,9 @@ import Spell from "../spell/entities/Spell.entity";
 import SpellSlotPool from "../spell/values/SpellSlotPool.value";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import CharacterService from "./Character.service";
+import { ReceiveHealingCommandData, TYPE as receiveHealingCommandType } from "./commands/ReceiveHealing.command";
+import { SetTextFieldData, TYPE as setTextFieldCommandType } from "./commands/SetTextField.command";
+import { TakeDamageCommandData, TYPE as takeDamageCommandType } from "./commands/TakeDamage.command";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
 import CreateAbilityScoreInputType from "./inputtypes/CreateAbilityScore.inputtype";
@@ -234,7 +236,57 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 	): Promise<Character> {
 		const commandReference: CommandReference<SetTextFieldData> = {
 			data: { field: fieldName, newText: value },
-			type: SetTextFieldCommandType,
+			type: setTextFieldCommandType,
+		};
+		const character = await this.characterRepository.findOneOrFail( characterId );
+		const command = await this.commandService.createCommand( commandReference, character );
+		await this.commandService.executeCommand( command );
+
+		// Refresh character.
+		return await this.characterRepository.findOneOrFail( characterId );
+	}
+
+	/**
+	 * Heal a character.
+	 *
+	 * @param {number} characterId The id of the character to heal.
+	 * @param {number} healing The amount of healing.
+	 *
+	 * @return {Promise<Character>} The updated character.
+	 */
+	@Mutation( () => Character )
+	public async recieveHealing(
+		@Args( "characterId", { type: () => Int } ) characterId: number,
+		@Args( "healing", { type: () => Int } ) healing: number,
+	): Promise<Character> {
+		const commandReference: CommandReference<ReceiveHealingCommandData> = {
+			data: { healing },
+			type: receiveHealingCommandType,
+		};
+		const character = await this.characterRepository.findOneOrFail( characterId );
+		const command = await this.commandService.createCommand( commandReference, character );
+		await this.commandService.executeCommand( command );
+
+		// Refresh character.
+		return await this.characterRepository.findOneOrFail( characterId );
+	}
+
+	/**
+	 * Take damage with a character.
+	 *
+	 * @param {number} characterId The id of the character to take damage with.
+	 * @param {number} damage The amount of damage.
+	 *
+	 * @return {Promise<Character>} The updated character.
+	 */
+	@Mutation( () => Character )
+	public async takeDamage(
+		@Args( "characterId", { type: () => Int } ) characterId: number,
+		@Args( "damage", { type: () => Int } ) damage: number,
+	): Promise<Character> {
+		const commandReference: CommandReference<TakeDamageCommandData> = {
+			data: { damage },
+			type: takeDamageCommandType,
 		};
 		const character = await this.characterRepository.findOneOrFail( characterId );
 		const command = await this.commandService.createCommand( commandReference, character );

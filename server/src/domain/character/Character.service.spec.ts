@@ -3,9 +3,10 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
+import AbilityScoreValue from "../ability/values/AbilityScore.value";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
-import Character from "./entities/Character.entity";
 import CharacterService from "./Character.service";
+import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
 import Mocked = jest.Mocked;
 
@@ -39,8 +40,8 @@ describe( "The CharacterService", () => {
 		it( "creates a character object", async () => {
 			const score1 = new AbilityScore();
 			const score2 = new AbilityScore();
-			score1.score = 1;
-			score2.score = 2;
+			score1.score = new AbilityScoreValue( 1 );
+			score2.score = new AbilityScoreValue( 2 );
 			abilityScoreServiceMock.createAbilityScore
 				.mockResolvedValueOnce( score1 )
 				.mockResolvedValueOnce( score2 );
@@ -88,10 +89,14 @@ describe( "The CharacterService", () => {
 Character {
   "abilityScores": Array [
     AbilityScore {
-      "score": 1,
+      "score": AbilityScoreValue {
+        "value": 1,
+      },
     },
     AbilityScore {
-      "score": 2,
+      "score": AbilityScoreValue {
+        "value": 2,
+      },
     },
   ],
   "alignment": "Alignment",

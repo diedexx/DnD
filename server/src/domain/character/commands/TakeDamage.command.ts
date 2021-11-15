@@ -52,11 +52,12 @@ export default class TakeDamageCommand extends AbstractCommand<TakeDamageCommand
 	 * @inheritDoc
 	 */
 	protected async perform( data: TakeDamageCommandData, character: Character ): Promise<CommandReference> {
+		const beforeHealth = character.health.currentHealth;
 		character.health = character.health.takeDamage( data.damage );
 		await this.characterRepository.save( character );
 		return {
 			type: receiveHealingCommandType,
-			data: { healing: data.damage } as ReceiveHealingCommandData,
+			data: { healing: beforeHealth - character.health.currentHealth } as ReceiveHealingCommandData,
 		};
 	}
 

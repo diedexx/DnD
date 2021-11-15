@@ -76,5 +76,11 @@ describe( "The ReceiveHealing", () => {
 			const undoAction = await receiveHealingCommand.execute( { healing: 5 }, character );
 			expect( undoAction ).toEqual( { type: "TAKE_DAMAGE", data: { damage: 5 } } );
 		} );
+
+		it( "returns a damage action that excludes over-healing", async () => {
+			const beforeHealth = character.health.currentHealth;
+			const undoAction = await receiveHealingCommand.execute( { healing: 200 }, character );
+			expect( undoAction ).toEqual( { type: "TAKE_DAMAGE", data: { damage: beforeHealth } } );
+		} );
 	} );
 } );

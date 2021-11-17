@@ -1,15 +1,16 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import Command from "../entities/Command.entity";
+import InvalidExecutedCommand from "../exceptions/InvalidExecutedCommand.exception";
 
 @ObjectType()
 export class ExecutedCommand {
-	private readonly command: Command;
+	public readonly command: Command;
 
 	@Field()
-	private readonly name: string;
+	public readonly name: string;
 
 	@Field()
-	private readonly description: string;
+	public readonly description: string;
 
 	/**
 	 * The constructor.
@@ -18,12 +19,12 @@ export class ExecutedCommand {
 	 * @param {string} name The name of the command.
 	 * @param {string} description A description describing the executed command.
 	 */
-	public constructor( command: Command, name:string, description: string ) {
+	public constructor( command: Command, name: string, description: string ) {
 		this.command = command;
 		this.name = name;
 		this.description = description;
 		if ( ! command.executedAt ) {
-			throw new Error( "todo" );
+			throw new InvalidExecutedCommand( name );
 		}
 	}
 

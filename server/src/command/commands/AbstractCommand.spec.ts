@@ -1,7 +1,10 @@
+import { Test, TestingModule } from "@nestjs/testing";
 import Character from "../../domain/character/entities/Character.entity";
+import CommandProviderService from "../CommandProvider.service";
 import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import CommandReference from "../interfaces/CommandReference.interface";
 import { AbstractCommand } from "./AbstractCommand";
+import Mocked = jest.Mocked;
 
 class CommandTestDouble extends AbstractCommand {
 	/**
@@ -41,36 +44,53 @@ class CommandTestDouble extends AbstractCommand {
 }
 
 describe( "The AbstractCommand", () => {
-	let instance: CommandTestDouble;
+	let commandInstance: CommandTestDouble;
+	const commandProviderServiceMock: Partial<Mocked<CommandProviderService>> = {
+		registerCommand: jest.fn(),
+	};
 
-	beforeEach( () => {
-		instance = new CommandTestDouble( null );
+	beforeEach( async () => {
+		const app: TestingModule = await Test.createTestingModule( {
+			providers: [
+				CommandTestDouble,
+				{ provide: CommandProviderService, useValue: commandProviderServiceMock },
+			],
+		} ).compile();
+
+		commandInstance = app.get<CommandTestDouble>( CommandTestDouble );
 	} );
 
 	describe( "supports function", () => {
 		it( "indicates support when the command type matches the argument", async () => {
-			expect( instance.supports( "Not the type" ) ).toBeFalsy();
-			expect( instance.supports( "Type" ) ).toBeTruthy();
+			expect( commandInstance.supports( "Not the type" ) ).toBeFalsy();
+			expect( commandInstance.supports( "Type" ) ).toBeTruthy();
 		} );
 
 		it( "is case insensitive", async () => {
-			expect( instance.supports( "tYpE" ) ).toBeTruthy();
-			expect( instance.supports( "TYPE" ) ).toBeTruthy();
-			expect( instance.supports( "type" ) ).toBeTruthy();
+			expect( commandInstance.supports( "tYpE" ) ).toBeTruthy();
+			expect( commandInstance.supports( "TYPE" ) ).toBeTruthy();
+			expect( commandInstance.supports( "type" ) ).toBeTruthy();
 		} );
 	} );
 
 	describe( "execute function", () => {
 		it( "rejects invalid data", async () => {
 			expect.assertions( 2 );
-			const result = await instance.execute( { something: "is valid" }, new Character() );
+			const result = await commandInstance.execute( { something: "is valid" }, new Character() );
 			expect( result ).toStrictEqual( { success: true } );
 
 			try {
-				await instance.execute( { isValid: false }, new Character() );
+				await commandInstance.execute( { isValid: false }, new Character() );
 			} catch ( e ) {
 				expect( e ).toBeInstanceOf( InvalidCommand );
 			}
+		} );
+	} );
+
+	describe( "onModuleInit function", () => {
+		it( "registers itself", async () => {
+			commandInstance.onModuleInit();
+			expect( commandProviderServiceMock.registerCommand ).toBeCalledWith( commandInstance );
 		} );
 	} );
 } );

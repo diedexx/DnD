@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
 import CommandService from "../../command/Command.service";
-import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
 import Equipment from "../equipment/entities/Equipment.entity";
@@ -234,13 +233,14 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 		@Args( "fieldName", { type: () => String } ) fieldName: string,
 		@Args( "value", { type: () => String } ) value: string,
 	): Promise<Character> {
-		const commandReference: CommandReference<SetTextFieldData> = {
-			data: { field: fieldName, newText: value },
-			type: setTextFieldCommandType,
-		};
 		const character = await this.characterRepository.findOneOrFail( characterId );
-		const command = await this.commandService.createCommand( commandReference, character );
-		await this.commandService.executeCommand( command );
+
+		await this.commandService.executeCommand<SetTextFieldData>(
+			{
+				data: { field: fieldName, newText: value },
+				type: setTextFieldCommandType,
+			},
+			character );
 
 		// Refresh character.
 		return await this.characterRepository.findOneOrFail( characterId );
@@ -259,13 +259,15 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 		@Args( "characterId", { type: () => Int } ) characterId: number,
 		@Args( "healing", { type: () => Int } ) healing: number,
 	): Promise<Character> {
-		const commandReference: CommandReference<ReceiveHealingCommandData> = {
-			data: { healing },
-			type: receiveHealingCommandType,
-		};
 		const character = await this.characterRepository.findOneOrFail( characterId );
-		const command = await this.commandService.createCommand( commandReference, character );
-		await this.commandService.executeCommand( command );
+
+		await this.commandService.executeCommand<ReceiveHealingCommandData>(
+			{
+				data: { healing },
+				type: receiveHealingCommandType,
+			},
+			character,
+		);
 
 		// Refresh character.
 		return await this.characterRepository.findOneOrFail( characterId );
@@ -284,13 +286,15 @@ export default class CharacterResolver extends BaseResolver( Character, "charact
 		@Args( "characterId", { type: () => Int } ) characterId: number,
 		@Args( "damage", { type: () => Int } ) damage: number,
 	): Promise<Character> {
-		const commandReference: CommandReference<TakeDamageCommandData> = {
-			data: { damage },
-			type: takeDamageCommandType,
-		};
 		const character = await this.characterRepository.findOneOrFail( characterId );
-		const command = await this.commandService.createCommand( commandReference, character );
-		await this.commandService.executeCommand( command );
+
+		await this.commandService.executeCommand<TakeDamageCommandData>(
+			{
+				data: { damage },
+				type: takeDamageCommandType,
+			},
+			character,
+		);
 
 		// Refresh character.
 		return await this.characterRepository.findOneOrFail( characterId );

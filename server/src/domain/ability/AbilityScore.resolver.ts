@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import BaseResolver from "../../Base.resolver";
 import CommandService from "../../command/Command.service";
-import CommandReference from "../../command/interfaces/CommandReference.interface";
 import RelationLoaderService from "../../database/RelationLoader.service";
 import Character from "../character/entities/Character.entity";
 import AbilityScoreService from "./AbilityScore.service";
@@ -71,15 +70,16 @@ export default class AbilityScoreResolver extends BaseResolver( AbilityScore, "a
 		@Args( "abilityScoreId", { type: () => Int } ) abilityScoreId: number,
 		@Args( "newValue", { type: () => Int } ) newValue: number,
 	): Promise<AbilityScore> {
-		const commandReference: CommandReference<UpdateAbilityScoreData> = {
-			data: { abilityScoreId, newValue },
-			type: updateAbilityScoreCommandType,
-		};
 		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOneOrFail( abilityScoreId );
-		const character = await this.characterRepository.findOneOrFail( abilityScore.characterId );
+		const character: Character = await this.characterRepository.findOneOrFail( abilityScore.characterId );
 
-		const command = await this.commandService.createCommand( commandReference, character );
-		await this.commandService.executeCommand( command );
+		await this.commandService.executeCommand<UpdateAbilityScoreData>(
+			{
+				data: { abilityScoreId, newValue },
+				type: updateAbilityScoreCommandType,
+			},
+			character,
+		);
 
 		return await this.abilityScoreRepository.findOneOrFail( abilityScoreId );
 	}

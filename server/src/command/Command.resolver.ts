@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import Character from "../domain/character/entities/Character.entity";
 import CommandService from "./Command.service";
+import CommandHistoryService from "./CommandHistory.service";
 import Command from "./entities/Command.entity";
 import { ExecutedCommand } from "./values/ExecutedCommand";
 
@@ -15,6 +16,7 @@ export default class CommandResolver {
 		@InjectRepository( Character )
 		private readonly characterRepository: Repository<Character>,
 		private readonly commandService: CommandService,
+		private readonly commandHistoryService: CommandHistoryService,
 	) {
 	}
 
@@ -29,7 +31,7 @@ export default class CommandResolver {
 	public async commandHistory(
 		@Args( "characterId", { type: () => Int } ) characterId: number,
 	): Promise<ExecutedCommand[]> {
-		const history = await this.commandService.getCommandHistory( characterId );
+		const history = await this.commandHistoryService.getCommandHistory( characterId );
 		return Promise.all( history.getArray().reverse().map( async ( command: Command ): Promise<ExecutedCommand> => {
 			const info = await this.commandService.getCommandInfo( command );
 			return new ExecutedCommand( command, info.name, info.description );

@@ -43,7 +43,7 @@ export default class AbilityScoreService {
 	 * @return {Promise<AbilityScoreModifier>} The abilityScore modifier.
 	 */
 	public async getAbilityScoreModifier( abilityId: number, characterId: number ): Promise<AbilityScoreModifier> {
-		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOne( {
+		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOneOrFail( {
 			where: {
 				abilityId,
 				characterId,

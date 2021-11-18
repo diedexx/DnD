@@ -5,6 +5,9 @@ import AbilityScoreService from "../ability/AbilityScore.service";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
 import AbilityScoreValue from "../ability/values/AbilityScore.value";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
+import ModificationType from "../modifier/types/ModificationType.type";
+import ExternalModifier from "../modifier/values/ExternalModifier.value";
+import Modifier from "../modifier/values/Modifier.value";
 import CharacterService from "./Character.service";
 import Character from "./entities/Character.entity";
 import CharacterClass from "./entities/CharacterClass.entity";
@@ -22,12 +25,16 @@ describe( "The CharacterService", () => {
 		findOne: jest.fn(),
 	};
 
+	const modifierOrchestratorServiceMock: Partial<Mocked<ModifierOrchestratorService>> = {
+		applyEquipmentModifiers: jest.fn(),
+	};
+
 	beforeEach( async () => {
 		const app: TestingModule = await Test.createTestingModule( {
 			providers: [
 				CharacterService,
 				{ provide: AbilityScoreService, useValue: abilityScoreServiceMock },
-				{ provide: ModifierOrchestratorService, useValue: {} },
+				{ provide: ModifierOrchestratorService, useValue: modifierOrchestratorServiceMock },
 				{ provide: getRepositoryToken( Character ), useValue: characterRepositoryMock },
 				{ provide: getRepositoryToken( CharacterClass ), useValue: characterClassRepositoryMock },
 			],
@@ -114,6 +121,99 @@ Character {
   "race": "Race",
 }
 ` );
+		} );
+	} );
+
+	describe( "the getArmorClassModifier function", () => {
+		it( "should apply equipment modifiers to the character's base AC", async () => {
+			expect.assertions( 2 );
+
+			const character = new Character();
+			character.baseArmorClass = 18;
+			const expectedResult: Modifier = new Modifier(
+				18,
+				[
+					new ExternalModifier(
+						"shield",
+						ModificationType.ARMOR_CLASS,
+						new Modifier( 1 ),
+						false,
+					),
+				],
+			);
+
+			modifierOrchestratorServiceMock.applyEquipmentModifiers.mockResolvedValueOnce( expectedResult );
+
+			const actual = await characterService.getArmorClassModifier( character );
+
+			expect( modifierOrchestratorServiceMock.applyEquipmentModifiers ).toBeCalledWith(
+				new Modifier( 18 ),
+				character,
+				ModificationType.ARMOR_CLASS,
+			);
+			expect( actual ).toBe( expectedResult );
+		} );
+	} );
+
+	describe( "the getInitiativeModifier function", () => {
+		it( "should apply initiative modifiers to the character's base initiative", async () => {
+			expect.assertions( 2 );
+
+			const character = new Character();
+			character.baseInitiative = 2;
+			const expectedResult: Modifier = new Modifier(
+				2,
+				[
+					new ExternalModifier(
+						"super stopwatch",
+						ModificationType.INITIATIVE,
+						new Modifier( 1 ),
+						false,
+					),
+				],
+			);
+
+			modifierOrchestratorServiceMock.applyEquipmentModifiers.mockResolvedValueOnce( expectedResult );
+
+			const actual = await characterService.getInitiativeModifier( character );
+
+			expect( modifierOrchestratorServiceMock.applyEquipmentModifiers ).toBeCalledWith(
+				new Modifier( 2 ),
+				character,
+				ModificationType.INITIATIVE,
+			);
+			expect( actual ).toBe( expectedResult );
+		} );
+	} );
+
+	describe( "the getSpeedModifier function", () => {
+		it( "should apply speed modifiers to the character's base speed", async () => {
+			expect.assertions( 2 );
+
+			const character = new Character();
+			character.baseSpeed = 25;
+			const expectedResult: Modifier = new Modifier(
+				25,
+				[
+					new ExternalModifier(
+						"fancy loafers",
+						ModificationType.SPEED,
+						new Modifier( 5 ),
+						false,
+					),
+				],
+			);
+
+			modifierOrchestratorServiceMock.applyEquipmentModifiers.mockResolvedValueOnce( expectedResult );
+
+			const actual = await characterService.getSpeedModifier( character );
+
+			expect( modifierOrchestratorServiceMock.applyEquipmentModifiers ).toBeCalledWith(
+				new Modifier( 25 ),
+				character,
+				ModificationType.SPEED,
+			);
+			expect( actual ).toBe( expectedResult );
 		} );
 	} );
 } );

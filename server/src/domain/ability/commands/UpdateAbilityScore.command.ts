@@ -39,7 +39,7 @@ export default class UpdateAbilityScoreCommand extends AbstractCommand<UpdateAbi
 	public async getDescription( data: UpdateAbilityScoreData ): Promise<string> {
 		const abilityScore: AbilityScore = await this.abilityScoreRepository.findOneOrFail( data.abilityScoreId );
 		const { ability } = await this.relationLoaderService.loadRelations( abilityScore, [ "ability" ] );
-		return "Change " + ability.name + " to " + data.newValue;
+		return "Change " + ability.name + " to " + data.newValue + ".";
 	}
 
 	/**

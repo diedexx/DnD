@@ -31,6 +31,26 @@ describe( "The SetTextFieldCommand", () => {
 		setTextFieldCommand = app.get<SetTextFieldCommand>( SetTextFieldCommand );
 	} );
 
+	describe( "getName function", () => {
+		it( "describes the event", async () => {
+			const actual = await setTextFieldCommand.getName( { field: "background", newText: "new" } );
+			expect( actual ).toMatchInlineSnapshot( "\"Update background\"" );
+		} );
+	} );
+
+	describe( "getDescription function", () => {
+		it( "describes the event in more detail", async () => {
+			const actual = await setTextFieldCommand.getDescription( { field: "background", newText: "new" } );
+			expect( actual ).toMatchInlineSnapshot( "\"Change background to \\\"new\\\"\"" );
+		} );
+	} );
+	describe( "getType function", () => {
+		it( "describes the type of event", async () => {
+			const actual = setTextFieldCommand.getType();
+			expect( actual ).toMatchInlineSnapshot( "\"SET_TEXT_FIELD\"" );
+		} );
+	} );
+
 	describe( "execute function", () => {
 		it( "Sets a new text field value and saves it", async () => {
 			await setTextFieldCommand.execute(

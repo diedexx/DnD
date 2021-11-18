@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, IsNull, Not, Repository } from "typeorm";
 import RelationLoaderService from "../database/RelationLoader.service";
 import Character from "../domain/character/entities/Character.entity";
 import CommandHistoryService from "./CommandHistory.service";
@@ -156,6 +156,35 @@ LinkedList {
   },
 }
 ` );
+		} );
+
+		it( "should query for all executed commands", async () => {
+			await commandHistoryService.getCommandHistory( 1, true );
+			expect( commandRepositoryMock.find ).toBeCalledWith(
+				{
+					where: {
+						characterId: 1,
+						undoCommandId: Not( IsNull() ),
+						executedAt: Not( IsNull() ),
+						undone: In( [ true, false ] ),
+					},
+					order: { executedAt: "ASC" },
+				},
+			);
+		} );
+		it( "should only query for executed commands that were undone", async () => {
+			await commandHistoryService.getCommandHistory( 1, false );
+			expect( commandRepositoryMock.find ).toBeCalledWith(
+				{
+					where: {
+						characterId: 1,
+						undoCommandId: Not( IsNull() ),
+						executedAt: Not( IsNull() ),
+						undone: false,
+					},
+					order: { executedAt: "ASC" },
+				},
+			);
 		} );
 	} );
 

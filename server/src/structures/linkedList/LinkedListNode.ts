@@ -7,7 +7,7 @@ export default class LinkedListNode<T> {
 	 *
 	 * @param {T} data The data to store in the node.
 	 */
-	constructor( public data: T ) {
+	constructor( public readonly data: T ) {
 	}
 }
 

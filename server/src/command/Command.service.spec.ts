@@ -44,15 +44,15 @@ describe( "The CommandService", () => {
 
 	const character1 = Object.assign( new Character(), { id: 1 } );
 
-	const command: Command = new Command();
-	command.data = { something: "containing data" };
-	command.type = "The testing type";
+	const baseCommand: Command = new Command();
+	baseCommand.data = { something: "containing data" };
+	baseCommand.type = "The testing type";
 
 	const history = new LinkedList<Command>();
-	const command1 = Object.assign( new Command(), cloneDeep( command ), { data: { command: "nr1" } } );
-	const command2 = Object.assign( new Command(), cloneDeep( command ), { data: { command: "nr2" } } );
-	const command3 = Object.assign( new Command(), cloneDeep( command ), { data: { command: "nr3" } } );
-	const command4 = Object.assign( new Command(), cloneDeep( command ), { data: { command: "nr4" } } );
+	const command1 = Object.assign( new Command(), cloneDeep( baseCommand ), { data: { command: "nr1" } } );
+	const command2 = Object.assign( new Command(), cloneDeep( baseCommand ), { data: { command: "nr2" } } );
+	const command3 = Object.assign( new Command(), cloneDeep( baseCommand ), { data: { command: "nr3" } } );
+	const command4 = Object.assign( new Command(), cloneDeep( baseCommand ), { data: { command: "nr4" } } );
 	history.append( command1 );
 	history.append( command2 );
 	history.append( command3 );
@@ -110,7 +110,7 @@ Command {
 		} );
 	} );
 
-	describe( "the redoLastCommand function", () => {
+	describe( "the redoLastUndoneCommand function", () => {
 		it( "redoes the command that was undone most recently", async () => {
 			const history1 = new LinkedList<Command>();
 			const undoneCommand3 = Object.assign( new Command(), cloneDeep( command3 ), { undone: true } );
@@ -124,6 +124,31 @@ Command {
 
 			await commandService.redoLastUndoneCommand( 1 );
 			expect( commandExecutorServiceMock.redoCommand ).toBeCalledWith( undoneCommand3 );
+		} );
+
+		it( "should not do anything if there are no commands", async () => {
+			const history1 = new LinkedList<Command>();
+			commandHistoryServiceMock.getCommandHistory.mockResolvedValueOnce( history1 );
+			await commandService.redoLastUndoneCommand( 1 );
+			expect( commandExecutorServiceMock.redoCommand ).not.toBeCalled();
+		} );
+
+		it( "should not do anything if the most recent command is not undone", async () => {
+			commandHistoryServiceMock.getCommandHistory.mockResolvedValueOnce( history );
+			await commandService.redoLastUndoneCommand( 1 );
+			expect( commandExecutorServiceMock.redoCommand ).not.toBeCalled();
+		} );
+	} );
+
+	describe( "getCommandInfo function", () => {
+		relationLoaderServiceMock.loadRelations.mockImplementation(
+			async ( command: Command ) => ( { ...command, character1 } ),
+		);
+
+		it( "should combine the command's name and description", async () => {
+			// Relies on global mock implementations.
+			const result = await commandService.getCommandInfo( command1 );
+			expect( result ).toStrictEqual( { description: "description", name: "name" } );
 		} );
 	} );
 } );

@@ -29,6 +29,7 @@ export default class CommandExecutorService {
 		if ( command.executedAt ) {
 			throw CannotExecuteCommand.becauseAlreadyExecuted();
 		}
+
 		if ( ! command.character ) {
 			command = await this.relationLoaderService.loadRelations( command, [ "character" ] );
 		}

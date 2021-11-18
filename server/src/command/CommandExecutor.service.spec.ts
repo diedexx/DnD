@@ -18,22 +18,23 @@ describe( "The commandExecutorService", () => {
 
 	const undoCommandRef: CommandReference = { type: "test", data: {} };
 
-	const commandImplementation: Partial<Mocked<CommandInterface>> = {
+	const commandImplementationMock: Partial<Mocked<CommandInterface>> = {
 		execute: jest.fn().mockResolvedValue( undoCommandRef ),
 	};
 
 	const commandProviderServiceMock: Partial<Mocked<CommandProviderService>> = {
-		getCommand: jest.fn(),
+		getCommand: jest.fn().mockReturnValue( commandImplementationMock ),
 	};
 
 	const commandHistoryServiceMock: Partial<Mocked<CommandHistoryService>> = {
 		addToHistory: jest.fn(),
+		updateInHistory: jest.fn(),
 	};
 
 	const relationLoaderServiceMock: Partial<Mocked<RelationLoaderService>> = {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore This is fine as long as loadRelations is called with a single entity.
-		loadRelations: jest.fn( ( command ) => Object.assign( command, { character } ) ),
+		loadRelations: jest.fn().mockImplementation(
+			async ( command: Command ) => ( { ...command, character } ),
+		),
 	};
 
 	beforeEach( async () => {
@@ -51,18 +52,18 @@ describe( "The commandExecutorService", () => {
 
 		character = new Character();
 		command1 = new Command();
+		command1.type = "type";
 		command1.data = { some: "data" };
 	} );
 
 	describe( "executeCommand function", () => {
 		it( "executes a command", async () => {
 			expect.assertions( 2 );
-			commandProviderServiceMock.getCommand.mockReturnValueOnce( commandImplementation as CommandInterface );
 
 			await commandExecutorService.executeCommand( command1 );
 
-			expect( commandImplementation.execute ).toBeCalledTimes( 1 );
-			expect( commandImplementation.execute ).toBeCalledWith( { some: "data" }, character );
+			expect( commandImplementationMock.execute ).toBeCalledTimes( 1 );
+			expect( commandImplementationMock.execute ).toBeCalledWith( { some: "data" }, character );
 		} );
 
 		it( "prevents executing a command twice", async () => {
@@ -77,7 +78,6 @@ describe( "The commandExecutorService", () => {
 
 		it( "adds the executed command to the history", async () => {
 			expect.assertions( 1 );
-			commandProviderServiceMock.getCommand.mockReturnValueOnce( commandImplementation as CommandInterface );
 
 			await commandExecutorService.executeCommand( command1 );
 			expect( commandHistoryServiceMock.addToHistory ).toBeCalledTimes( 1 );
@@ -85,7 +85,6 @@ describe( "The commandExecutorService", () => {
 
 		it( "attaches an undo-command which reverts the command's effects", async () => {
 			expect.assertions( 2 );
-			commandProviderServiceMock.getCommand.mockReturnValueOnce( commandImplementation as CommandInterface );
 
 			await commandExecutorService.executeCommand( command1 );
 			expect( commandHistoryServiceMock.addToHistory ).toBeCalledTimes( 1 );
@@ -102,12 +101,83 @@ Command {
 
 		it( "sets the moment on which the command was executed", async () => {
 			expect.assertions( 2 );
-			commandProviderServiceMock.getCommand.mockReturnValueOnce( commandImplementation as CommandInterface );
 
 			await commandExecutorService.executeCommand( command1 );
 			expect( commandHistoryServiceMock.addToHistory ).toBeCalledTimes( 1 );
 			const args = commandHistoryServiceMock.addToHistory.mock.calls[ 0 ];
 			expect( args[ 0 ].executedAt ).toBeDefined();
+		} );
+	} );
+
+	describe( "undoCommand function", () => {
+		const undoCommand = new Command();
+		undoCommand.id = 2;
+		undoCommand.type = "the undoing type";
+		undoCommand.character = character;
+
+		beforeEach( () => {
+			relationLoaderServiceMock.loadRelations.mockResolvedValue(
+				Object.assign( new Command(), command1, { undoCommand } ),
+			);
+		} );
+
+		it( "should request a commandImplementation for the type of the undo command", async () => {
+			await commandExecutorService.undoCommand( command1 );
+
+			expect( commandProviderServiceMock.getCommand ).toHaveBeenCalledWith( "the undoing type" );
+		} );
+
+		it( "should execute the undoCommand that is linked to the given command", async () => {
+			await commandExecutorService.undoCommand( command1 );
+
+			expect( commandImplementationMock.execute ).toHaveBeenCalledWith( undoCommand.data, undoCommand.character );
+		} );
+
+		it( "should update the history", async () => {
+			await commandExecutorService.undoCommand( command1 );
+
+			expect( commandHistoryServiceMock.updateInHistory ).toHaveBeenCalledTimes( 1 );
+		} );
+
+		it( "should mark the command undone", async () => {
+			await commandExecutorService.undoCommand( command1 );
+
+			const args = commandHistoryServiceMock.updateInHistory.mock.calls[ 0 ];
+			expect( args[ 0 ].undone ).toBeTruthy();
+		} );
+
+		it( "should mark the undoCommand as executed", async () => {
+			await commandExecutorService.undoCommand( command1 );
+
+			const args = commandHistoryServiceMock.updateInHistory.mock.calls[ 0 ];
+			expect( args[ 0 ].undoCommand.executedAt ).toBeDefined();
+		} );
+	} );
+
+	describe( "redoCommand function", () => {
+		it( "should request a commandImplementation for the type of the command to redo", async () => {
+			await commandExecutorService.redoCommand( command1 );
+
+			expect( commandProviderServiceMock.getCommand ).toHaveBeenCalledWith( "type" );
+		} );
+
+		it( "should execute the command that is being redone", async () => {
+			await commandExecutorService.redoCommand( command1 );
+
+			expect( commandImplementationMock.execute ).toHaveBeenCalledWith( command1.data, command1.character );
+		} );
+
+		it( "should update the history", async () => {
+			await commandExecutorService.redoCommand( command1 );
+
+			expect( commandHistoryServiceMock.updateInHistory ).toHaveBeenCalledTimes( 1 );
+		} );
+
+		it( "should mark the command as not undone", async () => {
+			await commandExecutorService.redoCommand( command1 );
+
+			const args = commandHistoryServiceMock.updateInHistory.mock.calls[ 0 ];
+			expect( args[ 0 ].undone ).toBeFalsy();
 		} );
 	} );
 } );

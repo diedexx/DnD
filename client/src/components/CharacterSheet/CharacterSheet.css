@@ -1,34 +1,4 @@
 .character-sheet {
-    max-width: 2500px;
-    margin: 0 auto;
+    max-width: 1600px;
 }
 
-.columns {
-    display: flex;
-    justify-content: center;
-    align-content: stretch;
-    min-width: fit-content;
-}
-
-@media only screen and (max-width: 1500px) {
-    .character-sheet{
-        min-width: fit-content;
-    }
-
-    .columns {
-        flex-wrap: wrap;
-    }
-}
-
-.columns--fill {
-    display: flex;
-    justify-content: center;
-}
-
-.column {
-    flex-shrink: 2;
-}
-
-.column--shrink {
-    flex-shrink: 2.5;
-}

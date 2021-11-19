@@ -1,0 +1,22 @@
+.column-layout {
+    display: flex;
+}
+
+.column-layout--center {
+    justify-content: center;
+}
+
+.column-layout--wrapped {
+    flex-wrap: wrap;
+}
+
+.column-layout__column--grow {
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-items: stretch;
+}
+
+.column-layout__column--big{
+    flex-grow: 3;
+}

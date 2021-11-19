@@ -5,6 +5,7 @@ import useResolvingSelect from "../../functions/useResolvingSelect";
 import CharacterDetailsInterface from "../../interfaces/CharacterDetails.interface";
 import BigValueDisplay from "../Common/BigValueDisplay/BigValueDisplay";
 import HeadingCard from "../Common/Card/HeadingCard";
+import ColumnLayout, { Column } from "../Common/Column/ColumnLayout";
 import EditableText from "../Common/Editable/EditableText";
 import Spinner from "../Common/Spinner/Spinner";
 import TextValueDisplay from "../Common/TextValueDisplay/TextValueDisplay";
@@ -68,13 +69,13 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 	return <CharacterContext.Provider value={ context }>
 		<CharacterSheetControls characterId={ characterId } toggleHistory={ toggleHistory } />
 		{ ( isLoading || ! startedLoading ) && <Spinner type="fullscreen" /> }
-		<div className="columns">
+		<ColumnLayout center={ true }>
 			{ showHistory && <ActionHistory characterId={ characterId } /> }
 			<div className="character-sheet">
 				<CharacterSummary characterDetails={ characterDetails } />
-				<div className="columns">
-					<div className="column">
-						<div className="columns">
+				<ColumnLayout wrap={ true }>
+					<Column grow={ false }>
+						<ColumnLayout>
 							<HeadingCard heading="Ability scores">
 								<AbilityScores abilityScores={ characterDetails.abilityScores } />
 							</HeadingCard>
@@ -86,7 +87,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 									<SkillScores skillScores={ characterDetails.skillScores } />
 								</HeadingCard>
 							</div>
-						</div>
+						</ColumnLayout>
 
 						<HeadingCard heading="Wallet">
 							<Wallet wallet={ characterDetails.wallet } />
@@ -97,15 +98,14 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 								text={ characterDetails.proficiencies.map( x => x.affectedCategoryName ).join( ", " ) }
 							/>
 						</HeadingCard>
+					</Column>
 
-					</div>
-
-					<div className="column">
-
-						<div className="columns--fill">
+					<Column big={ true }>
+						<ColumnLayout>
 							<HeadingCard heading="Proficiency bonus" className="card--full-width">
 								<BigValueDisplay>{ characterDetails.proficiencyBonus.displayValue }</BigValueDisplay>
 							</HeadingCard>
+
 							<HeadingCard heading="Armor class" className="card--full-width">
 								<BigValueDisplay>
 									<ModifierBreakdownTooltip modifier={ characterDetails.armorClassModifier }>
@@ -113,6 +113,7 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 									</ModifierBreakdownTooltip>
 								</BigValueDisplay>
 							</HeadingCard>
+
 							<HeadingCard heading="Initiative" className="card--full-width">
 								<BigValueDisplay>
 									<ModifierBreakdownTooltip modifier={ characterDetails.initiativeModifier }>
@@ -128,20 +129,22 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 									</ModifierBreakdownTooltip>
 								</BigValueDisplay>
 							</HeadingCard>
-						</div>
+						</ColumnLayout>
 
 
-						<div className="columns--fill">
+						<ColumnLayout>
 							<HeadingCard heading="Hit dice" className="card--full-width">
 								<BigValueDisplay value={ characterDetails.hitDice.displayValue } />
 							</HeadingCard>
+
 							<HeadingCard heading="Current HP" className="card--full-width">
 								<Health health={ characterDetails.health } />
 							</HeadingCard>
+
 							<HeadingCard heading="Death saves" className="card--full-width">
 								<DeathSave deathSave={ characterDetails.deathSave } />
 							</HeadingCard>
-						</div>
+						</ColumnLayout>
 
 						<HeadingCard heading="Weapons">
 							<Weapons weapons={ characterDetails.weapons } />
@@ -159,12 +162,14 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 							<Equipment equipment={ characterDetails.equipment } />
 						</HeadingCard>
 
-					</div>
+					</Column>
 
-					<div className="column--shrink">
-
+					<Column>
 						<HeadingCard heading="Personality traits">
-							<EditableText defaultEditValue={ characterDetails.personalityTraits } onSave={ updateTraits } />
+							<EditableText
+								defaultEditValue={ characterDetails.personalityTraits }
+								onSave={ updateTraits }
+							/>
 						</HeadingCard>
 						<HeadingCard heading="Ideals">
 							<EditableText defaultEditValue={ characterDetails.ideals } onSave={ updateIdeals } />
@@ -175,11 +180,11 @@ const CharacterSheet: FunctionComponent<CharacterDetailPageProps> = ( { characte
 						<HeadingCard heading="Flaws">
 							<EditableText defaultEditValue={ characterDetails.flaws } onSave={ updateFlaws } />
 						</HeadingCard>
+					</Column>
 
-					</div>
-				</div>
+				</ColumnLayout>
 			</div>
-		</div>
+		</ColumnLayout>
 	</CharacterContext.Provider>;
 };
 

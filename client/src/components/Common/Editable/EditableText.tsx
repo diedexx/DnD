@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import "./EditableText.css";
 
 export type EditableTextProps = {
 	onSave: ( value: string ) => void;
@@ -50,7 +51,7 @@ const EditableText: FunctionComponent<EditableTextProps> = (
 	if ( editing ) {
 		return <div className="editable-text" onBlur={ toggleEditing }>
 			<TextareaAutosize
-				className="editable-text__textarea"
+				className="editable-text__textarea value"
 				onChange={ handleChange }
 				defaultValue={ value }
 				ref={ textareaRef }
@@ -59,7 +60,7 @@ const EditableText: FunctionComponent<EditableTextProps> = (
 	}
 
 	return <div
-		className="editable-text value"
+		className="editable-text value editable-text__display"
 		onFocus={ toggleEditing }
 		tabIndex={ 0 }
 		role={ "form" }

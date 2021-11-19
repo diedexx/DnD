@@ -59,7 +59,6 @@ describe( "The CommandService", () => {
 	history.append( command4 );
 
 	beforeEach( async () => {
-		jest.clearAllMocks();
 		const app: TestingModule = await Test.createTestingModule( {
 			providers: [
 				CommandService,

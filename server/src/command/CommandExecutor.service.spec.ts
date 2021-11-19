@@ -38,7 +38,6 @@ describe( "The commandExecutorService", () => {
 	};
 
 	beforeEach( async () => {
-		jest.clearAllMocks();
 		const app: TestingModule = await Test.createTestingModule( {
 			providers: [
 				CommandExecutorService,

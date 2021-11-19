@@ -22,7 +22,9 @@ const AbilityScore: FunctionComponent<AbilitiesProps> = ( { abilityScore }: Abil
 
 	const debouncedUpdateAbilityScore = useMemo(
 		() => debounce( ( value: number ) => {
-			dispatchUpdateAbilityScore( characterId, abilityScore.id, value );
+			if ( value !== abilityScore.score.value ) {
+				dispatchUpdateAbilityScore( characterId, abilityScore.id, value );
+			}
 		}, 400 ),
 		[ dispatchUpdateAbilityScore, abilityScore, characterId ],
 	);

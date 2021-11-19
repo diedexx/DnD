@@ -49,8 +49,9 @@ const EditableText: FunctionComponent<EditableTextProps> = (
 	}, [ editing ] );
 
 	if ( editing ) {
-		return <div className="editable-text" onBlur={ toggleEditing }>
+		return <div className="editable-text">
 			<TextareaAutosize
+				onBlur={ toggleEditing }
 				className="editable-text__textarea value"
 				onChange={ handleChange }
 				defaultValue={ value }

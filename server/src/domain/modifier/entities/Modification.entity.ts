@@ -1,6 +1,6 @@
 import { get, has } from "lodash";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
-import BaseEntity from "../../../Base.entity";
+import BaseEntity from "../../../infrastructure/Base.entity";
 import Equipment from "../../equipment/entities/Equipment.entity";
 import { Weapon } from "../../weapon/entities/Weapon.entity";
 import ModificationType from "../types/ModificationType.type";

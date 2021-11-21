@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import CommandProviderService from "../../../command/CommandProvider.service";
-import CommandReference from "../../../command/interfaces/CommandReference.interface";
+import CommandProviderService from "../../../infrastructure/command/CommandProvider.service";
+import CommandReference from "../../../infrastructure/command/interfaces/CommandReference.interface";
 import Character from "../entities/Character.entity";
 import { SetTextFieldCommand, SetTextFieldData } from "./SetTextField.command";
 import Mocked = jest.Mocked;

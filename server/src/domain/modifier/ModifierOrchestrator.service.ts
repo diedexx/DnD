@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import Character from "../character/entities/Character.entity";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import SavingThrow from "../savingthrow/entities/SavingThrow.entity";
 import SkillScore from "../skill/entities/SkillScore.entity";
 import { ModifierCollectorService } from "./ModifierCollector.service";

@@ -2,7 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { In, IsNull, Not, Repository } from "typeorm";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Character from "../domain/character/entities/Character.entity";
+import Character from "../../domain/character/entities/Character.entity";
 import CommandHistoryService from "./CommandHistory.service";
 import Command from "./entities/Command.entity";
 import Mocked = jest.Mocked;

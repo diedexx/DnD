@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CommandModule } from "../../command/Command.module";
+import { CommandModule } from "../../infrastructure/command/Command.module";
 import { AbilityModule } from "../ability/Ability.module";
-import DatabaseModule from "../../database/Database.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import { ModifierModule } from "../modifier/Modifier.module";
 import CharacterResolver from "./Character.resolver";
 import CharacterService from "./Character.service";

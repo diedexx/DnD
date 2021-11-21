@@ -1,7 +1,7 @@
 import { Args, Int, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import Character from "../domain/character/entities/Character.entity";
+import Character from "../../domain/character/entities/Character.entity";
 import CommandService from "./Command.service";
 import CommandHistoryService from "./CommandHistory.service";
 import Command from "./entities/Command.entity";

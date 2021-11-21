@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import DatabaseModule from "../../database/Database.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import Proficiency from "./entities/Proficiency.entity";
 import { ProficiencyService } from "./Proficiency.service";
 

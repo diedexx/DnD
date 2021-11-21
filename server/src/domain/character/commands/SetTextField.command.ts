@@ -2,10 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { has, isString } from "lodash";
 import { Repository } from "typeorm";
-import CommandProviderService from "../../../command/CommandProvider.service";
-import { AbstractCommand } from "../../../command/commands/AbstractCommand";
-import CommandInterface from "../../../command/interfaces/Command.interface";
-import CommandReference from "../../../command/interfaces/CommandReference.interface";
+import CommandProviderService from "../../../infrastructure/command/CommandProvider.service";
+import { AbstractCommand } from "../../../infrastructure/command/commands/AbstractCommand";
+import CommandInterface from "../../../infrastructure/command/interfaces/Command.interface";
+import CommandReference from "../../../infrastructure/command/interfaces/CommandReference.interface";
 import Character from "../entities/Character.entity";
 
 export const TYPE = "SET_TEXT_FIELD";

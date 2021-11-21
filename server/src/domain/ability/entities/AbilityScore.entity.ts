@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, RelationId } from "typeorm";
-import BaseEntity from "../../../Base.entity";
+import BaseEntity from "../../../infrastructure/Base.entity";
 import Character from "../../character/entities/Character.entity";
 import AbilityScoreValueTransformer from "../transformers/AbilityScoreValue.transformer";
 import AbilityScoreValue from "../values/AbilityScore.value";

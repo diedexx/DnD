@@ -5,7 +5,7 @@ import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOpti
 export interface DatabaseConfigInterface extends MysqlConnectionOptions, ConfigObject {
 }
 
-const sourceRoot = path.resolve( __dirname, ".." );
+const sourceRoot = path.resolve( __dirname, "..", ".." );
 
 export default registerAs( "database", (): DatabaseConfigInterface => {
 	return {
@@ -16,9 +16,9 @@ export default registerAs( "database", (): DatabaseConfigInterface => {
 		password: "dnd",
 		database: "dnd",
 		cli: {
-			migrationsDir: sourceRoot + "/migrations",
+			migrationsDir: sourceRoot + "/infrastructure/migrations",
 		},
-		migrations: [ sourceRoot + "/migrations/**/*.{ts,js}" ],
+		migrations: [ sourceRoot + "/infrastructure/migrations/**/*.{ts,js}" ],
 		entities: [ sourceRoot + "/**/*.entity.{ts,js}" ],
 	};
 } );

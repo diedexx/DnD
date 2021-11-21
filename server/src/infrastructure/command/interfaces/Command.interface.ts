@@ -1,4 +1,4 @@
-import Character from "../../domain/character/entities/Character.entity";
+import Character from "../../../domain/character/entities/Character.entity";
 import CommandReference from "./CommandReference.interface";
 
 interface CommandInterface<T extends Record<string, any> = Record<string, any>> {

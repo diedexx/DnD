@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import RelationLoaderService from "../../../database/RelationLoader.service";
+import RelationLoaderService from "../../../infrastructure/database/RelationLoader.service";
 import Ability from "../../ability/entities/Ability.entity";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
 import AbilityScoreValue from "../../ability/values/AbilityScore.value";

@@ -5,7 +5,7 @@ import * as path from "path";
 export interface GraphQLConfigInterface extends GqlModuleOptions, ConfigObject {
 }
 
-const sourceRoot = path.resolve( __dirname, ".." );
+const sourceRoot = path.resolve( __dirname, "..", ".." );
 
 export default registerAs( "graphql", (): GraphQLConfigInterface => {
 	return {

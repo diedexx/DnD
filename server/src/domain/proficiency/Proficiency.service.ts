@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import Category from "../category/entity/Category.entity";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 import Proficiency from "./entities/Proficiency.entity";
 import NotProficient from "./exceptions/NotProficient.exception";

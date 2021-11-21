@@ -1,6 +1,6 @@
 import { Field, Int } from "@nestjs/graphql";
 import { Column, Entity, JoinColumn, OneToOne, RelationId } from "typeorm";
-import BaseEntity from "../../../Base.entity";
+import BaseEntity from "../../../infrastructure/Base.entity";
 import Character from "../../character/entities/Character.entity";
 import SpellLevel from "../values/SpellLevel.value";
 import SpellSlot from "../values/SpellSlot.value";

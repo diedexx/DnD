@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import AbilityService from "../ability/Ability.service";
 import Ability from "../ability/entities/Ability.entity";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import Property from "../weapon/entities/Property.entity";
 import { Weapon } from "../weapon/entities/Weapon.entity";
 

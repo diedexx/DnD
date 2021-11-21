@@ -1,6 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./App.module";
+import { AppModule } from "./infrastructure/App.module";
 
 /**
  * Bootstraps the server.

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import CommandProviderService from "../../../command/CommandProvider.service";
-import RelationLoaderService from "../../../database/RelationLoader.service";
+import CommandProviderService from "../../../infrastructure/command/CommandProvider.service";
+import RelationLoaderService from "../../../infrastructure/database/RelationLoader.service";
 import Character from "../../character/entities/Character.entity";
 import AbilityScoreService from "../AbilityScore.service";
 import Ability from "../entities/Ability.entity";

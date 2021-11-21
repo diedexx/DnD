@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import DatabaseModule from "../../database/Database.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import { ModifierModule } from "../modifier/Modifier.module";
 import { Weapon } from "./entities/Weapon.entity";
 import WeaponResolver from "./Weapon.resolver";

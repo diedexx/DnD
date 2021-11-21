@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import DatabaseModule from "../database/Database.module";
-import Character from "../domain/character/entities/Character.entity";
+import Character from "../../domain/character/entities/Character.entity";
 import CommandResolver from "./Command.resolver";
 import CommandService from "./Command.service";
 import CommandExecutorService from "./CommandExecutor.service";

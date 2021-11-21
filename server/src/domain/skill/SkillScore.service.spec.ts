@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import AbilityScoreService from "../ability/AbilityScore.service";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import { ModifierOrchestratorService } from "../modifier/ModifierOrchestrator.service";
 import Modifier from "../modifier/values/Modifier.value";
 import SkillScore from "./entities/SkillScore.entity";

@@ -1,4 +1,4 @@
-import Character from "../../domain/character/entities/Character.entity";
+import Character from "../../../domain/character/entities/Character.entity";
 import CommandReference from "../interfaces/CommandReference.interface";
 import { NoopCommand } from "./Noop.command";
 

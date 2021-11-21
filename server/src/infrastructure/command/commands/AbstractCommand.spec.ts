@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import Character from "../../domain/character/entities/Character.entity";
+import Character from "../../../domain/character/entities/Character.entity";
 import CommandProviderService from "../CommandProvider.service";
 import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import CommandReference from "../interfaces/CommandReference.interface";

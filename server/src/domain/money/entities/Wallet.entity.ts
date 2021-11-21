@@ -1,6 +1,6 @@
 import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, JoinColumn, OneToOne, RelationId } from "typeorm";
-import BaseEntity from "../../../Base.entity";
+import BaseEntity from "../../../infrastructure/Base.entity";
 import Character from "../../character/entities/Character.entity";
 
 @Entity()

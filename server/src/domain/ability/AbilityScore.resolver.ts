@@ -1,9 +1,9 @@
 import { Args, Int, Mutation, Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import BaseResolver from "../../Base.resolver";
-import CommandService from "../../command/Command.service";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import BaseResolver from "../../infrastructure/Base.resolver";
+import CommandService from "../../infrastructure/command/Command.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import Character from "../character/entities/Character.entity";
 import AbilityScoreService from "./AbilityScore.service";
 import { TYPE as updateAbilityScoreCommandType, UpdateAbilityScoreData } from "./commands/UpdateAbilityScore.command";

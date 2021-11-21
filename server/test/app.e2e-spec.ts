@@ -4,9 +4,9 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { getConnectionToken } from "@nestjs/typeorm";
 import * as request from "supertest";
 import { Connection, createConnection } from "typeorm";
-import { AppModule } from "../src/App.module";
-import { DatabaseConfigInterface } from "../src/config/database";
-import DatabaseModule from "../src/database/Database.module";
+import { AppModule } from "../src/infrastructure/App.module";
+import { DatabaseConfigInterface } from "../src/infrastructure/config/database";
+import DatabaseModule from "../src/infrastructure/database/Database.module";
 
 describe( "AppController (e2e)", () => {
 	let app: INestApplication;

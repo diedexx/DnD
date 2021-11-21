@@ -1,7 +1,7 @@
 import { Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import BaseResolver from "../../Base.resolver";
+import BaseResolver from "../../infrastructure/Base.resolver";
 import Wallet from "./entities/Wallet.entity";
 
 @Resolver( Wallet )

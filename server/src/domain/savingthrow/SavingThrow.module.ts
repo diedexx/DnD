@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AbilityModule } from "../ability/Ability.module";
-import DatabaseModule from "../../database/Database.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import { ModifierModule } from "../modifier/Modifier.module";
 import SavingThrow from "./entities/SavingThrow.entity";
 import SavingThrowResolver from "./SavingThrow.resolver";

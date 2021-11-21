@@ -1,9 +1,9 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import BaseResolver from "../../Base.resolver";
+import BaseResolver from "../../infrastructure/Base.resolver";
 import Character from "../character/entities/Character.entity";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import Modification from "../modifier/entities/Modification.entity";
 import ExternalModifier from "../modifier/values/ExternalModifier.value";
 import Modifier from "../modifier/values/Modifier.value";

@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, RelationId } from "typeorm";
 import BaseEntity from "../../Base.entity";
-import Character from "../../domain/character/entities/Character.entity";
+import Character from "../../../domain/character/entities/Character.entity";
 import CommandReference from "../interfaces/CommandReference.interface";
 
 @Entity()

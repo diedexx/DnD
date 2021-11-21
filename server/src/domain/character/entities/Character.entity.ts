@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, RelationId } from "typeorm";
 import AbilityScore from "../../ability/entities/AbilityScore.entity";
-import BaseEntity from "../../../Base.entity";
+import BaseEntity from "../../../infrastructure/Base.entity";
 import DeathSaveTransformer from "../../damage/transformers/DeathSave.transformer";
 import DeathSave from "../../damage/values/DeathSave.value";
 import DiceTransformer from "../../die/transformers/Dice.transformer";

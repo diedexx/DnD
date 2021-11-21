@@ -3,7 +3,7 @@ import AbilityScoreService from "../ability/AbilityScore.service";
 import Ability from "../ability/entities/Ability.entity";
 import AbilityScoreModifier from "../ability/values/AbilityScoreModifier.value";
 import Character from "../character/entities/Character.entity";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import Equipment from "../equipment/entities/Equipment.entity";
 import Proficiency from "../proficiency/entities/Proficiency.entity";
 import { ProficiencyService } from "../proficiency/Proficiency.service";

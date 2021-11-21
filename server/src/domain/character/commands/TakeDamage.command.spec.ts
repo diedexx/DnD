@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import CommandProviderService from "../../../command/CommandProvider.service";
-import InvalidCommand from "../../../command/exceptions/InvalidCommand.exception";
+import CommandProviderService from "../../../infrastructure/command/CommandProvider.service";
+import InvalidCommand from "../../../infrastructure/command/exceptions/InvalidCommand.exception";
 import Character from "../entities/Character.entity";
 import Health from "../values/Health.value";
 import TakeDamageCommand from "./TakeDamage.command";

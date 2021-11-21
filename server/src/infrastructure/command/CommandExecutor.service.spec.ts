@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Character from "../domain/character/entities/Character.entity";
+import Character from "../../domain/character/entities/Character.entity";
 import CommandExecutorService from "./CommandExecutor.service";
 import CommandHistoryService from "./CommandHistory.service";
 import CommandProviderService from "./CommandProvider.service";

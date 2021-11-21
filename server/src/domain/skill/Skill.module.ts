@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AbilityModule } from "../ability/Ability.module";
 import AbilityScore from "../ability/entities/AbilityScore.entity";
-import DatabaseModule from "../../database/Database.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import { ModifierModule } from "../modifier/Modifier.module";
 import Skill from "./entities/Skill.entity";
 import SkillScore from "./entities/SkillScore.entity";

@@ -1,8 +1,8 @@
 import { Parent, ResolveField, Resolver } from "@nestjs/graphql";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import BaseResolver from "../../Base.resolver";
-import RelationLoaderService from "../../database/RelationLoader.service";
+import BaseResolver from "../../infrastructure/Base.resolver";
+import RelationLoaderService from "../../infrastructure/database/RelationLoader.service";
 import Ability from "./entities/Ability.entity";
 import Skill from "../skill/entities/Skill.entity";
 

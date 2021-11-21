@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable, OnModuleInit } from "@nestjs/common";
-import Character from "../../domain/character/entities/Character.entity";
+import Character from "../../../domain/character/entities/Character.entity";
 import CommandProviderService from "../CommandProvider.service";
 import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import CommandInterface from "../interfaces/Command.interface";

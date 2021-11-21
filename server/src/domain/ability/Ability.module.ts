@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CommandModule } from "../../command/Command.module";
-import DatabaseModule from "../../database/Database.module";
+import { CommandModule } from "../../infrastructure/command/Command.module";
+import DatabaseModule from "../../infrastructure/database/Database.module";
 import Character from "../character/entities/Character.entity";
 import AbilityResolver from "./Ability.resolver";
 import AbilityService from "./Ability.service";

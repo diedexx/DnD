@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { cloneDeep } from "lodash";
 import RelationLoaderService from "../database/RelationLoader.service";
-import Character from "../domain/character/entities/Character.entity";
+import Character from "../../domain/character/entities/Character.entity";
 import LinkedList from "../structures/linkedList/LinkedList";
 import CommandService from "./Command.service";
 import CommandExecutorService from "./CommandExecutor.service";

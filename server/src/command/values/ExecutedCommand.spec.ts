@@ -1,5 +1,5 @@
 import Command from "../entities/Command.entity";
-import InvalidExecutedCommand from "../exceptions/InvalidExecutedCommand.exception";
+import InvalidCommand from "../exceptions/InvalidCommand.exception";
 import { ExecutedCommand } from "./ExecutedCommand";
 
 describe( "The ExecutedCommand class", () => {
@@ -21,7 +21,7 @@ ExecutedCommand {
 		it( "cannot represent a commands that haven't been executed", () => {
 			expect( () => {
 				new ExecutedCommand( new Command(), "test command", "a command for testing" );
-			} ).toThrow( InvalidExecutedCommand );
+			} ).toThrow( InvalidCommand );
 		} );
 	} );
 	describe( "isUndone function", () => {

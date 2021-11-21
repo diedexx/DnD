@@ -6,6 +6,8 @@ import CommandHistoryService from "./CommandHistory.service";
 import CommandProviderService from "./CommandProvider.service";
 import Command from "./entities/Command.entity";
 import CannotExecuteCommand from "./exceptions/CannotExecuteCommand.exception";
+import CannotRedoCommandException from "./exceptions/CannotRedoCommand.exception";
+import CannotUndoCommandException from "./exceptions/CannotUndoCommand.exception";
 import CommandInterface from "./interfaces/Command.interface";
 import CommandReference from "./interfaces/CommandReference.interface";
 import Mocked = jest.Mocked;
@@ -115,6 +117,8 @@ Command {
 		undoCommand.character = character;
 
 		beforeEach( () => {
+			command1.executedAt = new Date();
+
 			relationLoaderServiceMock.loadRelations.mockResolvedValue(
 				Object.assign( new Command(), command1, { undoCommand } ),
 			);
@@ -151,9 +155,23 @@ Command {
 			const args = commandHistoryServiceMock.updateInHistory.mock.calls[ 0 ];
 			expect( args[ 0 ].undoCommand.executedAt ).toBeDefined();
 		} );
+
+		it( "should prevent undoing a command that was never executed", async () => {
+			expect.assertions( 1 );
+			command1.executedAt = null;
+			try {
+				await commandExecutorService.undoCommand( command1 );
+			} catch ( e ) {
+				expect( e ).toBeInstanceOf( CannotUndoCommandException );
+			}
+		} );
 	} );
 
 	describe( "redoCommand function", () => {
+		beforeEach( () => {
+			command1.undone = true;
+		} );
+
 		it( "should request a commandImplementation for the type of the command to redo", async () => {
 			await commandExecutorService.redoCommand( command1 );
 
@@ -177,6 +195,15 @@ Command {
 
 			const args = commandHistoryServiceMock.updateInHistory.mock.calls[ 0 ];
 			expect( args[ 0 ].undone ).toBeFalsy();
+		} );
+
+		it( "should prevent redoing commands that were never undone", async () => {
+			command1.undone = false;
+			try {
+				await commandExecutorService.redoCommand( command1 );
+			} catch ( e ) {
+				expect( e ).toBeInstanceOf( CannotRedoCommandException );
+			}
 		} );
 	} );
 } );

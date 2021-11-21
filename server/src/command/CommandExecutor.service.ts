@@ -4,6 +4,8 @@ import CommandHistoryService from "./CommandHistory.service";
 import CommandProviderService from "./CommandProvider.service";
 import Command from "./entities/Command.entity";
 import CannotExecuteCommand from "./exceptions/CannotExecuteCommand.exception";
+import CannotRedoCommandException from "./exceptions/CannotRedoCommand.exception";
+import CannotUndoCommandException from "./exceptions/CannotUndoCommand.exception";
 import CommandInterface from "./interfaces/Command.interface";
 
 @Injectable()
@@ -51,6 +53,10 @@ export default class CommandExecutorService {
 	 * @return {Promise<void>} Nothing.
 	 */
 	public async undoCommand( command: Command ) {
+		if ( ! command.executedAt ) {
+			throw CannotUndoCommandException.becauseNotExecuted();
+		}
+
 		command = await this.relationLoaderService.loadRelations( command, [ "undoCommand.character" ] );
 
 		const undoCommand = command.undoCommand;
@@ -71,6 +77,10 @@ export default class CommandExecutorService {
 	 * @return {Promise<void>} Nothing.
 	 */
 	public async redoCommand( command: Command ) {
+		if ( ! command.undone ) {
+			throw CannotRedoCommandException.becauseNotUndone();
+		}
+
 		command = await this.relationLoaderService.loadRelations( command, [ "character" ] );
 		const commandExecutor: CommandInterface = this.commandProviderService.getCommand( command.type );
 		await commandExecutor.execute( command.data, command.character );

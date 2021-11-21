@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import Command from "../entities/Command.entity";
-import InvalidExecutedCommand from "../exceptions/InvalidExecutedCommand.exception";
+import InvalidCommand from "../exceptions/InvalidCommand.exception";
 
 @ObjectType()
 export class ExecutedCommand {
@@ -24,7 +24,7 @@ export class ExecutedCommand {
 		this.name = name;
 		this.description = description;
 		if ( ! command.executedAt ) {
-			throw new InvalidExecutedCommand( name );
+			throw InvalidCommand.becauseNotExecuted();
 		}
 	}
 

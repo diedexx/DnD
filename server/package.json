@@ -15,8 +15,10 @@
 	"start:dev": "nest start --watch --preserveWatchOutput",
 	"start:debug": "nest start --debug --watch",
 	"start:prod": "node dist/main",
-	"lint": "eslint \"{src,apps,libs,test}/**/*.ts\" -f ./eslint-formatter.js",
-	"test": "jest",
+	"lint-old": "eslint \"{src,test}/**/*.ts\" -f ./eslint-formatter.js",
+	"lint": "jest --selectProjects Lint -w=3",
+	"test": "jest --selectProjects Test",
+	"qc": "jest",
 	"test:watch": "jest --watch",
 	"test:cov": "jest --coverage",
 	"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -75,28 +77,28 @@
 	"yarn": "^1.22.11"
   },
   "jest": {
-	"globals": {
-	  "ts-jest": {
-		"isolatedModules": true
-	  }
-	},
-	"moduleFileExtensions": [
-	  "js",
-	  "json",
-	  "ts"
-	],
-	"rootDir": "src",
-	"testEnvironment": "node",
 	"watchPlugins": [
 	  "jest-runner-eslint/watch-fix"
 	],
 	"projects": [
 	  {
 		"displayName": "Test",
+		"runner": "jest-runner",
 		"testRegex": ".*\\.spec\\.ts$",
 		"transform": {
 		  "^.+\\.(t|j)s$": "ts-jest"
 		},
+		"rootDir": "src",
+		"globals": {
+		  "ts-jest": {
+			"isolatedModules": true
+		  }
+		},
+		"moduleFileExtensions": [
+		  "js",
+		  "json",
+		  "ts"
+		],
 		"collectCoverageFrom": [
 		  "**/*.(t|j)s"
 		],
@@ -105,9 +107,10 @@
 	  },
 	  {
 		"displayName": "Lint",
-
 		"runner": "jest-runner-eslint",
-		"rootDir": "src"
+		"rootDir": "src",
+		"testRegex": ".*.ts$",
+		"testPathIgnorePatterns": ["/migrations/"]
 	  }
 	]
   }

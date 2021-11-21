@@ -60,10 +60,10 @@ export default class Modification extends BaseEntity {
 	 * @return {string} The description.
 	 */
 	private get source(): string {
-		if ( has( this, "sourceEquipment.name" ) ) {
+		if ( has( this, "sourceEquipment" ) ) {
 			return get( this, "sourceEquipment.name", "unknown equipment" );
 		}
-		if ( has( this, "sourceWeapon.name" ) ) {
+		if ( has( this, "sourceWeapon" ) ) {
 			return get( this, "sourceWeapon.name", "unknown weapon" );
 		}
 		return "unknown source";

@@ -18,6 +18,13 @@ describe( "The DamageRoll value object", () => {
 		} );
 	} );
 
+	describe( "displayValue getter", () => {
+		it( "transforms an object into a human readable string", () => {
+			const actual = new DamageRoll( new Dice( 2, 8 ), new Modifier( 2 ), DamageType.PIERCING );
+			expect( actual.displayValue ).toBe( "2d8 +2 Piercing" );
+		} );
+	} );
+
 	describe( "from function", () => {
 		it( "transforms a valid string into a Damage object", () => {
 			const damageRoll = DamageRoll.from( "2d8 +2 Piercing" );

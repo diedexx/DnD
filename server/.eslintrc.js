@@ -14,7 +14,7 @@ module.exports = {
 		node: true,
 		jest: true,
 	},
-	ignorePatterns: [ 'dist','coverage','.eslintrc.js', 'src/migrations/*.ts' ],
+	ignorePatterns: [ 'dist', 'coverage', '.eslintrc.js', 'src/migrations/*.ts' ],
 	rules: {
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
@@ -24,6 +24,8 @@ module.exports = {
 		"new-cap": 0,
 		// Normal no-unused-vars doesn't work for TypeScript
 		"no-unused-vars": "off",
+		// Breaks for self-references.
+		"no-use-before-define": "off",
 		"require-jsdoc": [ "error", {
 			require: {
 				ClassDeclaration: false,

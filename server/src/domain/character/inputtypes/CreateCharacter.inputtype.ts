@@ -4,33 +4,33 @@ import { CharacterAlignment, CharacterBackground, CharacterRace } from "../entit
 @InputType()
 export default class CreateCharacterInputType {
 	@Field()
-	name: string;
+	public readonly name: string;
 
 	@Field( () => Int )
-	classId: number;
+	public readonly classId: number;
 
 	@Field()
-	race: CharacterRace;
+	public readonly race: CharacterRace;
 
 	@Field( () => Int )
-	maxHealth: number;
+	public readonly maxHealth: number;
 
 	@Field()
-	alignment: CharacterAlignment;
+	public readonly alignment: CharacterAlignment;
 
 	@Field()
-	bonds: string;
+	public readonly bonds: string;
 
 	@Field()
-	background: CharacterBackground;
+	public readonly background: CharacterBackground;
 
 	@Field()
-	personalityTraits: string;
+	public readonly personalityTraits: string;
 
 	@Field()
-	flaws: string;
+	public readonly flaws: string;
 
 	@Field()
-	ideals: string;
+	public readonly ideals: string;
 }
 
